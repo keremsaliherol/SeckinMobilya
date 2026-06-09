@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
@@ -69,65 +68,38 @@ export default function HeroSection() {
 
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-          <AnimatePresence initial={false} mode="wait">
-            <motion.div
-              key={current}
-              className="max-w-2xl"
-              initial="hidden"
-              animate="visible"
-              exit={{ opacity: 0, y: -10, transition: { duration: 0.25 } }}
-            >
-              <motion.span
-                variants={{ hidden: { y: 10 }, visible: { y: 0, transition: { duration: 0.4 } } }}
-                className="inline-block text-xs font-medium tracking-widest uppercase text-white/70 border border-white/30 px-3 py-1.5 rounded mb-6"
-              >
-                {slide.tag}
-              </motion.span>
+          <div className="max-w-2xl">
+            <span className="inline-block text-xs font-medium tracking-widest uppercase text-white/70 border border-white/30 px-3 py-1.5 rounded mb-6">
+              {slide.tag}
+            </span>
 
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6">
-                {words.map((word, i) => (
-                  <motion.span
-                    key={i}
-                    variants={{
-                      hidden: { y: 20 },
-                      visible: {
-                        y: 0,
-                        transition: { duration: 0.45, delay: 0.05 + i * 0.06, ease: [0.25, 0.1, 0.25, 1] },
-                      },
-                    }}
-                    className="inline-block mr-[0.25em]"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </h1>
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6">
+              {words.map((word, i) => (
+                <span key={i} className="inline-block mr-[0.25em]">
+                  {word}
+                </span>
+              ))}
+            </h1>
 
-              <motion.p
-                variants={{ hidden: { y: 12 }, visible: { y: 0, transition: { duration: 0.45, delay: 0.25 } } }}
-                className="text-white/80 text-lg leading-relaxed mb-10 max-w-xl"
-              >
-                {slide.subtitle}
-              </motion.p>
+            <p className="text-white/80 text-lg leading-relaxed mb-10 max-w-xl">
+              {slide.subtitle}
+            </p>
 
-              <motion.div
-                variants={{ hidden: { y: 12 }, visible: { y: 0, transition: { duration: 0.4, delay: 0.35 } } }}
-                className="flex flex-wrap gap-4"
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/projelerimiz"
+                className="bg-primary text-white font-medium px-8 py-3.5 rounded hover:bg-primary-dark transition-colors"
               >
-                <Link
-                  href="/projelerimiz"
-                  className="bg-primary text-white font-medium px-8 py-3.5 rounded hover:bg-primary-dark transition-colors"
-                >
-                  {t.hero.cta1}
-                </Link>
-                <Link
-                  href="/iletisim"
-                  className="border border-white/50 text-white font-medium px-8 py-3.5 rounded hover:bg-white/10 transition-colors"
-                >
-                  {t.hero.cta2}
-                </Link>
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
+                {t.hero.cta1}
+              </Link>
+              <Link
+                href="/iletisim"
+                className="border border-white/50 text-white font-medium px-8 py-3.5 rounded hover:bg-white/10 transition-colors"
+              >
+                {t.hero.cta2}
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
