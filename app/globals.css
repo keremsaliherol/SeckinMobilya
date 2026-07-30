@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  /* Marka vurgusu — bronz */
+  --primary: #C6A15B;
+  --primary-light: #D9B978;
+  --primary-dark: #8C6D3F;
+
+  /* İkincil vurgu — nötr taş */
+  --accent: #A89B87;
+  --accent-light: #C4BAA9;
+
+  /* Yüzeyler (koyudan açığa) */
+  --background: #0B0B0B;
+  --surface: #151515;
+  --surface-dark: #1E1E1E;
+  --border: #2C2C2C;
+
+  /* Metin */
+  --foreground: #F2F0ED;
+  --muted: #9A9A9A;
+
+  /* Koyu zemin üzerindeki saf beyaz metin */
+  --white: #FFFFFF;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-dark: var(--surface-dark);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-white: var(--white);
+  --font-heading: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+}
+
+html {
+  /* Yumuşak kaydırmayı Lenis yönetir */
+  scroll-behavior: auto;
+}
+
+/* ── Lenis (yumuşak kaydırma) ───────────────────────
+   Kütüphanenin çalışması için gereken kurallar. Bunlar olmadan sayfa
+   yüksekliği yanlış hesaplanıyor ve kaydırma tutukluk yapıyor.
+   iframe'i devre dışı bırakan resmi kural bilerek eklenmedi — iletişim
+   sayfasındaki harita tıklanamaz hale geliyordu. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-dark);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Metin seçimi */
+::selection {
+  background: var(--primary);
+  color: #0B0B0B;
+}
+
+/* Klavye kullanıcıları için görünür odak halkası */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ── Ken Burns ─────────────────────────────────── */
+@keyframes kenBurns {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.09) translate(-1%, -1%); }
+}
+.ken-burns {
+  animation: kenBurns 7s ease-in-out forwards;
+}
+
+/* ── Görsel büyüteci (lightbox) ─────────────────────
+   Yalnızca ölçek animasyonu var; opacity bilerek kullanılmıyor. Animasyon
+   herhangi bir sebeple ilerlemezse öğe ilk karesinde donar — opacity ile
+   başlasaydı görsel tamamen görünmez kalırdı. Ölçekte donsa bile (%98,5)
+   fark edilmez, içerik okunur kalır. Dolgu kipi (both/forwards) da yok:
+   animasyon hiç başlamazsa öğe doğal halinde durur. */
+@keyframes lightboxGorsel {
+  from {
+    transform: scale(0.985);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.lightbox-gorsel {
+  animation: lightboxGorsel 0.22s ease-out;
+}
+
+/* ── Açılış perdesi (intro) ─────────────────────────
+   Yalnızca oturumun ilk açılışında gösterilir. Animasyonlar CSS ile;
+   perdenin kalkması ise JS zamanlayıcısına bağlı, yani animasyon çalışmasa
+   bile perde kesinlikle kalkar ve site erişilebilir kalır. */
+@keyframes introCizgi {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes introHarf {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introBelir {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.intro-cizgi {
+  transform-origin: center;
+  animation: introCizgi 0.95s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.intro-harf {
+  display: inline-block;
+  opacity: 0;
+  animation: introHarf 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.intro-alt {
+  opacity: 0;
+  animation: introBelir 0.8s ease-out 1.15s forwards;
+}
+
+.intro-yil {
+  opacity: 0;
+  animation: introBelir 0.8s ease-out 1.45s forwards;
+}
+
+/* Güvenlik ağı: animasyonlar herhangi bir sebeple ilerlemezse (arka planda
+   açılan sekme, sınırlı tarayıcı) yazılar opacity:0'da donup perde bomboş
+   siyah görünürdü. Perde kapanmadan önce metinler koşulsuz görünür yapılır.
+   !important şart: çalışan bir CSS animasyonunun uyguladığı değer normal
+   kuralları ezer, yalnızca !important onun önüne geçebilir. */
+.intro-katman[data-zorla="true"] .intro-harf,
+.intro-katman[data-zorla="true"] .intro-alt,
+.intro-katman[data-zorla="true"] .intro-yil {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.intro-katman[data-zorla="true"] .intro-cizgi {
+  transform: scaleX(1) !important;
+}
+
+/* Perde yukarı kayarak siteyi açar */
+.intro-katman {
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.intro-katman[data-kapaniyor="true"] {
+  transform: translateY(-100%);
+}
+
+/* ── İçerik görünürlük güvencesi ─────────────────────
+   Animasyon motoru herhangi bir sebeple ilerlemezse (arka plandaki sekme,
+   kısıtlı tarayıcı, aşırı yük) öğeler opacity:0'da donup kalıcı olarak
+   görünmez kalırdı. `useReveal` belirli bir süre sonra data-zorla="true"
+   ekler ve içerik animasyonun durumundan bağımsız olarak görünür olur.
+
+   !important şart: Framer Motion başlangıç durumunu satır içi stil olarak
+   yazar, ayrıca çalışan bir animasyonu yalnızca !important ezebilir.
+   İlke: animasyon bir süstür — içeriğin görünürlüğü ona bağlı olamaz. */
+[data-reveal][data-zorla="true"],
+[data-zorla="true"] [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+/* ── Custom cursor ─────────────────────────────── */
+/* Dokunmatik cihazlarda özel imleci tamamen gizle */
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* ── Smooth reveal utility ─────────────────────── */
+.clip-reveal {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── Grain / noise texture ──────────────────────── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  animation: grainShift 0.5s steps(2) infinite;
+  z-index: 1;
+}
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-3%, 4%); }
+  50%  { transform: translate(4%, -2%); }
+  75%  { transform: translate(-2%, 6%); }
+  100% { transform: translate(3%, -4%); }
+}
+
+/* ── Underline link hover ───────────────────────── */
+.underline-link {
+  position: relative;
+  display: inline-block;
+}
+.underline-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s ease;
+}
+.underline-link:hover::after { width: 100%; }
