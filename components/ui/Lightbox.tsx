@@ -105,7 +105,7 @@ export default function Lightbox({
               ref={kapatRef}
               onClick={onClose}
               aria-label="Kapat"
-              className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/70 hover:text-primary hover:border-primary transition-colors"
+              className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/70 hover:text-primary hover:border-primary transition-colors"
             >
               <X size={18} />
             </button>

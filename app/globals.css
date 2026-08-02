@@ -171,24 +171,36 @@ html.lenis body {
   }
 }
 
+/* Perde, arkasındaki sayfadan yalıtılır: intro oynarken arka planda ana
+   sayfanın tamamı (461 öğe, 27 giriş animasyonu, görsel çözümlemesi) render
+   ediliyor. `contain` olmadan bu yük harf animasyonlarını tutuklaştırıyor. */
+.intro-katman {
+  contain: layout style paint;
+}
+
 .intro-cizgi {
   transform-origin: center;
+  will-change: transform;
   animation: introCizgi 0.95s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 .intro-harf {
   display: inline-block;
   opacity: 0;
-  animation: introHarf 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  /* Katmanı animasyon başlamadan hazırlar; ilk karedeki takılmayı önler. */
+  will-change: opacity, transform;
+  animation: introHarf 0.7s cubic-bezier(0.33, 1, 0.68, 1) forwards;
 }
 
 .intro-alt {
   opacity: 0;
+  will-change: opacity;
   animation: introBelir 0.8s ease-out 1.15s forwards;
 }
 
 .intro-yil {
   opacity: 0;
+  will-change: opacity;
   animation: introBelir 0.8s ease-out 1.45s forwards;
 }
 

@@ -89,7 +89,7 @@ export default function Navbar() {
           <button
             onClick={() => setInfoOpen(true)}
             aria-label="Menü ve iletişim bilgileri"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 border border-border text-foreground text-xs font-bold tracking-widest transition-all"
+            className="flex items-center gap-1.5 px-3 py-3 border border-border text-foreground text-xs font-bold tracking-widest transition-all"
           >
             {lang}
             <AlignJustify size={12} />
@@ -97,7 +97,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 text-foreground transition-colors"
+            className="p-3 text-foreground transition-colors"
             aria-label="Menü"
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -113,7 +113,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className={`text-base font-medium py-2 border-b border-border/50 transition-colors ${
+                className={`text-base font-medium py-3 border-b border-border/50 transition-colors ${
                   pathname === link.href
                     ? "text-primary"
                     : "text-foreground hover:text-primary"

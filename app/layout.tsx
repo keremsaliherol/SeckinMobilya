@@ -91,9 +91,14 @@ const jsonLd = {
     latitude: address.lat,
     longitude: address.lng,
   },
+  // Yerel aramada öne çıkmak için hizmet bölgesi il/ilçe düzeyinde verilir
   areaServed: [
+    { "@type": "City", name: "İstanbul" },
     { "@type": "Country", name: "Türkiye" },
   ],
+  // Arama sonuçlarında ve yapay zekâ yanıtlarında kullanılacak görsel
+  image: `${siteUrl}/hero/mutfak.jpg`,
+  logo: `${siteUrl}/hero/mutfak.jpg`,
   knowsLanguage: ["tr", "en"],
   makesOffer: [
     "Anahtar Teslim İnşaat",

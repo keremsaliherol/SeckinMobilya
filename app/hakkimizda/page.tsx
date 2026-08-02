@@ -3,7 +3,8 @@ import HakkimizdaContent from "./HakkimizdaContent";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description: "Seçkin Mobilya & İnşaat hakkında bilgi edinin. 1975'ten bugüne uzanan deneyimimiz, vizyonumuz ve değerlerimiz.",
+  description:
+    "1975'ten bugüne Bağcılar merkezli mimarlık, mobilya ve inşaat firması. Deneyimimiz, değerlerimiz ve çalışma anlayışımız hakkında bilgi edinin.",
   alternates: { canonical: "/hakkimizda" },
 };
 

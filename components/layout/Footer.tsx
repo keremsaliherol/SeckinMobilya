@@ -35,7 +35,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 border border-border flex items-center justify-center text-white/70 hover:border-primary hover:text-primary transition-colors"
+                className="w-11 h-11 border border-border flex items-center justify-center text-white/70 hover:border-primary hover:text-primary transition-colors"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </a>
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
                   >
                     {item.label}
                   </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
                 <li key={h}>
                   <Link
                     href="/hizmetlerimiz"
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
                   >
                     {h}
                   </Link>
@@ -88,13 +88,13 @@ export default function Footer() {
                 <div className="flex flex-col gap-0.5">
                   <a
                     href={`tel:${contact.phone}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
                   >
                     {contact.phoneDisplay}
                   </a>
                   <a
                     href={`tel:${contact.phoneAlt}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
                   >
                     {contact.phoneAltDisplay}
                   </a>
@@ -106,7 +106,7 @@ export default function Footer() {
                   href="https://instagram.com/seckinmobilyainsaat"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-white/70 hover:text-white transition-colors"
+                  className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
                 >
                   @seckinmobilyainsaat
                 </a>
@@ -132,18 +132,22 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Gizlilik / Kullanım Koşulları bağlantıları kaldırıldı: hedef sayfalar
+            yok, "#" adresine giden bağlantı ziyaretçiyi yanıltıyor ve arama
+            motorlarınca ölü bağlantı sayılıyor. Metinler hazırlandığında
+            sayfalarıyla birlikte geri eklenmeli. */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-white/50">
             © {new Date().getFullYear()} Seçkin Mimarlık Mobilya İnşaat. {t.footer.rights}
           </p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-xs text-white/40 hover:text-white/70 transition-colors">
-              {t.footer.privacy}
-            </Link>
-            <Link href="#" className="text-xs text-white/40 hover:text-white/70 transition-colors">
-              {t.footer.terms}
-            </Link>
-          </div>
+          <a
+            href={address.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/40 hover:text-white/70 transition-colors"
+          >
+            {address.district}/{address.city}
+          </a>
         </div>
       </div>
     </footer>

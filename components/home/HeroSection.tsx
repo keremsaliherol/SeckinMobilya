@@ -5,10 +5,16 @@ import Link from "next/link";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
+/**
+ * Slayt görselleri, çeviri dosyasındaki slayt sırasıyla eşleşir:
+ * 1) 1975'ten Bugüne — mutfak (sitenin açılış karesi)
+ * 2) İç Mimarlık & Tasarım — yatak odası
+ * 3) Mimarlık & İnşaat — şantiye
+ */
 const slideImages = [
-  "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&q=90",
-  "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1920&q=90",
-  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&q=90",
+  "/hero/mutfak.jpg",
+  "/hero/yatak-odasi.jpg",
+  "/hero/santiye.jpg",
 ];
 
 export default function HeroSection() {
@@ -46,7 +52,9 @@ export default function HeroSection() {
   const words = slide.title.split(" ");
 
   return (
-    <section className="grain relative h-screen min-h-[600px] max-h-[900px] overflow-hidden bg-background">
+    // h-dvh: mobilde adres çubuğu açılıp kapandıkça 100vh değişir ve içerik
+    // zıplar; dvh gerçek görünür yüksekliği izler.
+    <section className="grain relative h-dvh min-h-[600px] max-h-[900px] overflow-hidden bg-background">
       {slides.map((s, i) => (
         <div
           key={i}
@@ -57,6 +65,11 @@ export default function HeroSection() {
             key={`${i}-${current}`}
             src={s.image}
             alt={s.title}
+            /* İlk slayt sayfanın ilk görüntüsü: öncelikli indirilir.
+               Diğerleri düşük öncelikli ama yine de hemen indirilir — slayt
+               otomatik döndüğü için "lazy" bırakılırsa geçişte boş kare oluşur. */
+            fetchPriority={i === 0 ? "high" : "low"}
+            decoding="async"
             className={`w-full h-full object-cover ${i === current ? "ken-burns" : ""}`}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
@@ -106,7 +119,7 @@ export default function HeroSection() {
         <button
           onClick={goPrev}
           aria-label="Önceki görsel"
-          className="w-10 h-10 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
+          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
         >
           <ChevronLeft size={20} />
         </button>
@@ -117,16 +130,22 @@ export default function HeroSection() {
               onClick={() => goTo(() => i)}
               aria-label={`${i + 1}. görsele git`}
               aria-current={i === current}
-              className={`h-0.5 transition-all duration-300 ${
-                i === current ? "w-8 bg-primary" : "w-4 bg-white/30"
-              }`}
-            />
+              /* Çizginin kendisi ince; dokunma alanı dolgu ve asgari yükseklikle
+                 parmakla rahat basılabilir boyuta (44px) çıkarılır. */
+              className="flex items-center justify-center min-h-11 px-2"
+            >
+              <span
+                className={`block h-0.5 transition-all duration-300 ${
+                  i === current ? "w-8 bg-primary" : "w-4 bg-white/30"
+                }`}
+              />
+            </button>
           ))}
         </div>
         <button
           onClick={goNext}
           aria-label="Sonraki görsel"
-          className="w-10 h-10 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
+          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
         >
           <ChevronRight size={20} />
         </button>

@@ -71,8 +71,10 @@ export default function Intro() {
       {/* Üst ince çizgi */}
       <span className="intro-cizgi block w-24 h-px bg-primary/70 mb-10" />
 
-      {/* Ana logo — harfler sırayla belirir */}
-      <h1 className="font-sans font-light text-foreground text-center px-6 text-[clamp(1.1rem,4.5vw,2.4rem)] leading-none">
+      {/* Ana logo — harfler sırayla belirir.
+          Bilerek başlık etiketi değil: perde her sayfada göründüğü için h1
+          kullanılırsa sayfanın gerçek başlığıyla çakışıp SEO'yu bozuyordu. */}
+      <div className="font-sans font-light text-foreground text-center px-6 text-[clamp(1.1rem,4.5vw,2.4rem)] leading-none">
         {BASLIK.split("").map((harf, i) => (
           <span
             key={i}
@@ -85,7 +87,7 @@ export default function Intro() {
             {harf === " " ? " " : harf}
           </span>
         ))}
-      </h1>
+      </div>
 
       {/* Alt satır */}
       <p

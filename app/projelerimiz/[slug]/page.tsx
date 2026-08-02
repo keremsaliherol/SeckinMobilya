@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MapPin, Calendar, ArrowLeft, ArrowRight } from "lucide-react";
 import { getProjectBySlug, projects } from "@/data/projects";
 import ProjectGallery from "./ProjectGallery";
+import { siteUrl, siteName } from "@/lib/site";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: project.title,
     description: project.description,
-    alternates: { canonical: `/projelerimiz/${project.slug}` },
+    alternates: { canonical: `/projelerimiz/${project.slug}/` },
     openGraph: {
       type: "article",
       title: project.title,
@@ -40,8 +41,49 @@ export default async function ProjectDetailPage({ params }: Props) {
   const nextProject =
     currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
+  /**
+   * Arama sonuçlarında gezinme yolu (Anasayfa › Projelerimiz › Proje adı)
+   * gösterir; yapay zekâ asistanları da sayfanın site içindeki yerini
+   * buradan anlar.
+   */
+  const gezinmeYolu = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Anasayfa", item: `${siteUrl}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projelerimiz",
+        item: `${siteUrl}/projelerimiz/`,
+      },
+      { "@type": "ListItem", position: 3, name: project.title },
+    ],
+  };
+
+  /** Projenin kendisi: hangi hizmet kapsamında, kim tarafından yapıldı. */
+  const projeVerisi = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    image: `${siteUrl}${project.coverImage}`,
+    creator: { "@type": "Organization", name: siteName, url: siteUrl },
+    ...(project.year ? { dateCreated: String(project.year) } : {}),
+    ...(project.location ? { locationCreated: project.location } : {}),
+    genre: project.categoryLabel,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(gezinmeYolu) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projeVerisi) }}
+      />
       <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
         <img
           src={project.coverImage}

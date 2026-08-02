@@ -3,7 +3,8 @@ import HizmetlerimizContent from "./HizmetlerimizContent";
 
 export const metadata: Metadata = {
   title: "Hizmetlerimiz",
-  description: "Mobilya imalatı, inşaat & tadilat ve iç mimari dekorasyon hizmetlerimiz hakkında detaylı bilgi alın.",
+  description:
+    "Anahtar teslim inşaat, iç mimarlık ve tasarım, özel üretim mobilya, tadilat ve renovasyon, ofis ve ticari alan tasarımı ile proje yönetimi hizmetleri.",
   alternates: { canonical: "/hizmetlerimiz" },
 };
 
