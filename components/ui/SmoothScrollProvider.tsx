@@ -1,18 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 /** Sağlık kontrolünün yapılacağı an (ms). */
 const KONTROL_ANI = 1200;
 /** Bu süre içinde beklenen en az kare sayısı. Altındaysa döngü çalışmıyordur. */
 const ASGARI_KARE = 10;
 
+type LenisOrnegi = {
+  raf: (t: number) => void;
+  destroy: () => void;
+  scrollTo: (hedef: number, secenek?: { immediate?: boolean }) => void;
+};
+
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+  /** Sayfa değişiminde kaydırmayı sıfırlayabilmek için örneğe erişim. */
+  const lenisRef = useRef<LenisOrnegi | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     let iptal = false;
     let rafId: number | undefined;
     let saglikZamanlayici: ReturnType<typeof setTimeout> | undefined;
-    let lenis: { raf: (t: number) => void; destroy: () => void } | undefined;
+    let lenis: LenisOrnegi | undefined;
 
     const durdur = () => {
       if (rafId !== undefined) cancelAnimationFrame(rafId);
@@ -21,6 +32,7 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       saglikZamanlayici = undefined;
       lenis?.destroy();
       lenis = undefined;
+      lenisRef.current = null;
     };
 
     const baslat = () => {
@@ -42,6 +54,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
             // parmak hareketini taklit etmesi mobilde takılma hissi yaratıyor.
             syncTouch: false,
           });
+
+          lenisRef.current = lenis;
 
           let kare = 0;
           const raf = (time: number) => {
@@ -83,6 +97,22 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
       durdur();
     };
   }, []);
+
+  /**
+   * Yeni sayfa her zaman en üstten açılır.
+   *
+   * Next.js sayfa geçişinde kaydırmayı kendisi sıfırlar, ancak Lenis
+   * kaydırma konumunu kendi içinde tuttuğu için bu sıfırlama eziliyordu ve
+   * yeni sayfa bir önceki sayfanın kaldığı yerden açılıyordu. Burada hem
+   * Lenis'in kendi konumu hem de tarayıcının konumu sıfırlanır.
+   *
+   * `immediate: true` — geçiş yumuşatılmaz; sayfa doğrudan tepeden başlar.
+   */
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
+  }, [pathname]);
 
   return <>{children}</>;
 }
