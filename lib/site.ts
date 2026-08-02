@@ -7,7 +7,7 @@
  */
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://seckinmimarlik.com";
+  "https://seckinmimarliktr.com";
 
 export const siteName = "Seçkin Mimarlık Mobilya İnşaat";
 

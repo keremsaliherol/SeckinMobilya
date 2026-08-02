@@ -31,7 +31,7 @@ Alan adı belli olduğunda **Settings → Environment variables → Production**
 bölümüne eklenmeli:
 
 ```
-NEXT_PUBLIC_SITE_URL = https://alanadiniz.com
+NEXT_PUBLIC_SITE_URL = https://seckinmimarliktr.com
 ```
 
 Bu değer `sitemap.xml`, `robots.txt` ve sosyal medya paylaşım
