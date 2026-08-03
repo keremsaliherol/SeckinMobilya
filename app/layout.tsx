@@ -110,9 +110,10 @@ const jsonLd = {
     { "@type": "City", name: "İstanbul" },
     { "@type": "Country", name: "Türkiye" },
   ],
-  // Arama sonuçlarında ve yapay zekâ yanıtlarında kullanılacak görsel
+  // Arama sonuçlarında ve yapay zekâ yanıtlarında kullanılacak işletme görseli
   image: `${siteUrl}/hero/mutfak.jpg`,
-  logo: `${siteUrl}/hero/mutfak.jpg`,
+  // Bilgi kartında görünen marka işareti — fotoğraf değil, logo olmalı
+  logo: `${siteUrl}/icon.png`,
   knowsLanguage: ["tr", "en"],
   makesOffer: [
     "Anahtar Teslim İnşaat",
