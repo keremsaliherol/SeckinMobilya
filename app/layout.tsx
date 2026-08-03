@@ -26,6 +26,18 @@ const title = `${siteName} | 1975'ten Bugüne Güven, Kalite ve Tecrübe`;
 const description =
   "1975'ten bugüne mimarlık, mobilya ve inşaat alanlarında anahtar teslim profesyonel çözümler. İç mimarlık, özel üretim mobilya, tadilat ve proje yönetimi.";
 
+/**
+ * Paylaşım önizleme görseli (WhatsApp, Instagram, Facebook, X).
+ * 1200x630 — bu ölçü tüm platformlarda kırpılmadan görünür.
+ * Kaynak: public/hero/mutfak.jpg
+ */
+const ogImage = {
+  url: "/og.jpg",
+  width: 1200,
+  height: 630,
+  alt: `${siteName} — mutfak ve iç mimarlık uygulaması`,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -53,11 +65,13 @@ export const metadata: Metadata = {
     siteName,
     title,
     description,
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: [ogImage.url],
   },
   robots: {
     index: true,
