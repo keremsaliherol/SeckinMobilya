@@ -5,11 +5,13 @@ import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
 import { useLang } from "@/contexts/LanguageContext";
 
 /**
- * Çizim / uygulama karşılaştırması.
+ * Boş oda / bitmiş mutfak karşılaştırması.
  *
- * Görseller süreç videosunun ilk ve son karesi (public/surec/). İki kare
- * aynı kamera açısından ve hizalı; çizgiler uygulamanın üstüne birebir
- * oturuyor (Faz 3'te kenar eşleştirmesiyle doğrulandı).
+ * Görseller "boş odadan mutfağa" videosunun (assets-kaynak/bos-odadan-mutfaga.mp4)
+ * ilk ve son karesi (public/surec/). Kamera sabit; iki kare hizalı (güneş
+ * lekesi, pencere kenarı ve tavandaki kablo aynı yerde). Süreç bölümündeki
+ * çizim → mutfak videosundan farklı bir mekân olduğu için ana sayfada aynı
+ * mutfak iki kez görünmüyor.
  */
 export default function CompareSection() {
   const { t } = useLang();
@@ -34,8 +36,8 @@ export default function CompareSection() {
         <FadeInUp delay={0.1} className="lg:col-span-6 lg:col-start-7">
           {/* Kapsül tepeli çerçeve: logodaki kapsülün üst yarısı */}
           <BeforeAfterSlider
-            before={{ src: "/surec/cizim.webp", alt: `${c.eyebrow}: ${c.before}` }}
-            after={{ src: "/surec/uygulama.webp", alt: `${c.eyebrow}: ${c.after}` }}
+            before={{ src: "/surec/bos-oda.webp", alt: c.beforeAlt }}
+            after={{ src: "/surec/bitmis-mutfak.webp", alt: c.afterAlt }}
             beforeLabel={c.before}
             afterLabel={c.after}
             handleLabel={c.handle}

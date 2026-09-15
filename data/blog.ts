@@ -13,6 +13,9 @@
  *   tarihi yayın gününe güncelle.
  * - Kapak ve bölüm görselleri mevcut proje fotoğrafları ya da `public/blog/`.
  * - Doğrulanmamış bilgi (fiyat, süre, garanti, müşteri yorumu) yazma.
+ *
+ * Yayın planı (15.09.2026): site canlıya alınırken yalnızca "akrilik mi, membran mı"
+ * yayında; diğerleri 2–3 haftada bir, sırayla açılır (docs/KALAN-GOREVLER.md §4).
  */
 
 export interface BlogBolumu {
@@ -97,7 +100,7 @@ export const blogYazilari: BlogYazisi[] = [
         baglanti: { href: "/#dolap", metin: "Bir dolabın parçalarını ve malzemelerini 3D olarak inceleyin" },
       },
     ],
-    taslak: true,
+    taslak: false,
   },
   {
     slug: "gola-kulp-nedir-kulpsuz-mutfak",

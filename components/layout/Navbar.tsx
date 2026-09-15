@@ -32,7 +32,6 @@ export default function Navbar() {
     { href: "/hakkimizda", label: t.nav.about },
     { href: "/hizmetlerimiz", label: t.nav.services },
     { href: "/projelerimiz", label: t.nav.projects },
-    { href: "/oncesi-sonrasi", label: t.nav.beforeAfter },
     { href: "/blog", label: t.nav.blog },
     { href: "/iletisim", label: t.nav.contact },
   ];
@@ -66,7 +65,7 @@ export default function Navbar() {
             <Logo size="sm" />
           </Link>
 
-          {/* 7 bağlantı ancak 1280 px ve üstünde tek satıra sığıyor; altında yalnızca menü düğmesi. */}
+          {/* Bağlantılar ancak 1280 px ve üstünde tek satıra sığıyor; altında yalnızca menü düğmesi. */}
           <nav aria-label={t.menu.label} className="hidden xl:block">
             <ul className="flex items-center gap-6 min-[1400px]:gap-9">
               {links.map((link) => {

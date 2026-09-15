@@ -8,7 +8,8 @@ import { contact, whatsappLink } from "@/lib/site";
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 
 /**
- * Instagram + iletişim bandı: telefon çerçevesinde reels videosu.
+ * Instagram + iletişim bandı: telefon çerçevesinde beton odadan bitmiş mutfağa
+ * dönüşen video (kaynak assets-kaynak/bos-odadan-mutfaga.mp4, 720×1280, sessiz).
  *
  * Video yalnızca ekrandayken oynar, ekrandan çıkınca durur (pil ve veri).
  * `preload="none"`: sayfa açılışında video indirilmez, önce kapak görseli
@@ -107,11 +108,14 @@ export default function InstagramCta() {
             <div className="relative aspect-[9/19] overflow-hidden rounded-[2.1rem] bg-shade">
               <video
                 ref={videoRef}
-                src="/video/seckin-reels.mp4"
-                poster="/video/seckin-reels-poster.webp"
+                src="/video/bos-odadan-mutfaga.mp4"
+                poster="/video/bos-odadan-mutfaga-poster.webp"
                 muted
                 loop
                 playsInline
+                // Tarayıcının video üstüne koyduğu "resim içinde resim" düğmesi telefon görüntüsünü bozuyordu
+                disablePictureInPicture
+                disableRemotePlayback
                 preload="none"
                 aria-label={ig.videoLabel}
                 className="absolute inset-0 h-full w-full object-cover"

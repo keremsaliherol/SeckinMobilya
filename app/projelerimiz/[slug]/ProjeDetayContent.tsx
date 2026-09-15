@@ -8,7 +8,6 @@ import { useLang } from "@/contexts/LanguageContext";
 import { whatsappLink } from "@/lib/site";
 import { FadeInUp } from "@/components/ui/animations";
 import Lightbox from "@/components/ui/Lightbox";
-import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
 /** Galeri görsel oranları sırayla döner (sütunlu ızgarada ritim için). */
@@ -115,25 +114,6 @@ export default function ProjeDetayContent({ slug }: { slug: string }) {
                 </button>
               ))}
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* Öncesi / sonrası (varsa) */}
-      {project.beforeImage && project.afterImage && (
-        <section className="pb-24 lg:pb-32">
-          <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
-            <h2 className="mb-10 border-t border-border pt-10 font-heading text-[clamp(2rem,3.2vw,3rem)] leading-none text-foreground">
-              {d.beforeAfter}
-            </h2>
-            <BeforeAfterSlider
-              before={{ src: project.beforeImage, alt: `${project.title}, ${d.before}` }}
-              after={{ src: project.afterImage, alt: `${project.title}, ${d.after}` }}
-              beforeLabel={d.before}
-              afterLabel={d.after}
-              handleLabel={d.beforeAfter}
-              className="aspect-[4/3] w-full"
-            />
           </div>
         </section>
       )}

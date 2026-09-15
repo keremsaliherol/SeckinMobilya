@@ -19,6 +19,31 @@ const KAPANMA = 2800;
 const ZORLA = 2400;
 /** Aynı sekmede tekrar gösterilmemesi için işaret. */
 const ANAHTAR = "seckin-intro";
+/** Perde kalkmaya başladığında yayılan olay. Perde açıkken <html data-intro="acik">. */
+const KALKIS_OLAYI = "seckin:intro-kalkiyor";
+
+const perdeAcik = () => document.documentElement.dataset.intro === "acik";
+
+/** Perde açık işaretini kaldırır ve bekleyenlere haber verir. */
+function perdeyiBirak() {
+  if (!perdeAcik()) return;
+  delete document.documentElement.dataset.intro;
+  window.dispatchEvent(new Event(KALKIS_OLAYI));
+}
+
+/**
+ * Perde açıksa `fn`'i perde kalkmaya başlayınca, değilse hemen çalıştırır.
+ * Belirme animasyonları perdenin arkasında oynayıp bitmesin diye (useReveal).
+ * Dönen fonksiyon beklemeyi iptal eder.
+ */
+export function introSonrasi(fn: () => void) {
+  if (!perdeAcik()) {
+    fn();
+    return () => {};
+  }
+  window.addEventListener(KALKIS_OLAYI, fn, { once: true });
+  return () => window.removeEventListener(KALKIS_OLAYI, fn);
+}
 
 /**
  * Sitenin açılış perdesi: logo kendini çizer.
@@ -49,15 +74,21 @@ export default function Intro() {
 
     sessionStorage.setItem(ANAHTAR, "1");
     document.body.style.overflow = "hidden";
+    document.documentElement.dataset.intro = "acik";
 
     const zorlaGoster = setTimeout(() => setZorla(true), ZORLA);
-    const kapat = setTimeout(() => setKapaniyor(true), KAPANMA);
+    const kapat = setTimeout(() => {
+      setKapaniyor(true);
+      perdeyiBirak();
+    }, KAPANMA);
     const kaldir = setTimeout(() => setGorunur(false), SURE);
 
     return () => {
       clearTimeout(zorlaGoster);
       clearTimeout(kapat);
       clearTimeout(kaldir);
+      // Perde erken kaldırılırsa (ör. geliştirmede efektin iki kez çalışması) bekleyen animasyonlar takılmasın
+      perdeyiBirak();
     };
   }, []);
 

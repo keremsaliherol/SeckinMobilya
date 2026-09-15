@@ -19,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/hakkimizda/", priority: 0.8 },
     { path: "/hizmetlerimiz/", priority: 0.9 },
     { path: "/projelerimiz/", priority: 0.9 },
-    { path: "/oncesi-sonrasi/", priority: 0.7 },
     { path: "/blog/", priority: 0.7 },
     { path: "/iletisim/", priority: 0.8 },
   ].map(({ path, priority }) => ({

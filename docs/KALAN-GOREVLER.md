@@ -88,10 +88,11 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
   - Gola kulp nedir, kulpsuz mutfak nasıl kurulur (siyah metal gola kullanıyorlar)
   - Frenli menteşe ve tandem ray: dolapta görünmeyen ama her gün hissedilen detaylar (Samet)
   - Bir projenin hikâyesi: ör. Daca Boutique (2025) — yalnızca proje açıklamasındaki bilgilerle
-- [ ] Hepsini `taslak: true` bırak; raporda başlık + özet listesini kullanıcıya göster,
+- [x] Hepsini `taslak: true` bırak; raporda başlık + özet listesini kullanıcıya göster,
   onaylananları `taslak: false` yap. Teknik iddiaları genel bilgi düzeyinde tut, marka/ürün
   performansı hakkında ölçülemeyen iddia yazma.
-  → 4 taslak yazıldı ve Faz 7 raporunda sunuldu; **kullanıcı/marka sahibi onayı bekleniyor.** Onaylananlarda `taslak: false` + `tarih` = yayın günü.
+  → Kullanıcı kararı (15.09.2026): canlıya alırken yalnızca **"Mutfak kapağında akrilik mi, membran mı?"** yayında (`taslak: false`).
+    Diğer üçü taslak; SEO için 2–3 haftada bir yayınlanacak (bkz. §4). Yayından önce marka sahibi yazıyı okumalı.
 
 ### 1.3 Doğrulama
 - [x] tsc + lint + build (dev sunucusu kapalıyken); `out/blog/index.html` ve yazı sayfaları üretildi mi
@@ -107,9 +108,10 @@ Kullanıcı bu konuların fazlar bitince **birlikte** sorulmasını istedi. Faz 
 `docs/TASARIM-PLANI.md` §10.5'teki açık maddeleri **tek tek** sor (AskUserQuestion uygun),
 cevaba göre uygula ve listeyi güncelle:
 
-- [ ] **Aynı mutfak iki kez** (ana sayfada süreç bölümü + çizim/uygulama kaydırıcısı): kaydırıcı
+- [x] **Aynı mutfak iki kez** (ana sayfada süreç bölümü + çizim/uygulama kaydırıcısı): kaydırıcı
   ana sayfada kalsın mı, `/oncesi-sonrasi`'ye mi taşınsın, gerçek öncesi/sonrası fotoğrafı mı beklensin?
-- [ ] **Süreç videosu gerçek proje mi?** (`hf_…` dosya adı yapay zekâ üretimi olabilir) — yayın onayı / metin
+  → Kullanıcı karar verdi (15.09.2026): kaydırıcı boş oda → bitmiş mutfak videosunun kareleriyle değişti.
+- [ ] **Süreç videosu gerçek proje mi?** (`hf_…` dosya adı yapay zekâ üretimi olabilir; kaydırıcıdaki boş oda videosu da `hf_…`) — yayın onayı / metin
 - [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımları, "onaylanan çizimle
   üretim", Instagram bandı — marka sahibi onayladı mı?
 - [ ] **Bağlantı parçaları** ("Minifix ve kavela") doğru mu? (`data/cabinetParts.ts` no. 10)
@@ -122,7 +124,7 @@ cevaba göre uygula ve listeyi güncelle:
 - [ ] Gerçek müşteri yorumları → Hakkımızda'ya yorum bölümü (yoksa ekleme)
 - [ ] 1975'ten bugüne kilometre taşları → Hakkımızda'ya zaman çizelgesi (yoksa ekleme)
 - [ ] Oda fotoğrafları (kahve köşesi, TV ünitesi, giyinme odası) → `data/rooms.ts`
-- [ ] Gerçek öncesi/sonrası fotoğraf çiftleri → `data/projects.ts` (`beforeImage`, `afterImage`), `public/projeler/<slug>/`
+- [x] ~~Gerçek öncesi/sonrası fotoğraf çiftleri~~ → İptal (15.09.2026): kullanıcı `/oncesi-sonrasi` sayfasını ve projelerdeki öncesi/sonrası alanlarını kaldırdı.
   (uzun kenar ~1600 px, kalite ~%78, klasör adında Türkçe karakter yok)
 
 ---
@@ -130,6 +132,8 @@ cevaba göre uygula ve listeyi güncelle:
 ## 3. Faz 8 — Kalite ve Teslim
 
 ### 3.1 SEO ve paylaşım
+- [ ] **Google Search Console:** Kurulu değilse kurulsun (alan adı doğrulaması kullanıcı/marka sahibi hesabıyla yapılır),
+  `https://seckinmimarliktr.com/sitemap.xml` gönderilsin. Kullanıcıya adım adım anlat; hesap işlemini kendisi yapar.
 - [ ] **OG görseli yenile:** `public/og.jpg` hâlâ eski koyu tasarımdan. 1200×630, bej zemin,
   monogram (`components/ui/monogram.ts`) + "Seçkin Mimarlık" + gerçek bir proje fotoğrafı.
   Seçenek: `app/opengraph-image.tsx` (statik export'ta build sırasında üretilir; font dosyası
@@ -147,7 +151,7 @@ cevaba göre uygula ve listeyi güncelle:
   klavye odağında görünen gizli bağlantı (TR "İçeriğe atla" / EN "Skip to content").
 - [ ] **`<html lang>` dil değişince güncellenmiyor:** `LanguageProvider` dil değişince
   `document.documentElement.lang` değerini `tr`/`en` yapmalı (efekt içinde DOM güncellemesi; setState değil).
-- [ ] Klavye turu: menü paneli (odak tuzağı, Escape), Lightbox, öncesi/sonrası kaydırıcı (ok tuşları),
+- [ ] Klavye turu: menü paneli (odak tuzağı, Escape), Lightbox, ana sayfadaki boş oda / mutfak kaydırıcısı (ok tuşları),
   form, proje filtreleri, 3D bölüm (tuval `aria-hidden`, liste okunur olmalı).
 - [ ] Kontrast: fotoğraf üstü yazılar (hero ikinci cümle, oda kartları), `text-muted` küçük yazılar,
   `on-ink/60` etiketler. Palet kontrast değerleri `docs/TASARIM-PLANI.md` §3.1'de.
@@ -181,12 +185,29 @@ cevaba göre uygula ve listeyi güncelle:
   (pencere kaydırmasında ölçümler doğru; istenirse `html { position: relative }` denenip hero/dolap ölçümleri yeniden doğrulanır),
   three.js "THREE.Clock deprecated" (R3F içi).
 - [ ] `README.md`'yi yeni yapıya göre güncelle (içerik güncelleme tablosu: projeler, blog, hizmet görselleri,
-  dolap malzemeleri `data/cabinetParts.ts`, öncesi/sonrası alanları; 3D dolap yedek görsellerinin nasıl yeniden üretileceği).
+  dolap malzemeleri `data/cabinetParts.ts`; 3D dolap yedek görsellerinin nasıl yeniden üretileceği).
 - [ ] CLAUDE.md'yi son hâle getir; "Devam eden iş" bölümünü kaldır ya da güncelle.
 
 ### 3.6 Teslim
 - [ ] Son tam kontrol: tüm sayfalar masaüstü + mobil + hareketi azalt; konsol hatası yok; 404 çalışıyor.
 - [ ] `npm run build` temiz; `out/` statik sunucuda gezilebiliyor (404 dahil).
+- [ ] Yayın günü: `data/blog.ts` → akrilik yazısının `tarih` alanını gerçek yayın gününe çek; `out/sitemap.xml`'de
+  yalnızca bu yazı var mı, diğer üç yazının adresi 404 veriyor mu kontrol et. Kapak fotoğrafının yayın izni (§10.5) alınmış olmalı.
 - [ ] Commit: `Faz 8: kalite ve teslim`; plan dosyasında tüm fazlar ✅.
 - [ ] Kullanıcıya sor: `yeniden-tasarim` → `main` birleştirilsin mi, yayına (Cloudflare Pages) alınsın mı?
   Cloudflare ayarları değişmedi: build `npm run build`, çıktı `out`, framework preset "None".
+
+---
+
+## 4. Yayından sonra — Blog yazı takvimi
+
+Kullanıcı kararı (15.09.2026): yazılar SEO için ara ara, 2–3 haftada bir yayınlanır. Her yayında:
+`data/blog.ts` → `taslak: false` + `tarih` = yayın günü → build → yayın → Search Console'da yazının adresi için
+"dizine eklenmesini iste". Yayın sırası önerisi:
+
+- [x] Mutfak kapağında akrilik mi, membran mı? (canlıya alınırken)
+- [ ] Gola kulp nedir? Kulpsuz mutfak nasıl yapılır? (+2–3 hafta)
+- [ ] Frenli menteşe ve tandem ray (+4–6 hafta)
+- [ ] Bahçeşehir Mutfak proje hikâyesi (+6–9 hafta)
+- [ ] Taslaklar bitince yeni konular: yalnızca marka sahibinden gelen bilgi ve proje açıklamalarıyla (uydurma içerik yok)
+

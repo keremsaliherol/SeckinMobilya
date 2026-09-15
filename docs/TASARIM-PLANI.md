@@ -249,10 +249,11 @@ Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, ileti�
 - Ortak başlık: `components/ui/PageHeader.tsx` (iki satırlı başlık, ikinci satır italik logo kahvesi).
 - **Stok görsel kalmadı:** Hakkımızda ve Hizmetlerimiz'deki Unsplash görselleri gerçek proje fotoğraflarıyla değişti. `data/services.ts` artık yalnızca görsel + örnek proje bağlantısı tutuyor, metinler `pageTranslations`'ta.
 - Proje detay: sunucu bileşeni (metadata, JSON-LD) + `ProjeDetayContent.tsx` (istemci, TR/EN). Eski `ProjectGallery.tsx` silindi. Kemerli kapak, künye, sütunlu galeri + Lightbox, projeye özel hazır WhatsApp mesajı, "Diğer projeler".
-- Öncesi/Sonrası artık boş değil: üstte çizim/uygulama karşılaştırması (CompareSection). `data/projects.ts` içinde `beforeImage` + `afterImage` eklenen projeler altta kendiliğinden listelenir.
+- ~~Öncesi/Sonrası sayfası~~ → **Kaldırıldı (15.09.2026, kullanıcı kararı):** gerçek öncesi/sonrası içeriği yok. Sayfa, menü/footer/sitemap bağlantıları, çevirileri ve projelerdeki `beforeImage`/`afterImage` alanları silindi. Eski adres `public/_redirects` ile `/projelerimiz/`'e 301 yönlenir (canlı sitede bu sayfa vardı). Ana sayfadaki boş oda / bitmiş mutfak kaydırıcısı (CompareSection) duruyor. `data/projects.ts` içinde `beforeImage` + `afterImage` eklenen projeler altta kendiliğinden listelenir.
 - İletişim: kapsül tepeli link-in-bio kartı (Ara · WhatsApp · Instagram · Yol tarifi), alt çizgili form (WhatsApp'a gider), soldurulmuş harita.
 - Hakkımızda'da **zaman çizelgesi ve müşteri yorumları yapılmadı**: kilometre taşları ve gerçek yorumlar gelmeden uydurma içerik konmadı (§11).
 - Lightbox da `kaydirmayiKilitle` kullanıyor. Cormorant fontunda sayılar her yerde düz rakam (`.font-heading` → lining-nums).
+- **Telefon videosu değişti (15.09.2026, kullanıcı isteği):** yazılı reels yerine beton odadan bitmiş mutfağa dönüşen video (`public/video/bos-odadan-mutfaga.mp4`, 720×1280, sessiz, ~890 KB; kaynak `assets-kaynak/bos-odadan-mutfaga.mp4`). Eski `seckin-reels.mp4` silindi; yazılı sürümün kaynağı `assets-kaynak/seckin_blueprint_reels.mp4` duruyor.
 - Plandaki "Instagram ızgarası" yapılmadı: proje fotoğraflarını Instagram gönderisi gibi göstermek yanıltıcı olurdu. Ana sayfadaki reels bandı ve iletişim kartındaki Instagram bağlantısı yeterli görüldü.
 
 ### Faz 7: Blog *(opsiyonel)*
@@ -300,14 +301,14 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 > Kullanıcı bu konuların fazlar bitince **birlikte** gözden geçirilmesini istedi (15.09.2026).
 > Faz 8'den önce hepsi tek tek sorulacak.
 
-- [ ] **Aynı mutfak iki kez:** Ana sayfada süreç bölümü ve çizim/uygulama kaydırıcısı aynı videoyu kullanıyor. Gerçek öncesi/sonrası fotoğrafı gelirse kaydırıcı onunla değişecek, gelmezse `/oncesi-sonrasi` sayfasına taşınacak.
-- [ ] **Süreç videosu gerçek proje mi?** Dosya adı (`hf_…`) yapay zekâ üretimini düşündürüyor. Metinler bu yüzden tarafsız. Gerçekse metin güçlendirilecek, değilse marka sahibinin yayın onayı alınacak.
+- [x] ~~Aynı mutfak iki kez~~ → Kullanıcı istedi (15.09.2026): kaydırıcı artık "boş odadan mutfağa" videosunun ilk ve son karesini kullanıyor (`public/surec/bos-oda.webp`, `bitmis-mutfak.webp`; kaynak `assets-kaynak/bos-odadan-mutfaga.mp4`). Süreç bölümünden farklı bir mekân; metinler "Öncesi / Sonrası" oldu.
+- [ ] **Süreç videosu gerçek proje mi?** Dosya adı (`hf_…`) yapay zekâ üretimini düşündürüyor. Kaydırıcıdaki boş oda → mutfak videosu da `hf_…` adlı; aynı soru onun için de geçerli. Metinler bu yüzden tarafsız. Gerçekse metin güçlendirilecek, değilse marka sahibinin yayın onayı alınacak.
 - [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımlarının açıklamaları, "üretime onaylanan çizimle başlıyoruz", Instagram bandı cümleleri.
 - [x] ~~Dolap malzeme etiketleri~~ → Marka sahibinden alındı (15.09.2026), `data/cabinetParts.ts` güncellendi. "Projeye göre birlikte belirlenir" notunun kalması onaylandı.
 - [ ] **Bağlantı parçaları (10. madde):** "Minifix ve kavela" hâlâ doğrulanmadı.
 - [ ] **Ayak ölçüsü:** Marka sahibi "12'lik ayak" dedi, sitede "12 cm ayak" yazıyor. cm olduğu teyit edilmeli.
 - [x] ~~3D dolabın görünümü~~ → Marka sahibinin gönderdiği ürün fotoğrafına (`assets-kaynak/dolap.jpeg`) göre yeniden modellendi: şampanya akrilik kapak, siyah gola, solda 2 çekmece + sağda çift kapak, 12 cm ayak.
-- [ ] **Blog kapağında ürün fotoğrafı:** "Akrilik mi, membran mı?" yazısının kapağı marka sahibinin gönderdiği `assets-kaynak/dolap.jpeg` (kopyası `public/blog/akrilik-kapak.jpg`). Kendi ürünleri mi, sitede yayınlanabilir mi?
+- [ ] **Blog kapağında ürün fotoğrafı:** "Akrilik mi, membran mı?" yazısının kapağı marka sahibinin gönderdiği `assets-kaynak/dolap.jpeg` (kopyası `public/blog/akrilik-kapak.jpg`). Kendi ürünleri mi, sitede yayınlanabilir mi? **Bu yazı canlıya alınırken yayında olacak (15.09.2026), izin yayından önce netleşmeli;** izin çıkmazsa kapak bir proje fotoğrafıyla değişir.
 - [ ] **Açılış fotoğrafı:** `public/hero/yatak-odasi.jpg` eski siteden, kaynağı bilinmiyor (stok ya da yapay zekâ olabilir). Gerçek bir proje fotoğrafıyla değiştirilmesi önerildi.
 
 ## 11. Marka sahibinden istenecekler
@@ -316,5 +317,5 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 - [ ] Gerçek müşteri yorumları (yoksa bölüm gizli kalır)
 - [ ] 1975'ten bugüne kilometre taşları (zaman çizelgesi için)
 - [ ] Oda kategorileri için fotoğraflar (özellikle kahve köşesi, TV ünitesi, giyinme odası)
-- [ ] Varsa gerçek öncesi/sonrası fotoğraf çiftleri
+- [x] ~~Varsa gerçek öncesi/sonrası fotoğraf çiftleri~~ → Gerek kalmadı: `/oncesi-sonrasi` sayfası kaldırıldı (15.09.2026)
 - [x] Blog isteniyor mu? → Evet (15.09.2026), Faz 7

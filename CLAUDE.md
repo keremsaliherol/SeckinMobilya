@@ -127,7 +127,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - **İç sayfalar:** ortak başlık `components/ui/PageHeader.tsx`. Proje detay = sunucu `page.tsx`
   (metadata, JSON-LD) + istemci `ProjeDetayContent.tsx`. Hizmet görselleri ve örnek proje
   bağlantıları `data/services.ts`, hizmet metinleri `pageTranslations.hizmetlerimiz`.
-  Öncesi/sonrası için projeye `beforeImage` + `afterImage` eklemek yeterli.
+  `/oncesi-sonrasi` sayfası kaldırıldı (içerik yoktu); eski adres `public/_redirects` ile `/projelerimiz/`'e yönlenir.
 - **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
   sabit WhatsApp butonu `components/ui/WhatsAppButton.tsx`, açılış perdesi `components/ui/Intro.tsx`,
   404 `app/not-found.tsx`. İkonlar (Instagram, WhatsApp) `components/ui/icons.tsx`,
@@ -137,7 +137,9 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - **Marka cümleleri:** "Önce çiziyoruz. Sonra birebir uyguluyoruz." ·
   "Tasarım · Üretim · Montaj" · "1975'ten bugüne"
 - **Süreç videosu kareleri:** `public/surec/kareler/001–096.webp` (kaydırma bölümü),
-  `public/surec/cizim.webp` ve `uygulama.webp`, reels videosu `public/video/seckin-reels.mp4`
+  Instagram bandındaki telefon videosu `public/video/bos-odadan-mutfaga.mp4` (+ `-poster.webp`)
+- **Ana sayfadaki boş oda / bitmiş mutfak kaydırıcısı (CompareSection):** `public/surec/bos-oda.webp` ve `bitmis-mutfak.webp`,
+  kaynak `assets-kaynak/bos-odadan-mutfaga.mp4` (ilk ve son kare, kamera sabit)
 
 ## Teknik Yapı
 
@@ -157,7 +159,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 ### Sayfalar
 
 `/` ana sayfa · `/hakkimizda` · `/hizmetlerimiz` · `/projelerimiz` ·
-`/projelerimiz/[slug]` · `/oncesi-sonrasi` · `/blog` · `/blog/[slug]` · `/iletisim`
+`/projelerimiz/[slug]` · `/blog` · `/blog/[slug]` · `/iletisim`
 
 ### Nerede ne değişir
 
@@ -176,6 +178,10 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - İletişim bilgisini koda elle yazma, `lib/site.ts`'den import et.
 - Animasyonlarda `whileInView` kullanma; `components/ui/animations.tsx`
   içindeki `useReveal` + `data-reveal` yaklaşımını kullan.
+- Animasyon güvenlik ağlarında zamanlayıcıyı koşulsuz kurma: arka plan sekmesi (`document.hidden`),
+  henüz çizilmemiş sayfa ve açılış perdesi (`introSonrasi`, `Intro.tsx`) normal durumlardır.
+  Koşulsuz zamanlayıcı ekran dışındaki animasyonları erkenden bitiriyor ve Lenis'i kapatıyordu
+  (bkz. `useReveal`, `SmoothScrollProvider`).
 - Kaydırmaya bağlı animasyonda `useTransform(scrollYProgress, transform([..], [..]))`
   kullan (fonksiyon biçimi). Dizi biçimi `useScroll({ target })` ile birlikte yanlış
   (tüm sayfa) aralığa göre hesaplanıyor.
