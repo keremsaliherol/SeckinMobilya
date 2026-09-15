@@ -18,6 +18,10 @@ değişirse **hem burayı hem `lib/site.ts`'yi** güncelle.
   100+ mutlu müşteri · 5+ ülkede hizmet
 - **Hizmet bölgesi:** Türkiye geneli + yurt dışı projeler (merkez İstanbul)
 - **Teklif modeli:** Ücretsiz keşif ve danışmanlık
+- **Genelde kullanılan malzemeler (marka sahibinden):** kapakta en çok akrilik ve membran,
+  18 mm akrilik MDF kapak/çekmece önü, 3 mm PVC kenar bandı, siyah metal gola kulp,
+  Samet frenli menteşe, Samet tandem ray (frenli, tam açılım), 18 mm MDF raf, 8 mm MDF arkalık,
+  12'lik ayak + baza, 18 mm MDF-lam gövde. Referans ürün fotoğrafı: `assets-kaynak/dolap.jpeg`.
 
 ## İletişim Bilgileri
 

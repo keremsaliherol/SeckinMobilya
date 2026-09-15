@@ -281,13 +281,16 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 
 - [ ] **Aynı mutfak iki kez:** Ana sayfada süreç bölümü ve çizim/uygulama kaydırıcısı aynı videoyu kullanıyor. Gerçek öncesi/sonrası fotoğrafı gelirse kaydırıcı onunla değişecek, gelmezse `/oncesi-sonrasi` sayfasına taşınacak.
 - [ ] **Süreç videosu gerçek proje mi?** Dosya adı (`hf_…`) yapay zekâ üretimini düşündürüyor. Metinler bu yüzden tarafsız. Gerçekse metin güçlendirilecek, değilse marka sahibinin yayın onayı alınacak.
-- [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımlarının açıklamaları, "üretime onaylanan çizimle başlıyoruz", Instagram bandı cümleleri, dolap malzeme etiketleri.
-- [ ] **3D dolabın görünümü:** Koyu kahve lake kapak + açık meşe gövde + pirinç kulp temsili bir seçim. Marka sahibinin en çok ürettiği dolap tarzına (renk, kulp, bölme düzeni) uyarlanabilir.
+- [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımlarının açıklamaları, "üretime onaylanan çizimle başlıyoruz", Instagram bandı cümleleri.
+- [x] ~~Dolap malzeme etiketleri~~ → Marka sahibinden alındı (15.09.2026), `data/cabinetParts.ts` güncellendi. "Projeye göre birlikte belirlenir" notunun kalması onaylandı.
+- [ ] **Bağlantı parçaları (10. madde):** "Minifix ve kavela" hâlâ doğrulanmadı.
+- [ ] **Ayak ölçüsü:** Marka sahibi "12'lik ayak" dedi, sitede "12 cm ayak" yazıyor. cm olduğu teyit edilmeli.
+- [x] ~~3D dolabın görünümü~~ → Marka sahibinin gönderdiği ürün fotoğrafına (`assets-kaynak/dolap.jpeg`) göre yeniden modellendi: şampanya akrilik kapak, siyah gola, solda 2 çekmece + sağda çift kapak, 12 cm ayak.
 - [ ] **Açılış fotoğrafı:** `public/hero/yatak-odasi.jpg` eski siteden, kaynağı bilinmiyor (stok ya da yapay zekâ olabilir). Gerçek bir proje fotoğrafıyla değiştirilmesi önerildi.
 
 ## 11. Marka sahibinden istenecekler
 - [ ] Gmail adresi
-- [ ] Dolap parçalarının gerçek malzeme ve donanım bilgileri (§6 tablosu)
+- [x] Dolap parçalarının gerçek malzeme ve donanım bilgileri (bağlantı parçaları hariç)
 - [ ] Gerçek müşteri yorumları (yoksa bölüm gizli kalır)
 - [ ] 1975'ten bugüne kilometre taşları (zaman çizelgesi için)
 - [ ] Oda kategorileri için fotoğraflar (özellikle kahve köşesi, TV ünitesi, giyinme odası)
