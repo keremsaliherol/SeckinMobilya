@@ -29,6 +29,7 @@ otomatik derlenip https://seckinmimarliktr.com'a yayınlanır (birkaç dakika s�
 | Build komutu | `npm run build` |
 | Ortam değişkeni | `NEXT_PUBLIC_SITE_URL = https://seckinmimarliktr.com` |
 | Eski adres yönlendirmeleri | `public/_redirects` |
+| Video Worker'ı | `worker/index.js` — yalnızca `/video/*`; Range isteklerine 206 döner (iPhone Safari bunsuz MP4 oynatmıyor) |
 
 `NEXT_PUBLIC_SITE_URL`; `sitemap.xml`, `robots.txt`, canonical adresler ve paylaşım
 önizlemelerinde kullanılır. Ayarlanmazsa `lib/site.ts` içindeki varsayılan geçerli olur.
@@ -113,5 +114,7 @@ MSYS_NO_PATHCONV=1 node scripts/sayfa-goruntusu.mjs --yol / --azhareket
   sayesinde yenilemede ilk karede hiç çizilmez.
 - **Erişilebilirlik:** içeriğe atla bağlantısı, dile göre değişen `<html lang>`, menü ve görüntüleyicide
   odak tuzağı, koyu zeminlerde açık renkli odak halkası (`[data-koyu-zemin]`, `.bg-ink`).
+- **Süreç bölümü tuvali** (`ProcessScroll`) yalnızca boyutu gerçekten değişince temizlenir ve aynı anda yeniden çizilir;
+  iPhone'da adres çubuğu kaydırırken bölüm yüksekliği sürekli değiştiği için aksi hâlde görsel titriyordu.
 - **Katman açılırken** sayfa kaydırmasını `kaydirmayiKilitle(true/false)` ile kilitleyin;
   yalnız `body { overflow: hidden }` Lenis'i durdurmaz.

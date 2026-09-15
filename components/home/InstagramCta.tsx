@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Phone } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Phone, Play } from "lucide-react";
 import { FadeInUp } from "@/components/ui/animations";
 import { useLang } from "@/contexts/LanguageContext";
 import { contact, whatsappLink } from "@/lib/site";
@@ -20,6 +20,8 @@ export default function InstagramCta() {
   const { t } = useLang();
   const ig = t.home.instagram;
   const videoRef = useRef<HTMLVideoElement>(null);
+  /** Tarayıcı otomatik oynatmayı engellediyse (ör. iPhone Düşük Güç Modu) oynat düğmesi görünür */
+  const [dokunmaGerekli, setDokunmaGerekli] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -33,8 +35,11 @@ export default function InstagramCta() {
     const io = new IntersectionObserver(
       ([giris]) => {
         if (giris.isIntersecting) {
-          // Otomatik oynatma engellenirse kapak görseli kalır; hata değil.
-          video.play().catch(() => {});
+          // Otomatik oynatma engellenirse kapak görseli ve oynat düğmesi kalır.
+          video.play().then(
+            () => setDokunmaGerekli(false),
+            () => setDokunmaGerekli(true)
+          );
         } else {
           video.pause();
         }
@@ -124,6 +129,21 @@ export default function InstagramCta() {
                 aria-hidden="true"
                 className="absolute left-1/2 top-2.5 h-5 w-20 -translate-x-1/2 rounded-full bg-shade"
               />
+              {dokunmaGerekli && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    videoRef.current?.play().then(
+                      () => setDokunmaGerekli(false),
+                      () => {}
+                    );
+                  }}
+                  aria-label={ig.play}
+                  className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-[0_12px_30px_-10px_rgba(31,23,17,0.6)] transition-transform active:scale-95"
+                >
+                  <Play size={24} className="ml-1" fill="currentColor" />
+                </button>
+              )}
             </div>
           </div>
         </FadeInUp>

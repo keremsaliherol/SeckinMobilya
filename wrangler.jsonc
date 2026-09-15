@@ -1,9 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "seckinmobilya",
+  // Yalnızca /video/* için çalışır: Range (206) desteği, iPhone Safari video oynatsın diye
+  "main": "worker/index.js",
   "compatibility_date": "2026-08-03",
   "assets": {
     "directory": "./out",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Geri kalan her şey Worker çalışmadan doğrudan statik varlık olarak sunulur
+    "run_worker_first": ["/video/*"]
   }
 }

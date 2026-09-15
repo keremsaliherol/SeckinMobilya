@@ -15,7 +15,8 @@ Yeniden tasarımın **Faz 0–8'i bitti**; site 15.09.2026'da canlıya alındı 
   `tarih` = yayın günü → build → commit → (kullanıcı isterse) push.
 - **Marka sahibinden gelecek bilgiler (§2):** Gmail, yorumlar, kilometre taşları, oda fotoğrafları,
   videoların gerçek olup olmadığı, taslak cümlelerin onayı, blog kapak fotoğrafı izni. Geldiyse işle.
-- **Kullanıcıda:** Safari/iOS ve Firefox testi (§3.4), Google Search Console kurulumu (§3.1).
+- **Kullanıcıda:** iPhone düzeltmelerinin (süreç titremesi, video) yayından sonra telefonda yeniden denenmesi,
+  Firefox testi (§3.4), Google Search Console kurulumu (§3.1).
 - Kurallar: doğrulanmamış içerik yazma; yeni kararları `docs/TASARIM-PLANI.md` §10.5'e ekle;
   `git push` yalnızca kullanıcı isterse (`main`'e her gönderim canlı siteyi günceller).
 
@@ -147,7 +148,8 @@ Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `
   Sunucu API'si / server action kullanılmamalı.
 - **Yayın:** GitHub `keremsaliherol/SeckinMobilya` (`origin`) → `main`'e push → Cloudflare Workers Builds
   otomatik build alıp https://seckinmimarliktr.com'u günceller (`wrangler.jsonc`, proje adı `seckinmobilya`).
-  Eski adres yönlendirmeleri `public/_redirects`.
+  Eski adres yönlendirmeleri `public/_redirects`. `worker/index.js` yalnızca `/video/*` için çalışır:
+  statik varlıklar Range isteğine 206 dönmediği için iPhone Safari MP4 oynatmıyordu (yeni video eklerken `/video/` altına koy).
 - **Dev sunucusu:** `npm run dev` → http://localhost:3000 (`.claude/launch.json` → `seckin-dev`).
   **Dev sunucusu açıkken `npm run build` çalıştırma**: `out/` yeniden yazılınca Turbopack
   belleği ~8 GB'a çıkıp çöküyor. Önce sunucuyu durdur, build al, sonra yeniden başlat.

@@ -113,6 +113,7 @@ const translations = {
         whatsapp: "WhatsApp'tan yazın",
         visit: "Keşif ve ölçü için ücretsiz randevu:",
         videoLabel: "Beton duvarlı boş bir odanın adım adım bitmiş mutfağa dönüştüğü video",
+        play: "Videoyu oynat",
       },
     },
     footer: {
@@ -263,6 +264,7 @@ const translations = {
         whatsapp: "Message us on WhatsApp",
         visit: "Free appointment for a site visit and measurement:",
         videoLabel: "Video of an empty concrete room turning into a finished kitchen, step by step",
+        play: "Play video",
       },
     },
     footer: {

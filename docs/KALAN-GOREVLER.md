@@ -161,7 +161,14 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
 - [x] Fontlar değiştirilmedi (Cormorant italik vurgu satırlarında kullanılıyor).
 
 ### 3.4 Tarayıcı ve cihaz
-- [ ] **Safari/iOS:** gerçek iPhone'da kullanıcı test edecek (hero kapsül `clip-path`, `dvh`, sticky + kaydırma, 3D dolap, video).
+- [x] **Safari/iOS (kullanıcı iPhone'da test etti, 16.09.2026)** — iki hata bulundu ve düzeltildi:
+  - **Süreç bölümünde görsel titriyordu** (bitmiş mutfak ↔ çizim): adres çubuğu kaydırırken bölüm yüksekliği (dvh) her karede
+    değişiyor, tuval her seferinde temizlenip çizim sonraki kareye kalıyordu. Ölçüm: 60 yükseklik değişiminde eski kod 59 boş kare,
+    yeni kod 0. Düzeltme `components/home/ProcessScroll.tsx` → `boyutla` (boyut aynıysa dokunma, değiştiyse aynı anda çiz).
+  - **Telefon videosu oynamıyordu:** Cloudflare statik varlıkları Range isteklerine 206 dönmüyor, iPhone Safari MP4'ü oynatmıyor.
+    Düzeltme: `worker/index.js` (yalnızca `/video/*`, wrangler.jsonc → `run_worker_first`), `wrangler dev` ile 206 doğrulandı.
+    Ayrıca otomatik oynatma engellenirse (Düşük Güç Modu) videonun üstünde oynat düğmesi çıkıyor.
+  - Yayından sonra canlıda kontrol: `curl -s -D - -o /dev/null -H "Range: bytes=0-1" https://seckinmimarliktr.com/video/bos-odadan-mutfaga.mp4` → 206.
 - [ ] **Firefox:** makinede kurulu değil; kullanıcı test edecek (hero kapsül, 3D dolap).
 - [x] Yavaş ağ (yavaş 3G benzetimi): süreç bölümü ve dolap yedek görselleri doğru.
 

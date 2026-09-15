@@ -115,20 +115,35 @@ function SurecKaydirma() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    /**
+     * iPhone Safari'de adres çubuğu kaydırırken küçülüp büyüdükçe bölüm yüksekliği (dvh)
+     * her karede değişiyor. Eskiden her seferinde tuval temizlenip çizim bir sonraki
+     * kareye bırakılıyordu; arada boş tuvalin arkasındaki ilk kare (çizim) görünüyor,
+     * görsel mutfak ile çizim arasında titriyordu. Artık boyut gerçekten değişmediyse
+     * tuvale dokunulmuyor (aynı değeri atamak bile temizler), değiştiyse ekrana
+     * basılmadan aynı anda yeniden çiziliyor.
+     */
     const boyutla = () => {
       // Sayfa bölümün ortasında yenilenirse kaydırma olayı gelmeden doğru kare seçilsin
       hedefKare.current = Math.round(kareIlerlemesi(scrollYProgress.get()));
       const oran = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(canvas.clientWidth * oran);
-      canvas.height = Math.round(canvas.clientHeight * oran);
-      cizilenKare.current = -1; // boyut değişince canvas silinir, yeniden çiz
-      cizimIste();
+      const genislik = Math.round(canvas.clientWidth * oran);
+      const yukseklik = Math.round(canvas.clientHeight * oran);
+      if (canvas.width === genislik && canvas.height === yukseklik) {
+        cizimIste();
+        return;
+      }
+      canvas.width = genislik;
+      canvas.height = yukseklik;
+      cizilenKare.current = -1;
+      cancelAnimationFrame(rafId.current);
+      ciz();
     };
     boyutla();
     const ro = new ResizeObserver(boyutla);
     ro.observe(canvas);
     return () => ro.disconnect();
-  }, [cizimIste, scrollYProgress]);
+  }, [ciz, cizimIste, scrollYProgress]);
 
   // Kareleri bölüme yaklaşınca yükle (bir ekran boyu önceden).
   useEffect(() => {
