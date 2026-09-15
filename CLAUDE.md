@@ -100,7 +100,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
   Vektör verisi `components/ui/monogram.ts`, dosya `public/brand/seckin-monogram.svg`.
   Kaynak dosyalar `assets-kaynak/` klasöründe (videolar git'e girmez).
 - **Ana sayfa** (`app/page.tsx`): `components/home/` altında HeroSection (kapsül → tam ekran),
-  IntroStatement, RoomCategories (`data/rooms.ts`), CompareSection
+  IntroStatement, ProcessScroll (kaydırmalı kare dizisi, canvas), RoomCategories (`data/rooms.ts`), CompareSection
   (`components/ui/BeforeAfterSlider.tsx`), FeaturedProjects (masaüstünde sabitlenen yatay
   şerit), StatsSection, InstagramCta. Metinler `t.home.*` (LanguageContext).
 - **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
@@ -121,7 +121,9 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - **Tamamen statik** (`output: "export"`, `trailingSlash: true`) → `out/` klasörü.
   Sunucu API'si / server action kullanılmamalı.
 - **Yayın:** Cloudflare Pages / Workers assets (`wrangler.jsonc`, proje adı `seckinmobilya`)
-- **Dev sunucusu:** `npm run dev` → http://localhost:3000 (`.claude/launch.json` → `seckin-dev`)
+- **Dev sunucusu:** `npm run dev` → http://localhost:3000 (`.claude/launch.json` → `seckin-dev`).
+  **Dev sunucusu açıkken `npm run build` çalıştırma**: `out/` yeniden yazılınca Turbopack
+  belleği ~8 GB'a çıkıp çöküyor. Önce sunucuyu durdur, build al, sonra yeniden başlat.
 - **İki dil:** TR/EN — `contexts/LanguageContext.tsx` (genel) ve
   `contexts/pageTranslations.ts` (sayfa metinleri). Metin eklerken iki dili de güncelle.
 - **İletişim formu** sunucuya değil WhatsApp'a (`wa.me`) yönlendirir.
@@ -150,6 +152,8 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - Kaydırmaya bağlı animasyonda `useTransform(scrollYProgress, transform([..], [..]))`
   kullan (fonksiyon biçimi). Dizi biçimi `useScroll({ target })` ile birlikte yanlış
   (tüm sayfa) aralığa göre hesaplanıyor.
+- Medya sorgusu (ekran genişliği, hareket azaltma) için `components/ui/useMediaQuery.ts` kullan;
+  efekt içinde `matchMedia` + setState lint hatası veriyor.
 - Her hareketli bölüm "hareketi azalt" tercihinde çalışmalı: ya CSS
   `@media (prefers-reduced-motion: reduce)` ile (bkz. `.hero-*`, `.oda-karti` kuralları)
   ya da `matchMedia` ile sabit/basit sürüme dönülür.

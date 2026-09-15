@@ -41,6 +41,25 @@ const translations = {
         more: "Hakkımızda",
         map: "Konum",
       },
+      process: {
+        eyebrow: "Nasıl çalışıyoruz",
+        title: "Çizimden gerçeğe, üç adımda.",
+        steps: [
+          {
+            title: "Tasarım",
+            desc: "Mekânı yerinde ölçüyor, ihtiyaçlarınızı dinliyor ve projeyi çiziyoruz. Çizim, sizin onayınızla netleşiyor.",
+          },
+          {
+            title: "Üretim",
+            desc: "Onaylanan çizime göre dolapları ve mobilyaları mekânın ölçüsüne özel üretiyoruz.",
+          },
+          {
+            title: "Montaj",
+            desc: "Yerinde kurulumu yapıyor, son kontrollerin ardından mekânı kullanıma hazır teslim ediyoruz.",
+          },
+        ],
+        frameAlt: "Bir mutfağın çiziminden bitmiş hâline geçiş",
+      },
       rooms: {
         eyebrow: "Ne yapıyoruz",
         title: "Evin her köşesi için, ölçüye özel.",
@@ -148,6 +167,25 @@ const translations = {
         body: "Founded as a family business in 1975, we design, produce and install everything to measure — from kitchens and wardrobes to TV units and turnkey interiors.",
         more: "About us",
         map: "Location",
+      },
+      process: {
+        eyebrow: "How we work",
+        title: "From drawing to reality, in three steps.",
+        steps: [
+          {
+            title: "Design",
+            desc: "We measure the space on site, listen to your needs and draw the project. The drawing is finalised with your approval.",
+          },
+          {
+            title: "Production",
+            desc: "We build the cabinets and furniture to the exact measurements of your space, following the approved drawing.",
+          },
+          {
+            title: "Installation",
+            desc: "We install everything on site and hand over the space ready to use after a final check.",
+          },
+        ],
+        frameAlt: "A kitchen transforming from drawing to finished space",
       },
       rooms: {
         eyebrow: "What we make",

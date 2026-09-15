@@ -6,6 +6,7 @@ import { motion, transform, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
 import { useLang } from "@/contexts/LanguageContext";
+import { useMediaQuery } from "@/components/ui/useMediaQuery";
 
 /** Şeritte gösterilecek projeler ve sırası (kapak fotoğrafı güçlü olanlar). */
 const SECKI = [
@@ -111,18 +112,8 @@ function SonKart() {
 export default function FeaturedProjects() {
   const bolumRef = useRef<HTMLElement>(null);
   const seritRef = useRef<HTMLDivElement>(null);
-  const [sabit, setSabit] = useState(false);
+  const sabit = useMediaQuery("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
   const [mesafe, setMesafe] = useState(0);
-
-  useEffect(() => {
-    const mq = window.matchMedia(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)"
-    );
-    const guncelle = () => setSabit(mq.matches);
-    guncelle();
-    mq.addEventListener("change", guncelle);
-    return () => mq.removeEventListener("change", guncelle);
-  }, []);
 
   // Şerit genişliği sabit moda geçtikten sonra (farklı öğe) ve her yeniden
   // boyutlandırmada ölçülür.

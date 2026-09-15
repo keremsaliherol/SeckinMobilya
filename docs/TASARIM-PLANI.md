@@ -8,9 +8,10 @@
 > | 0 Hazırlık | ✅ Tamamlandı |
 > | 1 Tasarım sistemi | ✅ Tamamlandı |
 > | 2 Kabuk | ✅ Tamamlandı |
-> | 3 Ana sayfa | ✅ Tamamlandı, onay bekliyor |
-> | 4 Çizimden gerçeğe (video) | ⏳ Sırada |
-> | 5–8 | Bekliyor |
+> | 3 Ana sayfa | ✅ Tamamlandı |
+> | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı, onay bekliyor |
+> | 5 3D dolap anatomisi | ⏳ Sırada |
+> | 6–8 | Bekliyor |
 
 ## 1. Bağlam
 
@@ -217,6 +218,14 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 
 ### Faz 4: Çizimden gerçeğe kaydırmalı video
 `components/home/ProcessScroll.tsx` (canvas + `framer-motion` `useScroll`, mevcut Lenis ile uyumlu).
+
+**Faz 4 notları:**
+- `components/home/ProcessScroll.tsx`: bölüm sabitlenir, kaydırma ilerlemesi 96 kareye eşlenir ve kareler <canvas>'a çizilir. Adımlar: 0–%27 Tasarım, %27–55 Üretim, %55+ Montaj (videodaki geçişlerle eşleşik).
+- Yükleme doğrulandı: sayfa açılışında yalnızca poster (001) iner. Kalan kareler bölüme bir ekran boyu kala başlar; masaüstünde 96, mobilde 48 kare (her ikinci kare). Eksik kare yerine en yakın yüklenmiş kare çizilir.
+- Hareketi azaltma tercihinde üç sabit kare ve üç adım gösterilir (`SurecSabit`).
+- `components/ui/useMediaQuery.ts` eklendi (`useSyncExternalStore`). FeaturedProjects da bu hook'a geçti.
+- **Geliştirme sunucusu çökmesinin nedeni:** dev sunucusu açıkken `npm run build` çalıştırmak. Build `out/` klasörünü (kareler dahil) yeniden yazıyor, Turbopack izleyicisi ~10–15 dk içinde 8 GB belleğe çıkıp çöküyor. Build öncesi dev sunucusu durdurulmalı.
+- Ana sayfada aynı mutfak iki kez görünüyor (süreç bölümü + çizim/uygulama kaydırıcısı). Gerçek öncesi/sonrası fotoğrafları gelince karşılaştırma bölümü onlarla değiştirilmeli.
 
 ### Faz 5: 3D exploded dolap
 `components/home/cabinet/` (sahne, parça tanımları, etiketler, statik yedek) + `data/cabinetParts.ts` (TR/EN).
