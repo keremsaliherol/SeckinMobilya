@@ -108,6 +108,10 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
   parça/malzeme listesi `data/cabinetParts.ts`, yedek görseller `public/anatomi/`), CompareSection
   (`components/ui/BeforeAfterSlider.tsx`), FeaturedProjects (masaüstünde sabitlenen yatay
   şerit), StatsSection, InstagramCta. Metinler `t.home.*` (LanguageContext).
+- **İç sayfalar:** ortak başlık `components/ui/PageHeader.tsx`. Proje detay = sunucu `page.tsx`
+  (metadata, JSON-LD) + istemci `ProjeDetayContent.tsx`. Hizmet görselleri ve örnek proje
+  bağlantıları `data/services.ts`, hizmet metinleri `pageTranslations.hizmetlerimiz`.
+  Öncesi/sonrası için projeye `beforeImage` + `afterImage` eklemek yeterli.
 - **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
   sabit WhatsApp butonu `components/ui/WhatsAppButton.tsx`, açılış perdesi `components/ui/Intro.tsx`,
   404 `app/not-found.tsx`. İkonlar (Instagram, WhatsApp) `components/ui/icons.tsx`,
@@ -145,7 +149,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 |---|---|
 | Telefon, Instagram, adres, harita | `lib/site.ts` (tek kaynak) |
 | Projeler | `data/projects.ts` |
-| Hizmetler | `data/services.ts` |
+| Hizmet görselleri / örnek projeler | `data/services.ts` (metinler `pageTranslations.ts`) |
 | Sayfa metinleri TR/EN | `contexts/pageTranslations.ts`, `contexts/LanguageContext.tsx` |
 | Renk / tema | `app/globals.css` |
 | SEO meta, JSON-LD işletme bilgisi | `app/layout.tsx` |

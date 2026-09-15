@@ -2,115 +2,111 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-import { ArrowRight } from "lucide-react";
-import { projects, getUsedCategories, ProjectCategory } from "@/data/projects";
-import { FadeInUp, FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/animations";
+import { ArrowUpRight } from "lucide-react";
+import { projects, getUsedCategories, type Project, type ProjectCategory } from "@/data/projects";
+import { FadeInUp } from "@/components/ui/animations";
+import PageHeader from "@/components/ui/PageHeader";
 import { useLang } from "@/contexts/LanguageContext";
+
+type Filtre = { label: string; value: "all" | ProjectCategory };
+
+/**
+ * Kart görsel oranları sırayla döner: tüm fotoğraflar 3:4 olsa da farklı
+ * kırpmalar sütunlu ızgarada (masonry) düz bir tablo görüntüsünü kırar.
+ */
+const ORANLAR = ["aspect-[3/4]", "aspect-[4/5]", "aspect-[5/6]"];
+
+function ProjeKarti({ project, kategori, oran }: { project: Project; kategori: string; oran: string }) {
+  const { p } = useLang();
+  const pg = p.projelerimiz;
+  return (
+    <Link href={`/projelerimiz/${project.slug}`} className="group block">
+      <span className={`relative block overflow-hidden bg-surface ${oran}`}>
+        <img
+          src={project.coverImage}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+        />
+        <span className="absolute right-4 top-4 inline-flex size-10 items-center justify-center rounded-full bg-background/90 text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <ArrowUpRight size={16} />
+          <span className="sr-only">{pg.inspect}</span>
+        </span>
+      </span>
+      <span className="mt-4 flex items-baseline justify-between gap-4">
+        <span className="font-heading text-[1.65rem] leading-tight text-foreground transition-colors group-hover:text-brand">
+          {project.title}
+        </span>
+        <span className="shrink-0 text-[10px] font-medium uppercase tracking-[0.2em] text-muted">{kategori}</span>
+      </span>
+      <span className="mt-1 block text-sm tabular-nums text-muted">
+        {[`${project.images.length} ${pg.imageCount}`, project.location, project.year].filter(Boolean).join(" · ")}
+      </span>
+    </Link>
+  );
+}
 
 export default function ProjelerimizContent() {
   const { p } = useLang();
   const pg = p.projelerimiz;
-  const tumFiltreler = pg.filters as unknown as {
-    label: string;
-    value: "all" | ProjectCategory;
-  }[];
+  const tumFiltreler = pg.filters as unknown as Filtre[];
 
   // Yalnızca gerçekten projesi olan kategoriler gösterilir; tek kategori
   // varsa filtre çubuğu hiç çıkmaz.
   const kullanilan = getUsedCategories();
-  const filters = tumFiltreler.filter(
-    (f) => f.value === "all" || kullanilan.has(f.value)
-  );
+  const filtreler = tumFiltreler.filter((f) => f.value === "all" || kullanilan.has(f.value));
+  const kategoriAdi = (c: ProjectCategory) => tumFiltreler.find((f) => f.value === c)?.label ?? c;
 
-  const [active, setActive] = useState<"all" | ProjectCategory>("all");
-
-  const filtered =
-    active === "all" ? projects : projects.filter((p) => p.category === active);
+  const [etkin, setEtkin] = useState<Filtre["value"]>("all");
+  const liste = etkin === "all" ? projects : projects.filter((proje) => proje.category === etkin);
+  const sayi = (v: Filtre["value"]) =>
+    v === "all" ? projects.length : projects.filter((proje) => proje.category === v).length;
 
   return (
     <>
-      <section className="pt-36 pb-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <FadeInUp className="max-w-2xl">
-            <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.25em] uppercase text-primary mb-4">
-                <span className="w-10 h-px bg-primary" />
-                {pg.badge}
-              </span>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              {pg.title}
-            </h1>
-            <p className="text-muted text-lg leading-relaxed">
-              {pg.subtitle}
+      <PageHeader eyebrow={pg.badge} title={pg.title} description={pg.subtitle} />
+
+      <section className="pb-24 lg:pb-36">
+        <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+          <div className="mb-10 flex flex-wrap items-center justify-between gap-4 lg:mb-14">
+            {filtreler.length >= 3 ? (
+              <div role="group" aria-label={pg.filtersLabel} className="flex flex-wrap gap-2">
+                {filtreler.map((f) => (
+                  <button
+                    key={f.value}
+                    type="button"
+                    onClick={() => setEtkin(f.value)}
+                    aria-pressed={etkin === f.value}
+                    className={`inline-flex h-10 items-center gap-2 rounded-full border px-5 text-[13px] font-medium transition-colors active:scale-[0.98] ${
+                      etkin === f.value
+                        ? "border-primary bg-primary text-on-ink"
+                        : "border-border text-foreground/80 hover:border-primary hover:text-foreground"
+                    }`}
+                  >
+                    {f.label}
+                    <span className="tabular-nums opacity-60">{sayi(f.value)}</span>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <span />
+            )}
+            <p className="text-sm tabular-nums text-muted" aria-live="polite">
+              {liste.length} {pg.projectCount}
             </p>
-          </FadeInUp>
-        </div>
-      </section>
+          </div>
 
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <FadeIn
-            className={`flex flex-wrap gap-3 mb-12 ${
-              filters.length < 3 ? "hidden" : ""
-            }`}
-          >
-            {filters.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => setActive(f.value)}
-                aria-pressed={active === f.value}
-                className={`px-6 py-2.5 text-xs font-medium tracking-[0.12em] uppercase transition-colors border ${
-                  active === f.value
-                    ? "bg-primary text-background border-primary"
-                    : "bg-transparent text-muted border-border hover:border-primary/50 hover:text-foreground"
-                }`}
-              >
-                {f.label}
-              </button>
+          {/* key: filtre değişince liste yeniden kurulur, kartlar yeniden belirir */}
+          <div key={etkin} className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
+            {liste.map((project, i) => (
+              <FadeInUp key={project.slug} delay={Math.min(i, 5) * 0.05} className="mb-12 break-inside-avoid">
+                <ProjeKarti project={project} kategori={kategoriAdi(project.category)} oran={ORANLAR[i % ORANLAR.length]} />
+              </FadeInUp>
             ))}
-          </FadeIn>
+          </div>
 
-          {/* key: filtre değişince liste yeniden kurulur, kartlar tekrar animasyonla girer */}
-          <StaggerContainer
-            key={active}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filtered.map((project) => (
-              <StaggerItem key={project.id}>
-                <Link
-                  href={`/projelerimiz/${project.slug}`}
-                  className="group relative overflow-hidden block border border-border hover:border-primary/50 transition-colors duration-500"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={project.coverImage}
-                      alt={project.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-shade/85 via-shade/25 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-2 block">
-                      {[project.categoryLabel, project.location].filter(Boolean).join(" · ")}
-                    </span>
-                    <h3 className="font-heading font-semibold text-lg text-white leading-snug mb-2">
-                      {project.title}
-                    </h3>
-                    <span className="inline-flex items-center gap-2 text-xs font-medium text-white/70 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      {pg.inspect} <ArrowRight size={12} />
-                    </span>
-                  </div>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-
-          {filtered.length === 0 && (
-            <div className="text-center py-20 text-muted">
-              {pg.empty}
-            </div>
-          )}
+          {liste.length === 0 && <p className="py-20 text-center text-muted">{pg.empty}</p>}
         </div>
       </section>
     </>

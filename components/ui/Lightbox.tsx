@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { kaydirmayiKilitle } from "@/components/ui/SmoothScrollProvider";
 
 interface LightboxProps {
   images: string[];
@@ -44,14 +45,11 @@ export default function Lightbox({
     return () => window.removeEventListener("keydown", onKey);
   }, [acik, git, onClose]);
 
-  /* Arka planın kaymasını engelle */
+  /* Arka planın kaymasını engelle (body taşması + Lenis) */
   useEffect(() => {
     if (!acik) return;
-    const eski = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = eski;
-    };
+    kaydirmayiKilitle(true);
+    return () => kaydirmayiKilitle(false);
   }, [acik]);
 
   /* Açılışta odağı kapat düğmesine taşı (klavye kullanıcıları için) */

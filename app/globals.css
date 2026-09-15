@@ -78,6 +78,13 @@ body {
        küçük harf gibi aşağı sarkıyordu. */
     font-variant-numeric: lining-nums;
   }
+
+  /* Başlık fontu başlık dışı öğelerde de (künye, "1975" etiketi, adres)
+     düz rakam kullansın. Aynı öğede tabular-nums varsa lining-nums da
+     yazılmalı: Tailwind'in rakam sınıfları bu kuralı toptan ezer. */
+  .font-heading {
+    font-variant-numeric: lining-nums;
+  }
 }
 
 html {

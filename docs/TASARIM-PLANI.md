@@ -10,9 +10,10 @@
 > | 2 Kabuk | ✅ Tamamlandı |
 > | 3 Ana sayfa | ✅ Tamamlandı |
 > | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı |
-> | 5 3D dolap anatomisi | ✅ Tamamlandı, onay bekliyor |
-> | 6 İç sayfalar | ⏳ Sırada |
-> | 7–8 | Bekliyor |
+> | 5 3D dolap anatomisi | ✅ Tamamlandı |
+> | 6 İç sayfalar | ✅ Tamamlandı, onay bekliyor |
+> | 7 Blog (opsiyonel) | ⏳ Sırada / karar bekliyor |
+> | 8 Kalite ve teslim | Bekliyor |
 
 ## 1. Bağlam
 
@@ -241,6 +242,16 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 
 ### Faz 6: İç sayfalar
 Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, iletişim (§4.3).
+
+**Faz 6 notları:**
+- Ortak başlık: `components/ui/PageHeader.tsx` (iki satırlı başlık, ikinci satır italik logo kahvesi).
+- **Stok görsel kalmadı:** Hakkımızda ve Hizmetlerimiz'deki Unsplash görselleri gerçek proje fotoğraflarıyla değişti. `data/services.ts` artık yalnızca görsel + örnek proje bağlantısı tutuyor, metinler `pageTranslations`'ta.
+- Proje detay: sunucu bileşeni (metadata, JSON-LD) + `ProjeDetayContent.tsx` (istemci, TR/EN). Eski `ProjectGallery.tsx` silindi. Kemerli kapak, künye, sütunlu galeri + Lightbox, projeye özel hazır WhatsApp mesajı, "Diğer projeler".
+- Öncesi/Sonrası artık boş değil: üstte çizim/uygulama karşılaştırması (CompareSection). `data/projects.ts` içinde `beforeImage` + `afterImage` eklenen projeler altta kendiliğinden listelenir.
+- İletişim: kapsül tepeli link-in-bio kartı (Ara · WhatsApp · Instagram · Yol tarifi), alt çizgili form (WhatsApp'a gider), soldurulmuş harita.
+- Hakkımızda'da **zaman çizelgesi ve müşteri yorumları yapılmadı**: kilometre taşları ve gerçek yorumlar gelmeden uydurma içerik konmadı (§11).
+- Lightbox da `kaydirmayiKilitle` kullanıyor. Cormorant fontunda sayılar her yerde düz rakam (`.font-heading` → lining-nums).
+- Plandaki "Instagram ızgarası" yapılmadı: proje fotoğraflarını Instagram gönderisi gibi göstermek yanıltıcı olurdu. Ana sayfadaki reels bandı ve iletişim kartındaki Instagram bağlantısı yeterli görüldü.
 
 ### Faz 7: Blog *(opsiyonel)*
 `app/blog/`, `app/blog/[slug]/`, `data/blog.ts`, sitemap güncellemesi.
