@@ -96,9 +96,15 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 
 - **Fontlar:** başlık **Cormorant Garamond** (`font-heading`), gövde **Outfit** (`font-sans`).
   İkisi de `latin-ext` ile yüklenir (ş, ğ, İ için şart).
-- **Logo:** `components/ui/Logo.tsx` (monogram + yazı, `currentColor`).
+- **Logo:** `components/ui/Logo.tsx` (monogram + yazı, `currentColor`; yalnız monogram için `Monogram`).
   Vektör verisi `components/ui/monogram.ts`, dosya `public/brand/seckin-monogram.svg`.
   Kaynak dosyalar `assets-kaynak/` klasöründe (videolar git'e girmez).
+- **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
+  sabit WhatsApp butonu `components/ui/WhatsAppButton.tsx`, açılış perdesi `components/ui/Intro.tsx`,
+  404 `app/not-found.tsx`. İkonlar (Instagram, WhatsApp) `components/ui/icons.tsx`,
+  WhatsApp linki `whatsappLink()` (`lib/site.ts`).
+- Katman/overlay açılırken sayfa kaydırmasını `kaydirmayiKilitle(true/false)` ile kilitle
+  (`components/ui/SmoothScrollProvider.tsx`); yalnız `body overflow` Lenis'i durdurmaz.
 - **Marka cümleleri:** "Önce çiziyoruz. Sonra birebir uyguluyoruz." ·
   "Tasarım · Üretim · Montaj" · "1975'ten bugüne"
 - **Süreç videosu kareleri:** `public/surec/kareler/001–096.webp` (kaydırma bölümü),

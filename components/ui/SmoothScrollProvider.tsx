@@ -12,7 +12,23 @@ type LenisOrnegi = {
   raf: (t: number) => void;
   destroy: () => void;
   scrollTo: (hedef: number, secenek?: { immediate?: boolean }) => void;
+  stop: () => void;
+  start: () => void;
 };
+
+const KILIT_OLAYI = "seckin:kaydirma-kilidi";
+
+/**
+ * Sayfa kaydırmasını kilitler/açar (menü paneli gibi katmanlar için).
+ *
+ * `body { overflow: hidden }` tek başına yetmez: Lenis tekerleği yakalayıp
+ * pencereyi kendisi kaydırdığı için arka plandaki sayfa kaymaya devam eder.
+ * Olay, sağlayıcıdaki Lenis örneğini de durdurur.
+ */
+export function kaydirmayiKilitle(kilitli: boolean) {
+  document.body.style.overflow = kilitli ? "hidden" : "";
+  window.dispatchEvent(new CustomEvent(KILIT_OLAYI, { detail: kilitli }));
+}
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   /** Sayfa değişiminde kaydırmayı sıfırlayabilmek için örneğe erişim. */
@@ -92,8 +108,15 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
 
     baslat();
 
+    const kilitDinle = (e: Event) => {
+      if ((e as CustomEvent<boolean>).detail) lenis?.stop();
+      else lenis?.start();
+    };
+    window.addEventListener(KILIT_OLAYI, kilitDinle);
+
     return () => {
       iptal = true;
+      window.removeEventListener(KILIT_OLAYI, kilitDinle);
       durdur();
     };
   }, []);

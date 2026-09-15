@@ -1,15 +1,17 @@
 "use client";
+
 import Link from "next/link";
-import { Phone, MapPin } from "lucide-react";
-import { StaggerContainer, StaggerItem } from "@/components/ui/animations";
+import { Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-import { contact, address } from "@/lib/site";
-import Logo from "@/components/ui/Logo";
+import { contact, address, whatsappLink } from "@/lib/site";
+import { Monogram } from "@/components/ui/Logo";
+import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 
 export default function Footer() {
   const { t } = useLang();
+  const f = t.footer;
 
-  const siteMap = [
+  const pages = [
     { href: "/", label: t.nav.home },
     { href: "/hakkimizda", label: t.nav.about },
     { href: "/hizmetlerimiz", label: t.nav.services },
@@ -18,136 +20,113 @@ export default function Footer() {
     { href: "/iletisim", label: t.nav.contact },
   ];
 
+  const baslik = "mb-5 font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-accent";
+  const baglanti = "transition-colors hover:text-accent";
+
   return (
-    <footer className="bg-ink text-on-ink">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <StaggerItem>
-            <div className="mb-6 text-on-ink">
-              <Logo size="sm" />
-            </div>
-            <p className="text-on-ink/75 text-sm leading-relaxed mb-6">
-              {t.footer.desc}
-            </p>
-            <div className="flex gap-3">
-              <a
-                href={contact.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="w-11 h-11 border border-on-ink/25 flex items-center justify-center text-on-ink/75 hover:border-accent hover:text-accent transition-colors"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-            </div>
-          </StaggerItem>
+    <footer className="relative overflow-hidden bg-ink text-on-ink">
+      {/* Büyük, silik monogram: logodaki kapsülün sayfanın sonunda yankısı */}
+      <Monogram className="pointer-events-none absolute -right-16 top-12 hidden h-[36rem] text-on-ink/[0.06] md:block" />
 
-          <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
-              {t.footer.siteMap}
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {siteMap.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </StaggerItem>
+      <div className="relative mx-auto max-w-[88rem] px-5 pb-10 pt-20 sm:px-8 lg:px-12 lg:pt-28">
+        {/* Marka cümlesi + hızlı iletişim */}
+        <div className="grid items-end gap-10 border-b border-on-ink/15 pb-16 lg:grid-cols-[1.5fr_1fr] lg:pb-20">
+          <p className="font-heading text-[clamp(2.5rem,5.6vw,4.9rem)] leading-[1.02] tracking-[-0.01em]">
+            <span className="block">{f.statement[0]}</span>
+            <span className="block italic text-accent">{f.statement[1]}</span>
+          </p>
 
-          <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
-              {t.footer.ourServices}
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {[...t.footer.servicesList].map((h) => (
-                <li key={h}>
-                  <Link
-                    href="/hizmetlerimiz"
-                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
-                  >
-                    {h}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </StaggerItem>
+          <div className="flex flex-wrap gap-3 lg:justify-end">
+            <a
+              href={whatsappLink(t.whatsapp.message)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center gap-2.5 rounded-full bg-on-ink px-6 text-sm font-medium text-ink transition-colors hover:bg-accent-light active:scale-[0.98]"
+            >
+              <WhatsAppIcon size={18} />
+              {f.whatsappCta}
+            </a>
+            <a
+              href={`tel:${contact.phone}`}
+              className="inline-flex h-12 items-center gap-2.5 rounded-full border border-on-ink/30 px-6 text-sm font-medium tabular-nums transition-colors hover:border-on-ink hover:bg-on-ink hover:text-ink active:scale-[0.98]"
+            >
+              <Phone size={16} strokeWidth={1.75} />
+              {contact.phoneDisplay}
+            </a>
+          </div>
+        </div>
 
-          <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
-              {t.footer.contactHeading}
-            </h4>
-            <ul className="flex flex-col gap-4">
-              <li className="flex items-start gap-3">
-                <Phone size={16} className="text-on-ink/65 mt-0.5 shrink-0" />
-                <div className="flex flex-col gap-0.5">
-                  <a
-                    href={`tel:${contact.phone}`}
-                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
-                  >
-                    {contact.phoneDisplay}
-                  </a>
-                  <a
-                    href={`tel:${contact.phoneAlt}`}
-                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
-                  >
-                    {contact.phoneAltDisplay}
-                  </a>
-                </div>
+        {/* Bilgi sütunları */}
+        <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
+          <div>
+            <h2 className={baslik}>{f.contactHeading}</h2>
+            <ul className="flex flex-col gap-3 text-[15px]">
+              <li>
+                <a href={`tel:${contact.phone}`} className={`${baglanti} tabular-nums`}>
+                  {contact.phoneDisplay}
+                </a>
               </li>
-              <li className="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-on-ink/65 shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              <li>
+                <a href={`tel:${contact.phoneAlt}`} className={`${baglanti} tabular-nums`}>
+                  {contact.phoneAltDisplay}
+                </a>
+              </li>
+              <li>
                 <a
                   href={contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
+                  className={`${baglanti} inline-flex items-center gap-2`}
                 >
+                  <InstagramIcon size={16} />
                   {contact.instagramHandle}
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-on-ink/65 mt-0.5 shrink-0" />
-                <a
-                  href={address.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-on-ink/75 hover:text-on-ink transition-colors leading-relaxed not-italic"
-                >
-                  <address className="not-italic">
-                    {address.street}
-                    <br />
-                    {address.postalCode} {address.district}/{address.city}
-                  </address>
-                </a>
-              </li>
             </ul>
-          </StaggerItem>
-        </StaggerContainer>
-      </div>
+          </div>
 
-      <div className="border-t border-on-ink/15">
-        {/* Gizlilik / Kullanım Koşulları bağlantıları kaldırıldı: hedef sayfalar
-            yok, "#" adresine giden bağlantı ziyaretçiyi yanıltıyor ve arama
-            motorlarınca ölü bağlantı sayılıyor. Metinler hazırlandığında
-            sayfalarıyla birlikte geri eklenmeli. */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-on-ink/65">
-            © {new Date().getFullYear()} Seçkin Mimarlık Mobilya İnşaat. {t.footer.rights}
+          <div>
+            <h2 className={baslik}>{f.addressHeading}</h2>
+            <address className="text-[15px] not-italic leading-relaxed text-on-ink/85">
+              {address.street}
+              <br />
+              {address.postalCode} {address.district} / {address.city}
+            </address>
+            <a
+              href={address.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 border-b border-on-ink/25 pb-1 text-sm transition-colors hover:border-accent hover:text-accent"
+            >
+              <MapPin size={14} strokeWidth={1.75} />
+              {f.directions}
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
+
+          <nav aria-label={f.pagesHeading}>
+            <h2 className={baslik}>{f.pagesHeading}</h2>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] lg:grid-cols-1">
+              {pages.map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} className={baglanti}>
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* Alt satır */}
+        <div className="flex flex-col-reverse items-start justify-between gap-4 border-t border-on-ink/15 pt-8 text-xs text-on-ink/65 sm:flex-row sm:items-center">
+          <p>
+            © {new Date().getFullYear()} Seçkin Mimarlık Mobilya İnşaat. {f.rights}
           </p>
-          <a
-            href={address.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-on-ink/65 hover:text-on-ink transition-colors"
-          >
-            {address.district}/{address.city}
-          </a>
+          <span className="inline-flex items-center gap-3 uppercase tracking-[0.25em]">
+            <Monogram className="h-6 text-accent" />
+            {f.since}
+          </span>
         </div>
       </div>
     </footer>

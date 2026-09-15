@@ -68,9 +68,13 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), Georgia, serif;
-  text-wrap: balance;
+/* Katman içinde: böylece `font-sans` gibi yardımcı sınıflar bir başlıkta
+   gerektiğinde bu varsayılanı ezebilir (katmansız kural hepsini eziyordu). */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), Georgia, serif;
+    text-wrap: balance;
+  }
 }
 
 html {
@@ -162,23 +166,32 @@ html.lenis body {
    Yalnızca oturumun ilk açılışında gösterilir. Animasyonlar CSS ile;
    perdenin kalkması ise JS zamanlayıcısına bağlı, yani animasyon çalışmasa
    bile perde kesinlikle kalkar ve site erişilebilir kalır. */
-@keyframes introCizgi {
+@keyframes introKapsul {
   from {
-    transform: scaleX(0);
+    stroke-dashoffset: 1;
   }
   to {
-    transform: scaleX(1);
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes introHarf {
+@keyframes introS {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes introYazi {
   from {
     opacity: 0;
-    transform: translateY(0.5em);
+    letter-spacing: 0.42em;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    letter-spacing: 0.24em;
   }
 }
 
@@ -192,52 +205,63 @@ html.lenis body {
 }
 
 /* Perde, arkasındaki sayfadan yalıtılır: intro oynarken arka planda ana
-   sayfanın tamamı (461 öğe, 27 giriş animasyonu, görsel çözümlemesi) render
-   ediliyor. `contain` olmadan bu yük harf animasyonlarını tutuklaştırıyor. */
+   sayfanın tamamı render ediliyor. `contain` olmadan bu yük çizim
+   animasyonunu tutuklaştırıyor. */
 .intro-katman {
   contain: layout style paint;
 }
 
-.intro-cizgi {
-  transform-origin: center;
-  will-change: transform;
-  animation: introCizgi 0.95s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+/* Kapsül bir kalemle çiziliyormuş gibi: pathLength=1 sayesinde çizgi
+   uzunluğu 1 kabul edilir, kesik ofseti 1 → 0 akar. */
+.intro-kapsul {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: introKapsul 1.15s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards;
 }
 
-.intro-harf {
-  display: inline-block;
+/* "S" yukarıdan aşağı açılır — mürekkebin kâğıda inmesi */
+.intro-s {
+  clip-path: inset(0 0 100% 0);
+  will-change: clip-path;
+  animation: introS 0.95s cubic-bezier(0.33, 1, 0.68, 1) 0.95s forwards;
+}
+
+.intro-yazi {
   opacity: 0;
-  /* Katmanı animasyon başlamadan hazırlar; ilk karedeki takılmayı önler. */
-  will-change: opacity, transform;
-  animation: introHarf 0.7s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  letter-spacing: 0.42em;
+  will-change: opacity;
+  animation: introYazi 1s cubic-bezier(0.33, 1, 0.68, 1) 1.45s forwards;
 }
 
 .intro-alt {
   opacity: 0;
   will-change: opacity;
-  animation: introBelir 0.8s ease-out 1.15s forwards;
+  animation: introBelir 0.8s ease-out 1.85s forwards;
 }
 
 .intro-yil {
   opacity: 0;
   will-change: opacity;
-  animation: introBelir 0.8s ease-out 1.45s forwards;
+  animation: introBelir 0.8s ease-out 2s forwards;
 }
 
 /* Güvenlik ağı: animasyonlar herhangi bir sebeple ilerlemezse (arka planda
-   açılan sekme, sınırlı tarayıcı) yazılar opacity:0'da donup perde bomboş
-   siyah görünürdü. Perde kapanmadan önce metinler koşulsuz görünür yapılır.
+   açılan sekme, sınırlı tarayıcı) logo ve yazılar görünmez kalıp perde bomboş
+   görünürdü. Perde kapanmadan önce hepsi koşulsuz görünür yapılır.
    !important şart: çalışan bir CSS animasyonunun uyguladığı değer normal
    kuralları ezer, yalnızca !important onun önüne geçebilir. */
-.intro-katman[data-zorla="true"] .intro-harf,
+.intro-katman[data-zorla="true"] .intro-yazi,
 .intro-katman[data-zorla="true"] .intro-alt,
 .intro-katman[data-zorla="true"] .intro-yil {
   opacity: 1 !important;
-  transform: none !important;
 }
 
-.intro-katman[data-zorla="true"] .intro-cizgi {
-  transform: scaleX(1) !important;
+.intro-katman[data-zorla="true"] .intro-kapsul {
+  stroke-dashoffset: 0 !important;
+}
+
+.intro-katman[data-zorla="true"] .intro-s {
+  clip-path: none !important;
 }
 
 /* Perde yukarı kayarak siteyi açar */
@@ -263,14 +287,6 @@ html.lenis body {
   opacity: 1 !important;
   transform: none !important;
   clip-path: none !important;
-}
-
-/* ── Custom cursor ─────────────────────────────── */
-/* Dokunmatik cihazlarda özel imleci tamamen gizle */
-@media (hover: none), (pointer: coarse) {
-  .custom-cursor {
-    display: none;
-  }
 }
 
 /* ── Smooth reveal utility ─────────────────────── */

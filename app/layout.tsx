@@ -3,10 +3,10 @@ import { Cormorant_Garamond, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import CustomCursor from "@/components/ui/CustomCursor";
 import Intro from "@/components/ui/Intro";
 import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { siteUrl, siteName, contact, address } from "@/lib/site";
 
@@ -150,11 +150,11 @@ export default function RootLayout({
         <LanguageProvider>
         <SmoothScrollProvider>
           <Intro />
-          <CustomCursor />
           <ScrollProgressBar />
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <WhatsAppButton />
         </SmoothScrollProvider>
         </LanguageProvider>
       </body>

@@ -30,6 +30,10 @@ export const contact = {
   instagramHandle: "@seckinmobilyainsaat",
 } as const;
 
+/** WhatsApp sohbet bağlantısı; mesaj verilirse sohbet kutusuna hazır yazılır. */
+export const whatsappLink = (mesaj?: string) =>
+  `https://wa.me/${contact.whatsapp}${mesaj ? `?text=${encodeURIComponent(mesaj)}` : ""}`;
+
 /** İşletmenin fiziki adresi ve harita konumu. */
 export const address = {
   street: "100. Yıl, Kışla Cd. No:86",

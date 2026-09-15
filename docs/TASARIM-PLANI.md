@@ -6,9 +6,10 @@
 > | Faz | Durum |
 > |---|---|
 > | 0 Hazırlık | ✅ Tamamlandı |
-> | 1 Tasarım sistemi | ✅ Tamamlandı, onay bekliyor |
-> | 2 Kabuk | ⏳ Sırada |
-> | 3–8 | Bekliyor |
+> | 1 Tasarım sistemi | ✅ Tamamlandı |
+> | 2 Kabuk | ✅ Tamamlandı, onay bekliyor |
+> | 3 Ana sayfa | ⏳ Sırada |
+> | 4–8 | Bekliyor |
 
 ## 1. Bağlam
 
@@ -193,6 +194,12 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 
 ### Faz 2: Kabuk
 `Navbar.tsx` · yan panel (`InfoModal.tsx` yerine) · `Footer.tsx` · `WhatsAppButton.tsx` (yeni) · `Intro.tsx` (logo çizim animasyonu) · `app/not-found.tsx` (yeni) · `CustomCursor` kaldırılır.
+
+**Faz 2 notları:**
+- Menüdeki telefon numarası kaldırıldı. 1440 px'te üç satıra bölünüyordu, referans sitede de yok. Telefona WhatsApp butonu, yan panel ve footer'dan ulaşılıyor.
+- `h1–h6` yazı tipi kuralı `@layer base` içine alındı. Katmansız kural `font-sans` gibi yardımcı sınıfları eziyordu.
+- Kaydırma kilidi: `kaydirmayiKilitle()` (`SmoothScrollProvider.tsx`) hem `body` taşmasını hem Lenis'i durdurur.
+- Mobilde sabit WhatsApp butonu, hero'daki "sonraki slayt" okuyla çakışıyor. Faz 3'te yeni hero'da slayt kontrolleri kalkacak, çakışma kontrol edilmeli.
 
 ### Faz 3: Ana sayfa (videosuz / 3D'siz bölümler)
 - Hero (kapsül → tam ekran), slogan, oda kategorileri (3D eğim), öne çıkan projeler, rakamlar, Instagram + CTA.
