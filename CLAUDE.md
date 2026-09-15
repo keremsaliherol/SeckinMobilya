@@ -76,10 +76,33 @@ Kategoriler: `mobilya`, `insaat`, `ic-mimari`.
 
 ## Görsel Kimlik (`app/globals.css`)
 
-- Koyu tema. Arka plan `#0B0B0B`, yüzey `#151515`, kenarlık `#2C2C2C`
-- Marka rengi **bronz** `#C6A15B` (açık `#D9B978`, koyu `#8C6D3F`)
-- İkincil: taş `#A89B87`; metin `#F2F0ED`, soluk metin `#9A9A9A`
-- Fontlar: başlıklar **Playfair Display**, gövde **Inter**
+Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
+Çalışma dalı: `yeniden-tasarim` (eski site `main` dalında).
+
+**Palet: "Sıcak Bej & Kahve" (açık tema).** Tailwind sınıf adları parantezde.
+
+| Görev | HEX | Sınıf | Not |
+|---|---|---|---|
+| Ana zemin | `#F6F1EA` | `background` | |
+| İkincil zemin | `#E7DED2` | `surface` | `surface-dark` `#DCD0C0` |
+| Çizgi / kenarlık | `#D6C8B5` | `border` | |
+| Sıcak taş | `#C6B29A` | `accent` | Açık zeminde **yazı için kullanılmaz** (1.8:1). Koyu zemin/fotoğraf üstünde vurgu yazısı olarak kullanılır. |
+| Koyu kahve | `#4A372A` | `primary`, `ink` | Butonlar, footer, CTA bandı |
+| Logo kahvesi | `#734925` | `brand` | Monogram, aktif menü |
+| Metin | `#1A1A1A` | `foreground` | |
+| Soluk metin | `#6B5B4E` | `muted` | |
+| Koyu zemin üstü metin | `#F6F1EA` | `on-ink` | |
+| Fotoğraf karartması | `#1F1711` | `shade` | Siyah (`black`) yerine bunu kullan |
+
+- **Fontlar:** başlık **Cormorant Garamond** (`font-heading`), gövde **Outfit** (`font-sans`).
+  İkisi de `latin-ext` ile yüklenir (ş, ğ, İ için şart).
+- **Logo:** `components/ui/Logo.tsx` (monogram + yazı, `currentColor`).
+  Vektör verisi `components/ui/monogram.ts`, dosya `public/brand/seckin-monogram.svg`.
+  Kaynak dosyalar `assets-kaynak/` klasöründe (videolar git'e girmez).
+- **Marka cümleleri:** "Önce çiziyoruz. Sonra birebir uyguluyoruz." ·
+  "Tasarım · Üretim · Montaj" · "1975'ten bugüne"
+- **Süreç videosu kareleri:** `public/surec/kareler/001–096.webp` (kaydırma bölümü),
+  `public/surec/cizim.webp` ve `uygulama.webp`, reels videosu `public/video/seckin-reels.mp4`
 
 ## Teknik Yapı
 
@@ -112,8 +135,6 @@ Kategoriler: `mobilya`, `insaat`, `ic-mimari`.
 ### Dikkat edilecekler
 
 - İletişim bilgisini koda elle yazma, `lib/site.ts`'den import et.
-  (Not: `components/layout/Footer.tsx` içinde Instagram linki şu an sabit
-  yazılmış, `contact.instagram` kullanmıyor.)
 - Animasyonlarda `whileInView` kullanma; `components/ui/animations.tsx`
   içindeki `useReveal` + `data-reveal` yaklaşımını kullan.
 - Yeni proje fotoğrafları: klasör adında Türkçe karakter/boşluk yok,

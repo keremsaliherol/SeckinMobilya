@@ -31,12 +31,15 @@ export default function ServicesTeaser() {
           </FadeIn>
         </div>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3">
+        {/* Kenar boşluğu ve ayraç çizgisi sütun kapsayıcısından verilir: bağlantı
+            her StaggerItem'ın tek çocuğu olduğu için "first:/last:" hepsine
+            birden uyuyor ve metinler birbirine yapışıyordu. */}
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 md:[&>*+*]:border-l md:[&>*+*]:border-border md:[&>*:first-child>a]:pl-0 md:[&>*:last-child>a]:pr-0">
           {services.map((service, i) => (
             <StaggerItem key={i}>
               <Link
                 href="/hizmetlerimiz"
-                className="group flex flex-col h-full border-t border-border pt-8 pb-2 md:px-8 md:first:pl-0 md:last:pr-0 md:border-l md:first:border-l-0 md:border-t-0 md:pt-0 hover:border-primary/50 transition-colors duration-500"
+                className="group flex flex-col h-full border-t border-border pt-8 pb-2 md:px-8 md:border-t-0 md:pt-0 transition-colors duration-500"
               >
                 <span className="font-heading text-sm text-primary tracking-widest mb-6 md:mt-0">
                   {String(i + 1).padStart(2, "0")}

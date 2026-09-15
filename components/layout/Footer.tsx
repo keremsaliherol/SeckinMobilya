@@ -19,14 +19,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-surface text-white border-t border-border">
+    <footer className="bg-ink text-on-ink">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <StaggerItem>
-            <div className="mb-6 text-white">
+            <div className="mb-6 text-on-ink">
               <Logo size="sm" />
             </div>
-            <p className="text-white/70 text-sm leading-relaxed mb-6">
+            <p className="text-on-ink/75 text-sm leading-relaxed mb-6">
               {t.footer.desc}
             </p>
             <div className="flex gap-3">
@@ -35,7 +35,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-11 h-11 border border-border flex items-center justify-center text-white/70 hover:border-primary hover:text-primary transition-colors"
+                className="w-11 h-11 border border-on-ink/25 flex items-center justify-center text-on-ink/75 hover:border-accent hover:text-accent transition-colors"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </a>
@@ -43,7 +43,7 @@ export default function Footer() {
           </StaggerItem>
 
           <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-white">
+            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
               {t.footer.siteMap}
             </h4>
             <ul className="flex flex-col gap-3">
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
+                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
                   >
                     {item.label}
                   </Link>
@@ -61,7 +61,7 @@ export default function Footer() {
           </StaggerItem>
 
           <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-white">
+            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
               {t.footer.ourServices}
             </h4>
             <ul className="flex flex-col gap-3">
@@ -69,7 +69,7 @@ export default function Footer() {
                 <li key={h}>
                   <Link
                     href="/hizmetlerimiz"
-                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
+                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
                   >
                     {h}
                   </Link>
@@ -79,45 +79,45 @@ export default function Footer() {
           </StaggerItem>
 
           <StaggerItem>
-            <h4 className="font-heading font-semibold text-base mb-6 text-white">
+            <h4 className="font-heading font-semibold text-base mb-6 text-on-ink">
               {t.footer.contactHeading}
             </h4>
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
-                <Phone size={16} className="text-white/60 mt-0.5 shrink-0" />
+                <Phone size={16} className="text-on-ink/65 mt-0.5 shrink-0" />
                 <div className="flex flex-col gap-0.5">
                   <a
                     href={`tel:${contact.phone}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
+                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
                   >
                     {contact.phoneDisplay}
                   </a>
                   <a
                     href={`tel:${contact.phoneAlt}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
+                    className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
                   >
                     {contact.phoneAltDisplay}
                   </a>
                 </div>
               </li>
               <li className="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/60 shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-on-ink/65 shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                 <a
-                  href="https://instagram.com/seckinmobilyainsaat"
+                  href={contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-white/70 hover:text-white transition-colors inline-block py-1"
+                  className="text-sm text-on-ink/75 hover:text-on-ink transition-colors inline-block py-1"
                 >
-                  @seckinmobilyainsaat
+                  {contact.instagramHandle}
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-white/60 mt-0.5 shrink-0" />
+                <MapPin size={16} className="text-on-ink/65 mt-0.5 shrink-0" />
                 <a
                   href={address.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-white/70 hover:text-white transition-colors leading-relaxed not-italic"
+                  className="text-sm text-on-ink/75 hover:text-on-ink transition-colors leading-relaxed not-italic"
                 >
                   <address className="not-italic">
                     {address.street}
@@ -131,20 +131,20 @@ export default function Footer() {
         </StaggerContainer>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-on-ink/15">
         {/* Gizlilik / Kullanım Koşulları bağlantıları kaldırıldı: hedef sayfalar
             yok, "#" adresine giden bağlantı ziyaretçiyi yanıltıyor ve arama
             motorlarınca ölü bağlantı sayılıyor. Metinler hazırlandığında
             sayfalarıyla birlikte geri eklenmeli. */}
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-on-ink/65">
             © {new Date().getFullYear()} Seçkin Mimarlık Mobilya İnşaat. {t.footer.rights}
           </p>
           <a
             href={address.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-white/40 hover:text-white/70 transition-colors"
+            className="text-xs text-on-ink/65 hover:text-on-ink transition-colors"
           >
             {address.district}/{address.city}
           </a>

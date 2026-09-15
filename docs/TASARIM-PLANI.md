@@ -1,7 +1,14 @@
 # Seçkin Mimarlık — Yeniden Tasarım Planı
 
-> Durum: **Taslak, onay bekliyor** · Tarih: 15.09.2026
+> Durum: **Onaylandı (15.09.2026)** · Çalışma dalı: `yeniden-tasarim`
 > Her faz ayrı ayrı yapılır, gösterilir, onaylanınca bir sonrakine geçilir.
+>
+> | Faz | Durum |
+> |---|---|
+> | 0 Hazırlık | ✅ Tamamlandı |
+> | 1 Tasarım sistemi | ✅ Tamamlandı, onay bekliyor |
+> | 2 Kabuk | ⏳ Sırada |
+> | 3–8 | Bekliyor |
 
 ## 1. Bağlam
 
@@ -177,6 +184,12 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 - Koyu temaya bağlı sınıfların taranıp açık temaya çevrilmesi (**104 kullanım**, ~9 dosya: `text-white`, `bg-black/…`, `from-black…`).
 - `components/ui/Logo.tsx`: SVG monogram. Favicon ve OG görseli yenilenir.
 - Buton, link ve etiket stilleri tek yerde.
+
+**Faz 0–1 notları (uygulama sırasında öğrenilenler):**
+- Videoda kamera yavaşça yaklaşıyor. Bu yüzden `cizim.webp` ile `uygulama.webp` birebir hizalı **değil**. Faz 3'teki karşılaştırma kaydırıcısından önce çizim karesi ölçeklenip hizalanmalı.
+- OG paylaşım görseli (`public/og.jpg`) Faz 8'e bırakıldı. Logolu yeni görsel orada üretilecek.
+- Edge headless ekran görüntüsünde minimum pencere genişliği ~500 px. Mobil kontrol için tarayıcı panelinin mobil görünümü kullanılmalı.
+- Eski koddan kalan bir hata düzeltildi: Ana sayfadaki hizmet sütunlarının iç boşluğu sıfırlanıyor, metinler birbirine yapışıyordu.
 
 ### Faz 2: Kabuk
 `Navbar.tsx` · yan panel (`InfoModal.tsx` yerine) · `Footer.tsx` · `WhatsAppButton.tsx` (yeni) · `Intro.tsx` (logo çizim animasyonu) · `app/not-found.tsx` (yeni) · `CustomCursor` kaldırılır.

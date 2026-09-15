@@ -63,7 +63,7 @@ export default function InfoModal({ onClose }: InfoModalProps) {
         <>
           {/* Backdrop */}
           <div
-            className={`fixed inset-0 z-[8999] bg-black/70 backdrop-blur-sm transition-opacity duration-300 ${
+            className={`fixed inset-0 z-[8999] bg-shade/70 backdrop-blur-sm transition-opacity duration-300 ${
               icerde ? "opacity-100" : "opacity-0"
             }`}
             onClick={onClose}
@@ -75,17 +75,17 @@ export default function InfoModal({ onClose }: InfoModalProps) {
             role="dialog"
             aria-modal="true"
             aria-label="İletişim bilgileri"
-            className={`fixed top-0 right-0 bottom-0 z-[9000] w-full max-w-sm flex flex-col overflow-y-auto border-l border-border transition-transform duration-300 ease-out ${
+            className={`fixed top-0 right-0 bottom-0 z-[9000] w-full max-w-sm flex flex-col overflow-y-auto border-l border-white/10 transition-transform duration-300 ease-out ${
               icerde ? "translate-x-0" : "translate-x-full"
             }`}
-            style={{ background: "var(--color-surface)" }}
+            style={{ background: "var(--color-ink)" }}
           >
             {/* Pattern overlay */}
             <div
               className="absolute inset-0 opacity-[0.06] pointer-events-none"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(45deg,#C6A15B 0,#C6A15B 1px,transparent 0,transparent 50%)",
+                  "repeating-linear-gradient(45deg,#C6B29A 0,#C6B29A 1px,transparent 0,transparent 50%)",
                 backgroundSize: "20px 20px",
               }}
             />
@@ -128,7 +128,7 @@ export default function InfoModal({ onClose }: InfoModalProps) {
                 {im.slogan}
               </p>
 
-              <div className="w-8 h-px bg-primary/60 mb-7" />
+              <div className="w-8 h-px bg-accent/60 mb-7" />
 
               {/* CTA heading */}
               <h2 className="font-heading font-bold text-white text-xl mb-7 leading-snug">
@@ -139,13 +139,13 @@ export default function InfoModal({ onClose }: InfoModalProps) {
               <div className="flex flex-col gap-3 text-sm mb-8">
                 <a href={`tel:${contact.phone}`}
                   className="flex items-center gap-2.5 group">
-                  <Phone size={12} className="text-primary shrink-0" />
+                  <Phone size={12} className="text-accent shrink-0" />
                   <span className="text-white/40 text-xs">{im.phone1Label}:</span>
                   <span className="text-white/80 font-medium group-hover:text-white transition-colors">{contact.phoneDisplay}</span>
                 </a>
                 <a href={`tel:${contact.phoneAlt}`}
                   className="flex items-center gap-2.5 group">
-                  <Phone size={12} className="text-primary shrink-0" />
+                  <Phone size={12} className="text-accent shrink-0" />
                   <span className="text-white/40 text-xs">{im.phone2Label}:</span>
                   <span className="text-white/80 font-medium group-hover:text-white transition-colors">{contact.phoneAltDisplay}</span>
                 </a>
@@ -153,7 +153,7 @@ export default function InfoModal({ onClose }: InfoModalProps) {
                   className="flex items-center gap-2.5 group">
                   <IconInstagram />
                   <span className="text-white/40 text-xs">{im.emailLabel}:</span>
-                  <span className="text-primary font-medium group-hover:text-primary/80 transition-colors">{contact.instagramHandle}</span>
+                  <span className="text-accent font-medium group-hover:text-accent/80 transition-colors">{contact.instagramHandle}</span>
                 </a>
                 <a
                   href={businessAddress.mapsUrl}
@@ -161,7 +161,7 @@ export default function InfoModal({ onClose }: InfoModalProps) {
                   rel="noopener noreferrer"
                   className="flex items-start gap-2.5 mt-1 group"
                 >
-                  <MapPin size={12} className="text-primary shrink-0 mt-0.5" />
+                  <MapPin size={12} className="text-accent shrink-0 mt-0.5" />
                   <span className="text-white/45 text-xs leading-relaxed group-hover:text-white/70 transition-colors">
                     {businessAddress.full}
                     <span className="block text-white/30 mt-0.5">{addressText}</span>

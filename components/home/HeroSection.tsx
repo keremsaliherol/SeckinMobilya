@@ -72,16 +72,16 @@ export default function HeroSection() {
             decoding="async"
             className={`w-full h-full object-cover ${i === current ? "ken-burns" : ""}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-shade/85 via-shade/55 to-shade/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-shade/55 via-transparent to-transparent" />
         </div>
       ))}
 
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.25em] uppercase text-primary mb-8">
-              <span className="w-10 h-px bg-primary" />
+            <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.25em] uppercase text-accent mb-8">
+              <span className="w-10 h-px bg-accent" />
               {slide.tag}
             </span>
 
@@ -106,7 +106,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/iletisim"
-                className="border border-white/40 text-white font-medium px-8 py-3.5 hover:border-primary hover:text-primary transition-colors"
+                className="border border-white/40 text-white font-medium px-8 py-3.5 hover:bg-white hover:text-foreground hover:border-white transition-colors"
               >
                 {t.hero.cta2}
               </Link>
@@ -119,7 +119,7 @@ export default function HeroSection() {
         <button
           onClick={goPrev}
           aria-label="Önceki görsel"
-          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
+          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-white hover:text-white transition-colors"
         >
           <ChevronLeft size={20} />
         </button>
@@ -136,7 +136,7 @@ export default function HeroSection() {
             >
               <span
                 className={`block h-0.5 transition-all duration-300 ${
-                  i === current ? "w-8 bg-primary" : "w-4 bg-white/30"
+                  i === current ? "w-8 bg-white" : "w-4 bg-white/35"
                 }`}
               />
             </button>
@@ -145,7 +145,7 @@ export default function HeroSection() {
         <button
           onClick={goNext}
           aria-label="Sonraki görsel"
-          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-primary hover:text-primary transition-colors"
+          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-white hover:text-white transition-colors"
         >
           <ChevronRight size={20} />
         </button>

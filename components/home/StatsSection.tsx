@@ -45,7 +45,7 @@ export default function StatsSection() {
           className="w-full h-full"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(198,161,91,0.25) 40px, rgba(198,161,91,0.25) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(198,161,91,0.25) 40px, rgba(198,161,91,0.25) 41px)",
+              "repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(198,178,154,0.45) 40px, rgba(198,178,154,0.45) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(198,178,154,0.45) 40px, rgba(198,178,154,0.45) 41px)",
           }}
         />
       </div>

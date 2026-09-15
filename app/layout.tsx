@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Cormorant_Garamond, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -10,16 +10,23 @@ import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { siteUrl, siteName, contact, address } from "@/lib/site";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+/**
+ * Fontlar değişken (variable) olarak yüklenir: tek dosya tüm kalınlıkları
+ * taşır. "latin-ext" şart — ş, ğ, ı, İ harfleri bu alt kümede; olmazsa bu
+ * harfler yedek fonttan gelip başlıklarda göze batıyor.
+ *
+ * Başlık: Cormorant Garamond — logodaki ince-kalın kontrastlı "S" ile uyumlu.
+ * Gövde:  Outfit — geometrik, sade, küçük boyutlarda okunaklı.
+ */
+const display = Cormorant_Garamond({
+  variable: "--font-display",
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+const body = Outfit({
+  variable: "--font-body",
+  subsets: ["latin", "latin-ext"],
 });
 
 const title = `${siteName} | 1975'ten Bugüne Güven, Kalite ve Tecrübe`;
@@ -80,7 +87,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0B",
+  themeColor: "#F6F1EA",
 };
 
 const jsonLd = {
@@ -134,7 +141,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="tr" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen flex flex-col antialiased bg-background text-foreground">
         <script
           type="application/ld+json"

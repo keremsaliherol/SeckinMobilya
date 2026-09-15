@@ -46,17 +46,17 @@ export default function FeaturedProjects() {
                 />
 
                 {/* Persistent dark gradient bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-shade/70 via-shade/10 to-transparent" />
 
                 {/* Overlay panel — slides up from bottom */}
                 <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] bg-background/95 backdrop-blur-sm p-6 border-t border-primary/30">
                   <span className="text-xs font-medium tracking-[0.2em] uppercase text-primary mb-3 block">
                     {project.categoryLabel}
                   </span>
-                  <h3 className="font-heading font-semibold text-xl text-white leading-snug mb-4">
+                  <h3 className="font-heading font-semibold text-xl text-foreground leading-snug mb-4">
                     {project.title}
                   </h3>
-                  <span className="inline-flex items-center gap-2 text-xs font-medium text-white/70 border-b border-white/20 pb-0.5 group-hover:text-white group-hover:border-white transition-colors duration-300">
+                  <span className="inline-flex items-center gap-2 text-xs font-medium text-foreground/70 border-b border-foreground/20 pb-0.5 group-hover:text-foreground group-hover:border-foreground transition-colors duration-300">
                     {t.projects.inspect} <ArrowRight size={12} />
                   </span>
                 </div>

@@ -1,28 +1,43 @@
 @import "tailwindcss";
 
+/* ── Renk paleti: "Sıcak Bej & Kahve" ─────────────────
+   Kontrast oranları #F6F1EA zemin üzerinde ölçüldü (WCAG AA: 4.5).
+   --accent yazı için KULLANILMAZ (1.8:1); yalnızca çizgi, ayraç ve
+   büyük dekoratif öğelerde. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Marka vurgusu — bronz */
-  --primary: #C6A15B;
-  --primary-light: #D9B978;
-  --primary-dark: #8C6D3F;
+  /* Ana koyu: butonlar, vurgu metinleri (10:1) */
+  --primary: #4A372A;
+  /* Buton üzerine gelme */
+  --primary-light: #5E4636;
+  /* Basılı durum, en koyu kahve */
+  --primary-dark: #33261C;
 
-  /* İkincil vurgu — nötr taş */
-  --accent: #A89B87;
-  --accent-light: #C4BAA9;
+  /* Logodan ölçülen monogram kahvesi (6.9:1) */
+  --brand: #734925;
 
-  /* Yüzeyler (koyudan açığa) */
-  --background: #0B0B0B;
-  --surface: #151515;
-  --surface-dark: #1E1E1E;
-  --border: #2C2C2C;
+  /* Sıcak taş: çizgi ve dekor */
+  --accent: #C6B29A;
+  --accent-light: #E7DED2;
+
+  /* Yüzeyler (açıktan koyuya) */
+  --background: #F6F1EA;
+  --surface: #E7DED2;
+  --surface-dark: #DCD0C0;
+  --border: #D6C8B5;
 
   /* Metin */
-  --foreground: #F2F0ED;
-  --muted: #9A9A9A;
+  --foreground: #1A1A1A;
+  --muted: #6B5B4E;
 
-  /* Koyu zemin üzerindeki saf beyaz metin */
+  /* Koyu kahve bölümler (footer, CTA bandı) ve üzerindeki metin */
+  --ink: #4A372A;
+  --on-ink: #F6F1EA;
+
+  /* Fotoğraf üstü karartma: siyah yerine sıcak, çok koyu kahve */
+  --shade: #1F1711;
+
   --white: #FFFFFF;
 }
 
@@ -30,6 +45,7 @@
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
+  --color-brand: var(--brand);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-background: var(--background);
@@ -38,19 +54,23 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-shade: var(--shade);
   --color-white: var(--white);
-  --font-heading: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-heading: var(--font-display);
+  --font-sans: var(--font-body);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair), serif;
+  font-family: var(--font-display), Georgia, serif;
+  text-wrap: balance;
 }
 
 html {
@@ -91,17 +111,17 @@ html.lenis body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-dark);
+  background: var(--accent);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
+  background: var(--primary);
 }
 
 /* Metin seçimi */
 ::selection {
   background: var(--primary);
-  color: #0B0B0B;
+  color: var(--on-ink);
 }
 
 /* Klavye kullanıcıları için görünür odak halkası */

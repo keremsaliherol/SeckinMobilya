@@ -64,7 +64,7 @@ export default function CustomCursor() {
       style={{
         width: isHovering ? "52px" : "36px",
         height: isHovering ? "52px" : "36px",
-        border: `1.5px solid ${isHovering ? "rgba(198,161,91,0.8)" : "rgba(198,161,91,0.4)"}`,
+        border: `1.5px solid ${isHovering ? "rgba(74,55,42,0.8)" : "rgba(74,55,42,0.35)"}`,
         opacity: isVisible ? 1 : 0,
         transition: "width 0.4s ease, height 0.4s ease, border-color 0.3s, opacity 0.3s",
       }}

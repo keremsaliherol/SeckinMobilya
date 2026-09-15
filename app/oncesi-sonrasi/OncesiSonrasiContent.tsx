@@ -85,7 +85,7 @@ function BeforeAfterSlider({
       </div>
 
       <div className="absolute top-4 left-4">
-        <span className="bg-background/80 backdrop-blur-sm text-white/80 text-[10px] font-medium tracking-[0.15em] uppercase px-3 py-1.5">
+        <span className="bg-background/80 backdrop-blur-sm text-foreground/80 text-[10px] font-medium tracking-[0.15em] uppercase px-3 py-1.5">
           {beforeLabel}
         </span>
       </div>

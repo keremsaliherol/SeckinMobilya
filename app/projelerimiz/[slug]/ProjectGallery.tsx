@@ -49,7 +49,7 @@ export default function ProjectGallery({
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-shade/0 group-hover:bg-shade/35 transition-colors duration-300" />
               <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="w-11 h-11 border border-primary/70 bg-background/60 backdrop-blur-sm flex items-center justify-center text-primary">
                   <Expand size={18} />
