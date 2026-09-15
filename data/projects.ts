@@ -13,8 +13,6 @@ export interface Project {
   description: string;
   coverImage: string;
   images: string[];
-  beforeImage?: string;
-  afterImage?: string;
   featured: boolean;
 }
 
@@ -165,10 +163,6 @@ export const getFeaturedProjects = () => projects.filter((p) => p.featured);
 
 export const getProjectBySlug = (slug: string) =>
   projects.find((p) => p.slug === slug);
-
-/** Öncesi/sonrası karşılaştırması olan projeler. */
-export const getBeforeAfterProjects = () =>
-  projects.filter((p) => p.beforeImage && p.afterImage);
 
 /** Projelerde fiilen kullanılan kategoriler (boş filtre göstermemek için). */
 export const getUsedCategories = () =>

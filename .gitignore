@@ -41,3 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ham kaynak videolar (büyük dosyalar). Siteye giren sıkıştırılmış çıktılar
+# public/ altında; orijinaller yalnızca yerelde tutulur.
+/assets-kaynak/*.mp4

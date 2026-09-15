@@ -2,21 +2,49 @@
 
 import { motion } from "framer-motion";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import { introSonrasi } from "@/components/ui/Intro";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-/** Görünürlük gözlemcisi haber vermezse devreye girecek yedek süre (ms). */
+/** Sayfa çizilmeye başladıktan sonra gözlemci bu sürede ilk haberini vermezse bozuk sayılır (ms). */
 const FALLBACK_MS = 700;
-/** Animasyonun bitmiş olması gereken an; sonrasında içerik koşulsuz görünür. */
+/** Sayfa hiç çizilmese bile en geç bu süre sonunda içerik gösterilir (ms). */
+const AZAMI_BEKLEME_MS = 4000;
+/** Belirme başladıktan sonra animasyonun bitmiş olması gereken süre; sonra içerik koşulsuz görünür. */
 const ZORLA_MS = 2000;
+
+/** Sayfanın ilk karesinin çizildiği an (tüm öğeler için tek ölçüm). */
+let ilkKareZamani: number | undefined;
+let ilkKareIstendi = false;
+function ilkKareyiOlc() {
+  if (ilkKareIstendi) return;
+  ilkKareIstendi = true;
+  requestAnimationFrame(() => {
+    ilkKareZamani = performance.now();
+  });
+}
 
 /**
  * Öğe ekrana girdiğinde `gorunur` değerini true yapar.
  *
  * Neden hazır `whileInView` yerine bu var: `whileInView`, IntersectionObserver
  * hiç tetiklenmezse öğeyi başlangıç durumunda (opacity: 0) sonsuza kadar bırakır
- * ve içerik görünmez olur. Burada kısa bir güvenlik zamanlayıcısı var — gözlemci
- * beklenen sürede haber vermezse içerik yine de gösterilir.
+ * ve içerik görünmez olur. Buradaki güvenlik ağları yalnızca gerçekten bir şey
+ * bozulduğunda devreye girer:
+ *
+ * - Gözlemci gözlemeye başlayınca ilk çizimde bir ilk haber verir (öğe ekranda
+ *   olmasa da). Sayfa çizilmeye başladığı hâlde bu haber gelmezse gözlemci
+ *   bozuktur, içerik gösterilir. Eskiden zamanlayıcı koşulsuz çalışıyordu:
+ *   ekranın altındaki öğeler de 700 ms sonra belirip bitiyor, aşağı
+ *   inildiğinde animasyon görünmüyordu.
+ * - Sayfa henüz çizilmediyse (stil dosyası geç geliyor, dev sunucusu derliyor)
+ *   haber gelmemesi normaldir; en fazla AZAMI_BEKLEME_MS beklenir.
+ * - Arka plandaki sekmede gözlemci haber vermez; bu da normaldir. Süre sekme
+ *   görünür olunca yeniden başlar.
+ * - Açılış perdesi açıksa belirme perde kalkarken başlar; yoksa animasyon
+ *   perdenin arkasında oynayıp biterdi.
+ * - Belirme başladıktan sonra animasyon motoru ilerlemezse `zorla` içeriği
+ *   görünür kılar (globals.css, data-zorla).
  *
  * İlke: animasyon bir süstür, içeriğin görünürlüğü ona bağlı olamaz.
  */
@@ -27,10 +55,18 @@ export function useReveal<T extends HTMLElement>() {
 
   useEffect(() => {
     let tamam = false;
+    let haberGeldi = false;
+    let yedek: ReturnType<typeof setTimeout> | undefined;
+    let zorlaZamanlayici: ReturnType<typeof setTimeout> | undefined;
+    let introIptal = () => {};
+
     const goster = () => {
       if (tamam) return;
       tamam = true;
-      setGorunur(true);
+      introIptal = introSonrasi(() => {
+        setGorunur(true);
+        zorlaZamanlayici = setTimeout(() => setZorla(true), ZORLA_MS);
+      });
     };
 
     const el = ref.current;
@@ -39,6 +75,7 @@ export function useReveal<T extends HTMLElement>() {
     if (el && typeof IntersectionObserver !== "undefined") {
       io = new IntersectionObserver(
         (girisler) => {
+          haberGeldi = true;
           if (girisler.some((g) => g.isIntersecting)) {
             goster();
             io?.disconnect();
@@ -49,19 +86,30 @@ export function useReveal<T extends HTMLElement>() {
       io.observe(el);
     }
 
-    // Gözlemci kurulamadıysa ya da hiç haber vermezse içerik yine de görünür.
-    const zamanlayici = setTimeout(goster, FALLBACK_MS);
-
-    /**
-     * Son güvence. Animasyon motoru ilerlemezse (arka plandaki sekme, kısıtlı
-     * tarayıcı) öğe opacity:0'da donup kalıcı olarak görünmez olurdu. Bu süre
-     * sonunda içerik, animasyonun durumundan bağımsız olarak görünür kılınır.
-     */
-    const zorlaZamanlayici = setTimeout(() => setZorla(true), ZORLA_MS);
+    // Gözlemci kurulamadıysa ya da ilk haberini hiç vermediyse içerik yine de görünür.
+    ilkKareyiOlc();
+    let beklemeBasi = performance.now();
+    const yedekKontrol = () => {
+      if (haberGeldi || document.hidden) return;
+      const simdi = performance.now();
+      const cizimdenBeri = ilkKareZamani === undefined ? 0 : simdi - ilkKareZamani;
+      if (cizimdenBeri >= FALLBACK_MS || simdi - beklemeBasi >= AZAMI_BEKLEME_MS) goster();
+      else yedek = setTimeout(yedekKontrol, 250);
+    };
+    const yedekKur = () => {
+      clearTimeout(yedek);
+      if (document.hidden || haberGeldi) return;
+      beklemeBasi = performance.now();
+      yedek = setTimeout(yedekKontrol, FALLBACK_MS);
+    };
+    yedekKur();
+    document.addEventListener("visibilitychange", yedekKur);
 
     return () => {
-      clearTimeout(zamanlayici);
+      clearTimeout(yedek);
       clearTimeout(zorlaZamanlayici);
+      document.removeEventListener("visibilitychange", yedekKur);
+      introIptal();
       io?.disconnect();
     };
   }, []);

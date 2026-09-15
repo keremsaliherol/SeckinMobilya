@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { kaydirmayiKilitle } from "@/components/ui/SmoothScrollProvider";
 
 interface LightboxProps {
   images: string[];
@@ -44,14 +45,11 @@ export default function Lightbox({
     return () => window.removeEventListener("keydown", onKey);
   }, [acik, git, onClose]);
 
-  /* Arka planın kaymasını engelle */
+  /* Arka planın kaymasını engelle (body taşması + Lenis) */
   useEffect(() => {
     if (!acik) return;
-    const eski = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = eski;
-    };
+    kaydirmayiKilitle(true);
+    return () => kaydirmayiKilitle(false);
   }, [acik]);
 
   /* Açılışta odağı kapat düğmesine taşı (klavye kullanıcıları için) */
@@ -80,7 +78,7 @@ export default function Lightbox({
   return (
     <div
       data-lenis-prevent
-      className="fixed inset-0 z-[9500] bg-black/95 backdrop-blur-sm flex flex-col"
+      className="fixed inset-0 z-[9500] bg-shade/95 backdrop-blur-sm flex flex-col"
       role="dialog"
       aria-modal="true"
       aria-label={title ? `${title} — görsel görüntüleyici` : "Görsel görüntüleyici"}
@@ -88,7 +86,7 @@ export default function Lightbox({
           {/* Üst çubuk */}
           <div className="flex items-center justify-between px-5 sm:px-8 h-16 shrink-0">
             <div className="flex items-baseline gap-3">
-              <span className="font-heading text-primary text-sm tracking-widest tabular-nums">
+              <span className="font-heading text-accent text-sm tracking-widest tabular-nums">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <span className="text-white/30 text-xs tabular-nums">
@@ -105,7 +103,7 @@ export default function Lightbox({
               ref={kapatRef}
               onClick={onClose}
               aria-label="Kapat"
-              className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/70 hover:text-primary hover:border-primary transition-colors"
+              className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/70 hover:text-accent hover:border-accent transition-colors"
             >
               <X size={18} />
             </button>
@@ -143,14 +141,14 @@ export default function Lightbox({
                 <button
                   onClick={() => git(-1)}
                   aria-label="Önceki görsel"
-                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-white/20 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-primary hover:border-primary transition-colors"
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-white/20 bg-shade/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-accent hover:border-accent transition-colors"
                 >
                   <ChevronLeft size={22} />
                 </button>
                 <button
                   onClick={() => git(1)}
                   aria-label="Sonraki görsel"
-                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-white/20 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-primary hover:border-primary transition-colors"
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-white/20 bg-shade/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-accent hover:border-accent transition-colors"
                 >
                   <ChevronRight size={22} />
                 </button>
@@ -173,7 +171,7 @@ export default function Lightbox({
                   aria-current={i === index}
                   className={`relative shrink-0 w-16 h-12 sm:w-20 sm:h-14 overflow-hidden border transition-all ${
                     i === index
-                      ? "border-primary opacity-100"
+                      ? "border-accent opacity-100"
                       : "border-white/15 opacity-45 hover:opacity-80"
                   }`}
                 >

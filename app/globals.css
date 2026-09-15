@@ -1,28 +1,43 @@
 @import "tailwindcss";
 
+/* ── Renk paleti: "Sıcak Bej & Kahve" ─────────────────
+   Kontrast oranları #F6F1EA zemin üzerinde ölçüldü (WCAG AA: 4.5).
+   --accent yazı için KULLANILMAZ (1.8:1); yalnızca çizgi, ayraç ve
+   büyük dekoratif öğelerde. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Marka vurgusu — bronz */
-  --primary: #C6A15B;
-  --primary-light: #D9B978;
-  --primary-dark: #8C6D3F;
+  /* Ana koyu: butonlar, vurgu metinleri (10:1) */
+  --primary: #4A372A;
+  /* Buton üzerine gelme */
+  --primary-light: #5E4636;
+  /* Basılı durum, en koyu kahve */
+  --primary-dark: #33261C;
 
-  /* İkincil vurgu — nötr taş */
-  --accent: #A89B87;
-  --accent-light: #C4BAA9;
+  /* Logodan ölçülen monogram kahvesi (6.9:1) */
+  --brand: #734925;
 
-  /* Yüzeyler (koyudan açığa) */
-  --background: #0B0B0B;
-  --surface: #151515;
-  --surface-dark: #1E1E1E;
-  --border: #2C2C2C;
+  /* Sıcak taş: çizgi ve dekor */
+  --accent: #C6B29A;
+  --accent-light: #E7DED2;
+
+  /* Yüzeyler (açıktan koyuya) */
+  --background: #F6F1EA;
+  --surface: #E7DED2;
+  --surface-dark: #DCD0C0;
+  --border: #D6C8B5;
 
   /* Metin */
-  --foreground: #F2F0ED;
-  --muted: #9A9A9A;
+  --foreground: #1A1A1A;
+  --muted: #6B5B4E;
 
-  /* Koyu zemin üzerindeki saf beyaz metin */
+  /* Koyu kahve bölümler (footer, CTA bandı) ve üzerindeki metin */
+  --ink: #4A372A;
+  --on-ink: #F6F1EA;
+
+  /* Fotoğraf üstü karartma: siyah yerine sıcak, çok koyu kahve */
+  --shade: #1F1711;
+
   --white: #FFFFFF;
 }
 
@@ -30,6 +45,7 @@
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
+  --color-brand: var(--brand);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-background: var(--background);
@@ -38,19 +54,37 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-shade: var(--shade);
   --color-white: var(--white);
-  --font-heading: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-heading: var(--font-display);
+  --font-sans: var(--font-body);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair), serif;
+/* Katman içinde: böylece `font-sans` gibi yardımcı sınıflar bir başlıkta
+   gerektiğinde bu varsayılanı ezebilir (katmansız kural hepsini eziyordu). */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), Georgia, serif;
+    text-wrap: balance;
+    /* Cormorant varsayılanı eski stil rakam: "1975", "100" başlıklarda
+       küçük harf gibi aşağı sarkıyordu. */
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Başlık fontu başlık dışı öğelerde de (künye, "1975" etiketi, adres)
+     düz rakam kullansın. Aynı öğede tabular-nums varsa lining-nums da
+     yazılmalı: Tailwind'in rakam sınıfları bu kuralı toptan ezer. */
+  .font-heading {
+    font-variant-numeric: lining-nums;
+  }
 }
 
 html {
@@ -91,32 +125,23 @@ html.lenis body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-dark);
+  background: var(--accent);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
+  background: var(--primary);
 }
 
 /* Metin seçimi */
 ::selection {
   background: var(--primary);
-  color: #0B0B0B;
+  color: var(--on-ink);
 }
 
 /* Klavye kullanıcıları için görünür odak halkası */
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
-}
-
-/* ── Ken Burns ─────────────────────────────────── */
-@keyframes kenBurns {
-  from { transform: scale(1) translate(0, 0); }
-  to   { transform: scale(1.09) translate(-1%, -1%); }
-}
-.ken-burns {
-  animation: kenBurns 7s ease-in-out forwards;
 }
 
 /* ── Görsel büyüteci (lightbox) ─────────────────────
@@ -142,23 +167,32 @@ html.lenis body {
    Yalnızca oturumun ilk açılışında gösterilir. Animasyonlar CSS ile;
    perdenin kalkması ise JS zamanlayıcısına bağlı, yani animasyon çalışmasa
    bile perde kesinlikle kalkar ve site erişilebilir kalır. */
-@keyframes introCizgi {
+@keyframes introKapsul {
   from {
-    transform: scaleX(0);
+    stroke-dashoffset: 1;
   }
   to {
-    transform: scaleX(1);
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes introHarf {
+@keyframes introS {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes introYazi {
   from {
     opacity: 0;
-    transform: translateY(0.5em);
+    letter-spacing: 0.42em;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    letter-spacing: 0.24em;
   }
 }
 
@@ -172,52 +206,63 @@ html.lenis body {
 }
 
 /* Perde, arkasındaki sayfadan yalıtılır: intro oynarken arka planda ana
-   sayfanın tamamı (461 öğe, 27 giriş animasyonu, görsel çözümlemesi) render
-   ediliyor. `contain` olmadan bu yük harf animasyonlarını tutuklaştırıyor. */
+   sayfanın tamamı render ediliyor. `contain` olmadan bu yük çizim
+   animasyonunu tutuklaştırıyor. */
 .intro-katman {
   contain: layout style paint;
 }
 
-.intro-cizgi {
-  transform-origin: center;
-  will-change: transform;
-  animation: introCizgi 0.95s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+/* Kapsül bir kalemle çiziliyormuş gibi: pathLength=1 sayesinde çizgi
+   uzunluğu 1 kabul edilir, kesik ofseti 1 → 0 akar. */
+.intro-kapsul {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: introKapsul 1.15s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards;
 }
 
-.intro-harf {
-  display: inline-block;
+/* "S" yukarıdan aşağı açılır — mürekkebin kâğıda inmesi */
+.intro-s {
+  clip-path: inset(0 0 100% 0);
+  will-change: clip-path;
+  animation: introS 0.95s cubic-bezier(0.33, 1, 0.68, 1) 0.95s forwards;
+}
+
+.intro-yazi {
   opacity: 0;
-  /* Katmanı animasyon başlamadan hazırlar; ilk karedeki takılmayı önler. */
-  will-change: opacity, transform;
-  animation: introHarf 0.7s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  letter-spacing: 0.42em;
+  will-change: opacity;
+  animation: introYazi 1s cubic-bezier(0.33, 1, 0.68, 1) 1.45s forwards;
 }
 
 .intro-alt {
   opacity: 0;
   will-change: opacity;
-  animation: introBelir 0.8s ease-out 1.15s forwards;
+  animation: introBelir 0.8s ease-out 1.85s forwards;
 }
 
 .intro-yil {
   opacity: 0;
   will-change: opacity;
-  animation: introBelir 0.8s ease-out 1.45s forwards;
+  animation: introBelir 0.8s ease-out 2s forwards;
 }
 
 /* Güvenlik ağı: animasyonlar herhangi bir sebeple ilerlemezse (arka planda
-   açılan sekme, sınırlı tarayıcı) yazılar opacity:0'da donup perde bomboş
-   siyah görünürdü. Perde kapanmadan önce metinler koşulsuz görünür yapılır.
+   açılan sekme, sınırlı tarayıcı) logo ve yazılar görünmez kalıp perde bomboş
+   görünürdü. Perde kapanmadan önce hepsi koşulsuz görünür yapılır.
    !important şart: çalışan bir CSS animasyonunun uyguladığı değer normal
    kuralları ezer, yalnızca !important onun önüne geçebilir. */
-.intro-katman[data-zorla="true"] .intro-harf,
+.intro-katman[data-zorla="true"] .intro-yazi,
 .intro-katman[data-zorla="true"] .intro-alt,
 .intro-katman[data-zorla="true"] .intro-yil {
   opacity: 1 !important;
-  transform: none !important;
 }
 
-.intro-katman[data-zorla="true"] .intro-cizgi {
-  transform: scaleX(1) !important;
+.intro-katman[data-zorla="true"] .intro-kapsul {
+  stroke-dashoffset: 0 !important;
+}
+
+.intro-katman[data-zorla="true"] .intro-s {
+  clip-path: none !important;
 }
 
 /* Perde yukarı kayarak siteyi açar */
@@ -245,53 +290,124 @@ html.lenis body {
   clip-path: none !important;
 }
 
-/* ── Custom cursor ─────────────────────────────── */
-/* Dokunmatik cihazlarda özel imleci tamamen gizle */
-@media (hover: none), (pointer: coarse) {
-  .custom-cursor {
-    display: none;
+/* ── Ana sayfa açılışı: kapsül pencere ─────────────────
+   `--acilma` (0→1) HeroSection'dan kaydırmayla gelir. Kapsülün başlangıç
+   ölçüleri burada, ekran boyuna göre tanımlıdır; açıldıkça hepsi sıfıra
+   iner ve fotoğraf ekranı kaplar. Yarıçap genişliğin yarısı olduğu için
+   kenarlar tam yarım daire, yani logodaki kapsül. */
+.hero-sahne {
+  /* Mobil: başlık üstte, kapsül altta ortada */
+  --k-ust: 50dvh;
+  --k-alt: 5dvh;
+  --k-sol: 21vw;
+  --k-sag: 21vw;
+  --k-yaricap: 29vw;
+}
+
+@media (min-width: 640px) {
+  .hero-sahne {
+    --k-ust: 52dvh;
+    --k-sol: 30vw;
+    --k-sag: 30vw;
+    --k-yaricap: 20vw;
   }
 }
 
-/* ── Smooth reveal utility ─────────────────────── */
-.clip-reveal {
-  clip-path: inset(0 0 0 0);
+@media (min-width: 1024px) {
+  .hero-sahne {
+    /* Masaüstü: başlık solda, kapsül sağda */
+    --k-ust: 13dvh;
+    --k-alt: 9dvh;
+    --k-sol: 58vw;
+    --k-sag: 10vw;
+    --k-yaricap: 16vw;
+  }
 }
 
-/* ── Grain / noise texture ──────────────────────── */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.028;
+.hero-kapsul {
+  --kalan: calc(1 - var(--acilma, 0));
+  clip-path: inset(
+    calc(var(--k-ust) * var(--kalan))
+    calc(var(--k-sag) * var(--kalan))
+    calc(var(--k-alt) * var(--kalan))
+    calc(var(--k-sol) * var(--kalan))
+    round calc(var(--k-yaricap) * var(--kalan))
+  );
+  will-change: clip-path;
+}
+
+/* Logodaki çapraz çizgiler: kapsülün sol üst ve sağ alt kenarını keser */
+.hero-cizgi {
+  width: 7vw;
+  transform: rotate(-40deg);
+}
+.hero-cizgi-ust {
+  left: calc(var(--k-sol) - 2.4vw);
+  top: calc(var(--k-ust) + 20dvh);
+}
+.hero-cizgi-alt {
+  right: calc(var(--k-sag) - 2.4vw);
+  bottom: calc(var(--k-alt) + 16dvh);
+}
+
+/* 3D dolaptaki numara işaretleri (drei <Html> ile sahneye bağlı DOM).
+   Opaklığı sahne her karede ayarlar; geçiş yalnızca yumuşatır. */
+.dolap-isaret {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font: 500 10px/1 var(--font-body), system-ui, sans-serif;
+  box-shadow: 0 0 0 3px rgb(246 241 234 / 0.9);
+  opacity: 0;
+  transition: opacity 0.3s ease;
   pointer-events: none;
-  animation: grainShift 0.5s steps(2) infinite;
-  z-index: 1;
-}
-@keyframes grainShift {
-  0%   { transform: translate(0, 0); }
-  25%  { transform: translate(-3%, 4%); }
-  50%  { transform: translate(4%, -2%); }
-  75%  { transform: translate(-2%, 6%); }
-  100% { transform: translate(3%, -4%); }
+  user-select: none;
 }
 
-/* ── Underline link hover ───────────────────────── */
-.underline-link {
-  position: relative;
-  display: inline-block;
+@keyframes heroIpucu {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
 }
-.underline-link::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.35s ease;
+.hero-ipucu-cizgi {
+  animation: heroIpucu 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
-.underline-link:hover::after { width: 100%; }
+
+/* Hareket azaltma: kapsül sabit, bölüm tek ekran, ikinci cümle gizli.
+   !important şart: framer-motion değerleri satır içi stil olarak yazar. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bolum {
+    height: auto !important;
+  }
+  .hero-sahne {
+    position: relative !important;
+    --acilma: 0 !important;
+  }
+  .hero-metin,
+  .hero-ipucu,
+  .hero-cizgi {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-cizgi {
+    transform: rotate(-40deg) !important;
+  }
+  .hero-gorsel {
+    transform: none !important;
+  }
+  .hero-perde,
+  .hero-ust-yazi {
+    display: none !important;
+  }
+  .hero-ipucu-cizgi {
+    animation: none;
+  }
+  /* Oda kartları: eğim ve paralaks yok */
+  .oda-karti,
+  .parallax-gorsel {
+    transform: none !important;
+  }
+}

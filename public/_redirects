@@ -1,0 +1,3 @@
+# Kaldırılan sayfalar (eski siteden kalan bağlantılar 404 vermesin)
+/oncesi-sonrasi /projelerimiz/ 301
+/oncesi-sonrasi/ /projelerimiz/ 301

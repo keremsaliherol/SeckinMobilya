@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { StaggerContainer, StaggerItem, useReveal } from "@/components/ui/animations";
+import { useReveal } from "@/components/ui/animations";
 import { useLang } from "@/contexts/LanguageContext";
 
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
-  const { ref, gorunur } = useReveal<HTMLSpanElement>();
+  const { ref, gorunur, zorla } = useReveal<HTMLSpanElement>();
 
   useEffect(() => {
     if (!gorunur) return;
@@ -27,44 +27,44 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
     return () => clearInterval(timer);
   }, [gorunur, target]);
 
+  // Sayaç zamanlayıcısı çalışmazsa bile son değer görünür.
+  const deger = zorla ? target : count;
+
   return (
-    <span ref={ref}>
-      {count}
-      {suffix}
+    // lining-nums: Cormorant'ın varsayılan eski stil rakamlarında "100" "IOO" gibi okunuyordu.
+    <span ref={ref} className="lining-nums tabular-nums">
+      {deger}
+      <span className="text-brand">{suffix}</span>
     </span>
   );
 }
 
 export default function StatsSection() {
   const { t } = useLang();
-  const stats = t.stats;
-  return (
-    <section className="py-20 relative overflow-hidden bg-surface border-y border-border">
-      <div className="absolute inset-0 opacity-[0.15]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(198,161,91,0.25) 40px, rgba(198,161,91,0.25) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(198,161,91,0.25) 40px, rgba(198,161,91,0.25) 41px)",
-          }}
-        />
-      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-4">
-          {[...stats].map((stat, i) => (
-            <StaggerItem key={i}>
-              <div className="text-center md:border-l md:border-border md:first:border-l-0 md:px-4">
-                <div className="font-heading font-bold text-4xl md:text-5xl text-primary mb-3">
-                  <CountUp target={stat.target} suffix={stat.suffix} />
-                </div>
-                <div className="text-xs text-muted font-medium tracking-[0.15em] uppercase">
-                  {stat.label}
-                </div>
-              </div>
-            </StaggerItem>
+  return (
+    <section className="pb-24 lg:pb-36">
+      <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+        <p className="mb-10 border-t border-border pt-10 text-[11px] font-medium uppercase tracking-[0.3em] text-muted">
+          {t.home.stats.eyebrow}
+        </p>
+        <dl className="grid grid-cols-2 gap-y-12 lg:grid-cols-4">
+          {t.stats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`flex flex-col-reverse gap-3 pr-4 ${
+                i > 0 ? "lg:border-l lg:border-border lg:pl-8" : ""
+              } ${i % 2 === 1 ? "border-l border-border pl-5 lg:pl-8" : ""}`}
+            >
+              <dt className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
+                {stat.label}
+              </dt>
+              <dd className="font-heading text-[clamp(3.5rem,6.5vw,6rem)] leading-none text-foreground">
+                <CountUp target={stat.target} suffix={stat.suffix} />
+              </dd>
+            </div>
           ))}
-        </StaggerContainer>
+        </dl>
       </div>
     </section>
   );
