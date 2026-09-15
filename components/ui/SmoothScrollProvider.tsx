@@ -130,11 +130,17 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
    * Lenis'in kendi konumu hem de tarayıcının konumu sıfırlanır.
    *
    * `immediate: true` — geçiş yumuşatılmaz; sayfa doğrudan tepeden başlar.
+   *
+   * Adreste bölüm işareti varsa (ör. blogdan `/#dolap`) sayfa o bölümden açılır.
    */
   useEffect(() => {
     const lenis = lenisRef.current;
-    if (lenis) lenis.scrollTo(0, { immediate: true });
-    else window.scrollTo(0, 0);
+    const hedef = window.location.hash
+      ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+      : null;
+    const y = hedef ? hedef.getBoundingClientRect().top + window.scrollY : 0;
+    if (lenis) lenis.scrollTo(y, { immediate: true });
+    else window.scrollTo(0, y);
   }, [pathname]);
 
   return <>{children}</>;

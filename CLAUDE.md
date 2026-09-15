@@ -8,12 +8,13 @@ değişirse **hem burayı hem `lib/site.ts`'yi** güncelle.
 
 ## ▶ Devam eden iş — yeni oturumda önce bunu oku
 
-Yeniden tasarımın Faz 0–6'sı bitti (`yeniden-tasarim` dalı). **Tamamlanmamış görevler
+Yeniden tasarımın Faz 0–7'si bitti (`yeniden-tasarim` dalı). **Tamamlanmamış görevler
 `docs/KALAN-GOREVLER.md` dosyasında.** Kullanıcı "devam" / "kalan görevleri yap" dediğinde:
 
 1. `docs/KALAN-GOREVLER.md`'yi baştan sona oku (çalışma kuralları §0'da).
-2. İşaretlenmemiş (`- [ ]`) görevleri sırayla yap: önce **Faz 7 Blog**, sonra
-   **Faz 8'den önce bekleyen kararları kullanıcıya tek tek sor**, sonra **Faz 8 Kalite ve Teslim**.
+2. İşaretlenmemiş (`- [ ]`) görevleri sırayla yap: önce Faz 7'de açık kalan **blog yazısı onayı**
+   (onaylananlar `taslak: false`), sonra **Faz 8'den önce bekleyen kararları kullanıcıya tek tek sor**,
+   sonra **Faz 8 Kalite ve Teslim**.
 3. Biten maddeyi `- [x]` yap. Her faz sonunda: tsc + lint + build (dev sunucusu kapalıyken)
    + görsel kontrol (`scripts/sayfa-goruntusu.mjs`) + commit + Türkçe kısa rapor, sonra onay bekle.
 4. Faz ortasında çıkan yeni kararları sorma; `docs/TASARIM-PLANI.md` §10.5'e ekle.
@@ -156,7 +157,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 ### Sayfalar
 
 `/` ana sayfa · `/hakkimizda` · `/hizmetlerimiz` · `/projelerimiz` ·
-`/projelerimiz/[slug]` · `/oncesi-sonrasi` · `/iletisim`
+`/projelerimiz/[slug]` · `/oncesi-sonrasi` · `/blog` · `/blog/[slug]` · `/iletisim`
 
 ### Nerede ne değişir
 
@@ -164,6 +165,7 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 |---|---|
 | Telefon, Instagram, adres, harita | `lib/site.ts` (tek kaynak) |
 | Projeler | `data/projects.ts` |
+| Blog yazıları (yalnız TR; `taslak: true` yayında görünmez) | `data/blog.ts` (arayüz metinleri `pageTranslations.blog`) |
 | Hizmet görselleri / örnek projeler | `data/services.ts` (metinler `pageTranslations.ts`) |
 | Sayfa metinleri TR/EN | `contexts/pageTranslations.ts`, `contexts/LanguageContext.tsx` |
 | Renk / tema | `app/globals.css` |

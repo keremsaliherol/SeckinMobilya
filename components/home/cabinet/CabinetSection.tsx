@@ -107,7 +107,7 @@ function DolapKaydirma() {
   const gorselGoster = mod !== "3d" || !hazir;
 
   return (
-    <section ref={bolumRef} aria-labelledby="dolap-baslik" className="relative h-[440vh] lg:h-[520vh]">
+    <section ref={bolumRef} id="dolap" aria-labelledby="dolap-baslik" className="relative h-[440vh] lg:h-[520vh]">
       <div className="sticky top-0 h-dvh overflow-hidden">
         <div className="mx-auto flex h-full max-w-[88rem] flex-col lg:grid lg:grid-cols-12 lg:gap-8 lg:px-12 lg:pt-20">
           {/* Başlık + liste (masaüstü) / yalnız başlık (mobil) */}
@@ -216,7 +216,7 @@ function DolapSabit() {
   const c = t.home.cabinet;
 
   return (
-    <section aria-labelledby="dolap-baslik-sabit" className="py-24 lg:py-36">
+    <section id="dolap" aria-labelledby="dolap-baslik-sabit" className="py-24 lg:py-36">
       <div className="mx-auto grid max-w-[88rem] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:px-12">
         <div className="lg:col-span-5">
           <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-muted">{c.eyebrow}</p>

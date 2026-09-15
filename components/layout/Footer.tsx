@@ -17,6 +17,7 @@ export default function Footer() {
     { href: "/hizmetlerimiz", label: t.nav.services },
     { href: "/projelerimiz", label: t.nav.projects },
     { href: "/oncesi-sonrasi", label: t.nav.beforeAfter },
+    { href: "/blog", label: t.nav.blog },
     { href: "/iletisim", label: t.nav.contact },
   ];
 

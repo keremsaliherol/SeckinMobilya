@@ -33,10 +33,11 @@ export default function Navbar() {
     { href: "/hizmetlerimiz", label: t.nav.services },
     { href: "/projelerimiz", label: t.nav.projects },
     { href: "/oncesi-sonrasi", label: t.nav.beforeAfter },
+    { href: "/blog", label: t.nav.blog },
     { href: "/iletisim", label: t.nav.contact },
   ];
 
-  /** Proje detay sayfalarında "Projelerimiz" de aktif görünür. */
+  /** Proje ve yazı detay sayfalarında üst sayfa ("Projelerimiz", "Blog") da aktif görünür. */
   const isActive = useCallback(
     (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href)),
     [pathname]
@@ -56,7 +57,7 @@ export default function Navbar() {
             : "border-border bg-background/90 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto grid h-[4.5rem] max-w-[88rem] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 lg:h-20 lg:grid-cols-[1fr_auto_1fr] lg:px-12">
+        <div className="mx-auto grid h-[4.5rem] max-w-[88rem] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 lg:h-20 xl:grid-cols-[1fr_auto_1fr] lg:px-12">
           <Link
             href="/"
             aria-label="Seçkin Mimarlık Mobilya İnşaat — Ana Sayfa"
@@ -65,8 +66,9 @@ export default function Navbar() {
             <Logo size="sm" />
           </Link>
 
-          <nav aria-label={t.menu.label} className="hidden lg:block">
-            <ul className="flex items-center gap-7 xl:gap-9">
+          {/* 7 bağlantı ancak 1280 px ve üstünde tek satıra sığıyor; altında yalnızca menü düğmesi. */}
+          <nav aria-label={t.menu.label} className="hidden xl:block">
+            <ul className="flex items-center gap-6 min-[1400px]:gap-9">
               {links.map((link) => {
                 const aktif = isActive(link.href);
                 return (
@@ -74,7 +76,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       aria-current={aktif ? "page" : undefined}
-                      className={`group relative block py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
+                      className={`group relative block whitespace-nowrap py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
                         aktif ? "text-brand" : "text-foreground/70 hover:text-brand"
                       }`}
                     >

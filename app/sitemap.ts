@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
+import { getYayindakiYazilar } from "@/data/blog";
 import { siteUrl } from "@/lib/site";
 
 /** Statik dışa aktarmada (output: "export") dosya build sırasında üretilir. */
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/hizmetlerimiz/", priority: 0.9 },
     { path: "/projelerimiz/", priority: 0.9 },
     { path: "/oncesi-sonrasi/", priority: 0.7 },
+    { path: "/blog/", priority: 0.7 },
     { path: "/iletisim/", priority: 0.8 },
   ].map(({ path, priority }) => ({
     url: `${siteUrl}${path}`,
@@ -34,5 +36,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...projectRoutes];
+  /** Yalnızca yayındaki yazılar; son değişiklik tarihi yazının yayın günü. */
+  const blogRoutes = getYayindakiYazilar().map((yazi) => ({
+    url: `${siteUrl}/blog/${yazi.slug}/`,
+    lastModified: new Date(`${yazi.tarih}T00:00:00Z`),
+    changeFrequency: "yearly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
 }

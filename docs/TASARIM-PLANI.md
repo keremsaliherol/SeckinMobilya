@@ -12,8 +12,8 @@
 > | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı |
 > | 5 3D dolap anatomisi | ✅ Tamamlandı |
 > | 6 İç sayfalar | ✅ Tamamlandı |
-> | 7 Blog | ⏳ Sırada (kullanıcı istedi) |
-> | 8 Kalite ve teslim | Bekliyor |
+> | 7 Blog | ✅ Tamamlandı (4 yazı taslak, onay bekliyor) |
+> | 8 Kalite ve teslim | ⏳ Sırada (önce §10.5 kararları sorulacak) |
 >
 > **Kalan işlerin ayrıntılı listesi: [`docs/KALAN-GOREVLER.md`](KALAN-GOREVLER.md)**
 
@@ -258,6 +258,14 @@ Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, ileti�
 ### Faz 7: Blog *(opsiyonel)*
 `app/blog/`, `app/blog/[slug]/`, `data/blog.ts`, sitemap güncellemesi.
 
+**Faz 7 notları:**
+- İçerik düz veri (`data/blog.ts`: başlık, özet, tarih, kapak, bölümler → paragraf / madde listesi / görsel / site içi bağlantı). Yazılar yalnızca Türkçe; EN seçilince yazı sayfasında "yalnızca Türkçe" notu çıkar, arayüz etiketleri çevrilir.
+- **Taslak akışı:** `taslak: true` yazı listede ve sitemap'te yok; dev sunucusunda "Taslak" etiketiyle önizlenir. Build'de sayfası yine üretilir (statik dışa aktarma boş `generateStaticParams` kabul etmiyor) ama 404 içeriği + `noindex` gösterir, metin sızmaz. Yayında yazı yokken `/blog/` "Yakında ilk yazımızı paylaşacağız" boş durumunu gösterir.
+- Liste: ilk yazı büyük (fotoğraf solda), diğerleri 3 sütun. Yazı sayfası: kemerli kapak, masaüstünde sabit "Bu yazıda" içindekiler, 68ch gövde (Outfit 18px, satır aralığı 1.8), ilgili proje kartı, yazıya özel WhatsApp mesajı, "Diğer yazılar". JSON-LD `BlogPosting` + `BreadcrumbList` (`<` kaçırılarak).
+- İlk 4 taslak: akrilik/membran kapak, gola kulp, frenli menteşe + tandem ray, Bahçeşehir Mutfak. Proje hikâyesi için Daca Boutique yerine **Bahçeşehir Mutfak** seçildi: Daca'nın açıklaması yazı çıkaracak kadar ayrıntılı değil, Bahçeşehir'inki malzeme ve düzen bilgisi içeriyor.
+- **Menü:** 7 bağlantı 1280 px'te iki satıra düşüyordu. Masaüstü menü artık 1280 px ve üstünde (`xl`), aralık 1400 px altında daraltıldı; 1024–1279 px arasında yalnızca "Menü" düğmesi var.
+- Sayfa geçişinde adres `#` içeriyorsa (blogdan `/#dolap`) kaydırma o bölüme gider (`SmoothScrollProvider`). Ana sayfadaki dolap bölümüne `id="dolap"` eklendi.
+
 ### Faz 8: Kalite ve teslim
 Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavye, "içeriğe atla" linki), hareketi azalt ayarı, performans (görsel boyutları, lazy-load, JS boyutu), SEO meta/OG güncellemesi, `npm run build` ile statik export testi, `CLAUDE.md` ve `README.md` güncellemesi.
 
@@ -299,6 +307,7 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 - [ ] **Bağlantı parçaları (10. madde):** "Minifix ve kavela" hâlâ doğrulanmadı.
 - [ ] **Ayak ölçüsü:** Marka sahibi "12'lik ayak" dedi, sitede "12 cm ayak" yazıyor. cm olduğu teyit edilmeli.
 - [x] ~~3D dolabın görünümü~~ → Marka sahibinin gönderdiği ürün fotoğrafına (`assets-kaynak/dolap.jpeg`) göre yeniden modellendi: şampanya akrilik kapak, siyah gola, solda 2 çekmece + sağda çift kapak, 12 cm ayak.
+- [ ] **Blog kapağında ürün fotoğrafı:** "Akrilik mi, membran mı?" yazısının kapağı marka sahibinin gönderdiği `assets-kaynak/dolap.jpeg` (kopyası `public/blog/akrilik-kapak.jpg`). Kendi ürünleri mi, sitede yayınlanabilir mi?
 - [ ] **Açılış fotoğrafı:** `public/hero/yatak-odasi.jpg` eski siteden, kaynağı bilinmiyor (stok ya da yapay zekâ olabilir). Gerçek bir proje fotoğrafıyla değiştirilmesi önerildi.
 
 ## 11. Marka sahibinden istenecekler

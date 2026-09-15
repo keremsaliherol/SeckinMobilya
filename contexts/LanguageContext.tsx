@@ -20,6 +20,7 @@ const translations = {
       services: "Hizmetlerimiz",
       projects: "Projelerimiz",
       beforeAfter: "Öncesi / Sonrası",
+      blog: "Blog",
       contact: "İletişim",
     },
     home: {
@@ -158,6 +159,7 @@ const translations = {
       services: "Services",
       projects: "Projects",
       beforeAfter: "Before / After",
+      blog: "Blog",
       contact: "Contact",
     },
     home: {

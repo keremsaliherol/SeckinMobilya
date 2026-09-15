@@ -4,7 +4,7 @@
 > sırayla yap. Bitirdiğin maddeyi `- [x]` yap ve gerekirse kısa bir not düş.
 > Genel plan ve önceki fazların notları: `docs/TASARIM-PLANI.md`.
 >
-> Hazırlandığı tarih: 15.09.2026 · Durum: Faz 0–6 tamamlandı, `yeniden-tasarim` dalında commit'li.
+> Hazırlandığı tarih: 15.09.2026 · Durum: Faz 0–7 tamamlandı (blog yazıları onay bekliyor), `yeniden-tasarim` dalında commit'li.
 
 ---
 
@@ -60,30 +60,30 @@ npm run build             # statik export → out/  (ÖNCE dev sunucusunu durdur
 Kullanıcı blog yapılmasını istedi. İçerik taslakları marka sahibinin onayına sunulacak.
 
 ### 1.1 Altyapı
-- [ ] `data/blog.ts`: yazı listesi. Önerilen alanlar:
+- [x] `data/blog.ts`: yazı listesi. Önerilen alanlar:
   `slug`, `baslik`, `ozet`, `tarih` (ISO; **yayın günü**, uydurma geçmiş tarih verme),
   `kapak` (mevcut proje fotoğrafı), `projeSlug?` (ilgili proje), `bolumler` (başlık + paragraf
   listesi; HTML/markdown yerine düz veri — statik ve güvenli), `taslak: boolean`.
   Yazı içerikleri **yalnızca Türkçe** olabilir (proje açıklamaları da öyle); arayüz etiketleri TR/EN.
-- [ ] `app/blog/page.tsx` (+ `BlogContent.tsx` istemci): `PageHeader` + yazı kartları
+- [x] `app/blog/page.tsx` (+ `BlogContent.tsx` istemci): `PageHeader` + yazı kartları
   (kapak, tarih, başlık, özet; ana sayfa proje kartlarıyla aynı dil: yazı fotoğrafın altında).
   `taslak: true` olan yazılar listelenmez.
-- [ ] `app/blog/[slug]/page.tsx`: `generateStaticParams` (statik export şartı), `generateMetadata`
+- [x] `app/blog/[slug]/page.tsx`: `generateStaticParams` (statik export şartı), `generateMetadata`
   (başlık, açıklama, canonical `/blog/<slug>/`, OG görseli = kapak), JSON-LD `BlogPosting` +
   `BreadcrumbList` (bkz. `app/projelerimiz/[slug]/page.tsx` örneği).
   İçerik bileşeni: başlık, tarih, kemerli kapak (`rounded-t-full`), okunaklı gövde
   (`max-w-[68ch]`, Outfit 18px, satır aralığı rahat), ilgili proje kartı, WhatsApp/keşif çağrısı.
-- [ ] Menüye "Blog" ekle: `Navbar.tsx` linkleri, `MenuPanel.tsx` (aynı `links` dizisi),
+- [x] Menüye "Blog" ekle: `Navbar.tsx` linkleri, `MenuPanel.tsx` (aynı `links` dizisi),
   `Footer.tsx` sayfa listesi, `t.nav.blog` (TR "Blog", EN "Blog").
   Masaüstü menü genişliğini 1280 ve 1440 px'te kontrol et (7 link sığmalı).
-- [ ] `app/sitemap.ts`: `/blog/` ve yayında olan yazılar.
-- [ ] Metinler: `pageTranslations.blog` (TR/EN) — liste başlığı, "Devamını oku", tarih biçimi,
+- [x] `app/sitemap.ts`: `/blog/` ve yayında olan yazılar.
+- [x] Metinler: `pageTranslations.blog` (TR/EN) — liste başlığı, "Devamını oku", tarih biçimi,
   "İlgili proje", boş durum ("Yakında ilk yazımızı paylaşacağız").
 
 ### 1.2 İlk içerik (taslak, onaya sunulacak)
 Konular yalnızca **bilinen gerçeklere** dayanmalı: proje açıklamaları (`data/projects.ts`) ve
 marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan malzemeler").
-- [ ] 3–4 yazı taslağı, örnek konular:
+- [x] 3–4 yazı taslağı, örnek konular:
   - Mutfak kapağında akrilik ve membran: farkları ve kullanım yerleri (marka sahibi en çok bu ikisini kullanıyor)
   - Gola kulp nedir, kulpsuz mutfak nasıl kurulur (siyah metal gola kullanıyorlar)
   - Frenli menteşe ve tandem ray: dolapta görünmeyen ama her gün hissedilen detaylar (Samet)
@@ -91,12 +91,13 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
 - [ ] Hepsini `taslak: true` bırak; raporda başlık + özet listesini kullanıcıya göster,
   onaylananları `taslak: false` yap. Teknik iddiaları genel bilgi düzeyinde tut, marka/ürün
   performansı hakkında ölçülemeyen iddia yazma.
+  → 4 taslak yazıldı ve Faz 7 raporunda sunuldu; **kullanıcı/marka sahibi onayı bekleniyor.** Onaylananlarda `taslak: false` + `tarih` = yayın günü.
 
 ### 1.3 Doğrulama
-- [ ] tsc + lint + build (dev sunucusu kapalıyken); `out/blog/index.html` ve yazı sayfaları üretildi mi
-- [ ] Masaüstü + mobil görüntü (`scripts/sayfa-goruntusu.mjs --yol /blog/` ve bir yazı)
-- [ ] EN'e geçince arayüz etiketleri değişiyor mu; menüde Blog aktif sayfa işareti
-- [ ] Commit: `Faz 7: blog` + plan dosyasında durum tablosunu güncelle
+- [x] tsc + lint + build (dev sunucusu kapalıyken); `out/blog/index.html` ve yazı sayfaları üretildi mi
+- [x] Masaüstü + mobil görüntü (`scripts/sayfa-goruntusu.mjs --yol /blog/` ve bir yazı)
+- [x] EN'e geçince arayüz etiketleri değişiyor mu; menüde Blog aktif sayfa işareti
+- [x] Commit: `Faz 7: blog` + plan dosyasında durum tablosunu güncelle
 
 ---
 
