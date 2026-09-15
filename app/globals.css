@@ -343,6 +343,24 @@ html.lenis body {
   bottom: calc(var(--k-alt) + 16dvh);
 }
 
+/* 3D dolaptaki numara işaretleri (drei <Html> ile sahneye bağlı DOM).
+   Opaklığı sahne her karede ayarlar; geçiş yalnızca yumuşatır. */
+.dolap-isaret {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font: 500 10px/1 var(--font-body), system-ui, sans-serif;
+  box-shadow: 0 0 0 3px rgb(246 241 234 / 0.9);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
 @keyframes heroIpucu {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(200%); }

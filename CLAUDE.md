@@ -100,7 +100,8 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
   Vektör verisi `components/ui/monogram.ts`, dosya `public/brand/seckin-monogram.svg`.
   Kaynak dosyalar `assets-kaynak/` klasöründe (videolar git'e girmez).
 - **Ana sayfa** (`app/page.tsx`): `components/home/` altında HeroSection (kapsül → tam ekran),
-  IntroStatement, ProcessScroll (kaydırmalı kare dizisi, canvas), RoomCategories (`data/rooms.ts`), CompareSection
+  IntroStatement, ProcessScroll (kaydırmalı kare dizisi, canvas), RoomCategories (`data/rooms.ts`), CabinetSection (3D dolap, `components/home/cabinet/`,
+  parça/malzeme listesi `data/cabinetParts.ts`, yedek görseller `public/anatomi/`), CompareSection
   (`components/ui/BeforeAfterSlider.tsx`), FeaturedProjects (masaüstünde sabitlenen yatay
   şerit), StatsSection, InstagramCta. Metinler `t.home.*` (LanguageContext).
 - **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
@@ -117,7 +118,8 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 ## Teknik Yapı
 
 - **Next.js 16.2.3** (App Router), React 19, Tailwind CSS v4, TypeScript,
-  framer-motion, lenis (yumuşak kaydırma), lucide-react
+  framer-motion, lenis (yumuşak kaydırma), lucide-react,
+  three + @react-three/fiber + @react-three/drei (yalnız 3D dolap; `next/dynamic` ile geç yüklenir)
 - **Tamamen statik** (`output: "export"`, `trailingSlash: true`) → `out/` klasörü.
   Sunucu API'si / server action kullanılmamalı.
 - **Yayın:** Cloudflare Pages / Workers assets (`wrangler.jsonc`, proje adı `seckinmobilya`)

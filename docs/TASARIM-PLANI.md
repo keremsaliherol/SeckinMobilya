@@ -9,9 +9,10 @@
 > | 1 Tasarım sistemi | ✅ Tamamlandı |
 > | 2 Kabuk | ✅ Tamamlandı |
 > | 3 Ana sayfa | ✅ Tamamlandı |
-> | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı, onay bekliyor |
-> | 5 3D dolap anatomisi | ⏳ Sırada |
-> | 6–8 | Bekliyor |
+> | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı |
+> | 5 3D dolap anatomisi | ✅ Tamamlandı, onay bekliyor |
+> | 6 İç sayfalar | ⏳ Sırada |
+> | 7–8 | Bekliyor |
 
 ## 1. Bağlam
 
@@ -230,6 +231,14 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 ### Faz 5: 3D exploded dolap
 `components/home/cabinet/` (sahne, parça tanımları, etiketler, statik yedek) + `data/cabinetParts.ts` (TR/EN).
 
+**Faz 5 notları:**
+- Dosyalar: `components/home/cabinet/` (CabinetSection: yerleşim ve yedekler · CabinetCanvas: R3F sahnesi · zamanlama.ts: kaydırma → aşama eşlemesi), `data/cabinetParts.ts` (parça ve malzeme listesi, TR/EN).
+- Paketler: three 0.186, @react-three/fiber 9.7, @react-three/drei 10.7 (React 19.2 ile uyumlu). three.js ayrı parçada (~895 KB, gzip ~230 KB); ilk açılış paketinde yok, bölüme bir ekran kala iner.
+- Sahne `frameloop="demand"`: yalnız kaydırma değişince çizilir. drei `<Html>` işaretleri bir kare gecikmesin diye ilerleme değişince bir kare daha çizdirilir.
+- Yedek görseller `public/anatomi/dolap-kapali.webp` (tuval yüklenirken) ve `dolap-acik.webp` (WebGL yok / hareket azaltma) **aynı 3D sahneden** alındı: Edge (SwiftShader) + DevTools, 1440×900 @2x, bölüm ilerlemesi 0.02 ve 0.60, tuval kutusu kırpılıp 1400 px WebP. Model değişirse yeniden üretilmeli.
+- Mobilde alt açıklama paneli sabit yükseklikte (`h-60`); aksi hâlde aşama değişince tuval boyu ve dolabın büyüklüğü oynuyordu. Dar ekranda kamera daha geride.
+- Konsolda three.js kaynaklı zararsız "THREE.Clock deprecated" uyarısı var (R3F içi), işlevi etkilemiyor.
+
 ### Faz 6: İç sayfalar
 Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, iletişim (§4.3).
 
@@ -264,6 +273,17 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 5. Öncesi/sonrası kaydırıcısı fare, dokunma ve klavye ile çalışır.
 6. WhatsApp, telefon, Instagram ve harita linkleri doğru hedefe gider.
 7. Türkçe karakterler (ş, ğ, ı, İ) yeni fontlarla doğru görünür.
+
+## 10.5 En sona bırakılan kararlar
+
+> Kullanıcı bu konuların fazlar bitince **birlikte** gözden geçirilmesini istedi (15.09.2026).
+> Faz 8'den önce hepsi tek tek sorulacak.
+
+- [ ] **Aynı mutfak iki kez:** Ana sayfada süreç bölümü ve çizim/uygulama kaydırıcısı aynı videoyu kullanıyor. Gerçek öncesi/sonrası fotoğrafı gelirse kaydırıcı onunla değişecek, gelmezse `/oncesi-sonrasi` sayfasına taşınacak.
+- [ ] **Süreç videosu gerçek proje mi?** Dosya adı (`hf_…`) yapay zekâ üretimini düşündürüyor. Metinler bu yüzden tarafsız. Gerçekse metin güçlendirilecek, değilse marka sahibinin yayın onayı alınacak.
+- [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımlarının açıklamaları, "üretime onaylanan çizimle başlıyoruz", Instagram bandı cümleleri, dolap malzeme etiketleri.
+- [ ] **3D dolabın görünümü:** Koyu kahve lake kapak + açık meşe gövde + pirinç kulp temsili bir seçim. Marka sahibinin en çok ürettiği dolap tarzına (renk, kulp, bölme düzeni) uyarlanabilir.
+- [ ] **Açılış fotoğrafı:** `public/hero/yatak-odasi.jpg` eski siteden, kaynağı bilinmiyor (stok ya da yapay zekâ olabilir). Gerçek bir proje fotoğrafıyla değiştirilmesi önerildi.
 
 ## 11. Marka sahibinden istenecekler
 - [ ] Gmail adresi
