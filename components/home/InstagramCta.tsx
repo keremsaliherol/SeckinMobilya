@@ -61,7 +61,7 @@ export default function InstagramCta() {
             className="mb-8 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-accent transition-colors hover:text-on-ink"
           >
             <InstagramIcon size={14} />
-            {ig.eyebrow}
+            {contact.instagramHandle}
           </a>
           <h2 className="font-heading text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.02]">
             <span className="block">{ig.title[0]}</span>

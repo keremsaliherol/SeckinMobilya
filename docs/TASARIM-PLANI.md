@@ -271,7 +271,7 @@ Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, ileti�
 Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavye, "içeriğe atla" linki), hareketi azalt ayarı, performans (görsel boyutları, lazy-load, JS boyutu), SEO meta/OG güncellemesi, `npm run build` ile statik export testi, `CLAUDE.md` ve `README.md` güncellemesi.
 
 **Faz 8 notları (ayrıntı: `docs/KALAN-GOREVLER.md` §3):**
-- **Açılış fotoğrafı** Soyak Olympiakent TV duvarı oldu. Kapsül, tam ekran görselin masaüstünde sağ-orta, mobilde orta-alt bölgesini gösterdiği için dikey telefon fotoğraflarının çoğu uymuyor; adaylar bu geometriyle kırpılarak karşılaştırıldı.
+- **Açılış fotoğrafı** önce Soyak Olympiakent TV duvarı yapıldı, kullanıcı isteğiyle (16.09.2026) eski yatak odası fotoğrafına geri dönüldü. Not: kapsül, tam ekran görselin masaüstünde sağ-orta, mobilde orta-alt bölgesini gösteriyor; yeni aday seçilirse yatay ve öznesi sağda bir fotoğraf gerekir.
 - **Erişilebilirlik:** axe 0 ihlal. En önemli bulgu: odak halkası koyu zeminlerde görünmüyordu. Yatay/kısa ekranda açılış kapsülü başlığın üstüne biniyordu.
 - **Performans:** en büyük kazanç WebP + `srcset` (640/828/1200) ve ilk ekrandaki görselleri JS animasyonundan çıkarmak. Açılış perdesi gerçek ölçümde LCP'yi geciktirmiyor (Chrome perdenin altındaki görseli sayıyor).
 - **Dev ortamı:** `globals.css` değişiklikleri Turbopack önbelleğinde takılı kalabiliyor → `.next/dev` silinip sunucu yeniden başlatılmalı.
@@ -315,7 +315,7 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 - [x] ~~Ayak ölçüsü~~ → Kullanıcı kararı (15.09.2026): "12 cm" kalıyor.
 - [x] ~~3D dolabın görünümü~~ → Marka sahibinin gönderdiği ürün fotoğrafına (`assets-kaynak/dolap.jpeg`) göre yeniden modellendi: şampanya akrilik kapak, siyah gola, solda 2 çekmece + sağda çift kapak, 12 cm ayak.
 - [ ] **Blog kapağında ürün fotoğrafı:** "Akrilik mi, membran mı?" yazısının kapağı marka sahibinin gönderdiği `assets-kaynak/dolap.jpeg` (kopyası `public/blog/akrilik-kapak.jpg`). Kendi ürünleri mi, sitede yayınlanabilir mi? **Bu yazı canlıya alınırken yayında olacak (15.09.2026), izin yayından önce netleşmeli;** izin çıkmazsa kapak bir proje fotoğrafıyla değişir.
-- [x] ~~Açılış fotoğrafı~~ → Kullanıcı kararı (15.09.2026): proje fotoğrafıyla değişti (Soyak Olympiakent 03). Eski görsel silindi.
+- [ ] **Açılış fotoğrafı:** 15.09.2026'da proje fotoğrafıyla değiştirildi, 16.09.2026'da kullanıcı isteğiyle eski yatak odası fotoğrafı geri geldi. Kaynağı hâlâ bilinmiyor (stok ya da yapay zekâ olabilir) — marka sahibine sorulacak.
 - [x] ~~Kapakta membran~~ → Kullanıcı kararı (15.09.2026): malzeme listesine eklendi.
 
 ## 11. Marka sahibinden istenecekler

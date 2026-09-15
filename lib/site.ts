@@ -26,8 +26,8 @@ export const contact = {
   phoneAltDisplay: "0533 520 97 78",
   /** wa.me formatı: başında + ve boşluk olmadan */
   whatsapp: "905417238551",
-  instagram: "https://instagram.com/seckinmobilyainsaat",
-  instagramHandle: "@seckinmobilyainsaat",
+  instagram: "https://www.instagram.com/seckindesign/",
+  instagramHandle: "@seckindesign",
 } as const;
 
 /** WhatsApp sohbet bağlantısı; mesaj verilirse sohbet kutusuna hazır yazılır. */

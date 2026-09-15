@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, transform, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-import { duyarli } from "@/lib/gorsel";
 
 /**
  * Ana sayfa açılışı: logodaki kapsül, projelere açılan bir pencere.
@@ -49,7 +48,7 @@ export default function HeroSection() {
         {/* Kapsül pencere: fotoğraf + karartma + ikinci cümle */}
         <div className="hero-kapsul absolute inset-0 bg-surface">
           <motion.img
-            {...duyarli("/projeler/soyak-olympiakent/03.jpg", "100vw")}
+            src="/hero/yatak-odasi.jpg"
             alt={h.imageAlt}
             fetchPriority="high"
             decoding="async"

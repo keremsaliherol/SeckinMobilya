@@ -44,7 +44,7 @@ Yeniden tasarımın **Faz 0–8'i bitti**; site 15.09.2026'da canlıya alındı 
 | Telefon 1 (birincil, işletme sahibi) | **0541 723 85 51** — `+905417238551` |
 | Telefon 2 | **0533 520 97 78** — `+905335209778` |
 | WhatsApp | 0541 723 85 51 → `https://wa.me/905417238551` |
-| Instagram | **@seckinmobilyainsaat** — https://instagram.com/seckinmobilyainsaat |
+| Instagram | **@seckindesign** — https://www.instagram.com/seckindesign/ (16.09.2026'da güncellendi; önceki hesap @seckinmobilyainsaat) |
 | E-posta (Gmail) | **Henüz yok** — projede kayıtlı bir e-posta adresi bulunmuyor. Öğrenilince buraya ve `lib/site.ts`'ye eklenmeli. |
 | Web sitesi | https://seckinmimarliktr.com |
 

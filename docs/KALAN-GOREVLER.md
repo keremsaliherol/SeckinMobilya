@@ -111,7 +111,7 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
 - [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımları, "onaylanan çizimle üretim", Instagram bandı — marka sahibine kullanıcı soracak.
 - [x] **Bağlantı parçaları** → "Minifix ve kavela" doğrulanmadığı için "Gövdeyi birleştiren bağlantı elemanları" oldu (kullanıcı).
 - [x] **Ayak ölçüsü** → "12 cm" kaldı; sektörde "12'lik ayak" 12 cm demek (kullanıcı).
-- [x] **Açılış fotoğrafı** → Kaynağı belirsiz yatak odası yerine Soyak Olympiakent TV duvarı (`/projeler/soyak-olympiakent/03.jpg`). Oda kartındaki TV görseli tekrar olmasın diye İstinye Akdağ'a geçti.
+- [x] **Açılış fotoğrafı** → Önce Soyak Olympiakent TV duvarı yapıldı; kullanıcı isteğiyle (16.09.2026) **eski yatak odası fotoğrafı geri geldi** (`public/hero/yatak-odasi.jpg`), TV oda kartı yine Olympiakent. Fotoğrafın kaynağı (stok/yapay zekâ/kendi işleri) marka sahibine sorulacak.
 - [x] **Kapakta membran** → Kapak ve çekmece önü satırlarına "ya da membran" eklendi (kullanıcı).
 - Kullanıcı marka sahibine gidecek toplu bir soru mesajı istemedi; kendisi soracak.
 
@@ -173,7 +173,7 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
 - [x] Yavaş ağ (yavaş 3G benzetimi): süreç bölümü ve dolap yedek görselleri doğru.
 
 ### 3.5 Temizlik
-- [x] Silindi: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `public/hero/*.jpg` (3 dosya). `public/brand/seckin-monogram.svg` marka dosyası olarak kaldı.
+- [x] Silindi: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `public/hero/mutfak.jpg`, `santiye.jpg` (`yatak-odasi.jpg` 16.09.2026'da açılışa geri döndü). `public/brand/seckin-monogram.svg` marka dosyası olarak kaldı.
 - [x] Kullanılmayan çeviri anahtarları silindi: `home.cabinet.loading`, `projeDetay.about`, `blog.postCount`.
 - [x] Bilinen zararsız uyarılar (framer "container non-static position", three.js "THREE.Clock deprecated") olduğu gibi bırakıldı.
 - [x] `README.md` yeni yapıya göre yeniden yazıldı (yayın akışı, içerik tablosu, blog yayınlama, görsel varlıklar, doğrulama betikleri).

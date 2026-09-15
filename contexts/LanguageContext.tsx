@@ -30,7 +30,7 @@ const translations = {
         cta1: "Projeleri incele",
         cta2: "Ücretsiz keşif iste",
         scroll: "Kaydırın",
-        imageAlt: "Soyak Olympiakent: siyah mermer desenli TV arkası panel ve LED aydınlatmalı vitrin rafları",
+        imageAlt: "Bej tonlarında, gizli aydınlatmalı yatak odası",
         overlayEyebrow: "Tasarım · Üretim · Montaj",
         overlayTitle: "Her proje, yerinde ölçüyle başlar.",
       },
@@ -106,7 +106,6 @@ const translations = {
         eyebrow: "Rakamlarla",
       },
       instagram: {
-        eyebrow: "@seckinmobilyainsaat",
         title: ["Yeni projelerimiz", "önce Instagram'da."],
         desc: "Güncel uygulamalarımızı, detay fotoğraflarını ve kısa videolarımızı Instagram hesabımızdan takip edebilirsiniz.",
         follow: "Instagram'da takip et",
@@ -181,7 +180,7 @@ const translations = {
         cta1: "View projects",
         cta2: "Request a free site visit",
         scroll: "Scroll",
-        imageAlt: "Soyak Olympiakent: black marble-effect TV wall panel with LED-lit display shelves",
+        imageAlt: "Beige bedroom with concealed lighting",
         overlayEyebrow: "Design · Production · Installation",
         overlayTitle: "Every project starts with a site measurement.",
       },
@@ -257,7 +256,6 @@ const translations = {
         eyebrow: "In numbers",
       },
       instagram: {
-        eyebrow: "@seckinmobilyainsaat",
         title: ["Our newest projects", "land on Instagram first."],
         desc: "Follow our Instagram for recent work, close-up details and short videos.",
         follow: "Follow on Instagram",
