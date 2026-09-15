@@ -74,6 +74,9 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display), Georgia, serif;
     text-wrap: balance;
+    /* Cormorant varsayılanı eski stil rakam: "1975", "100" başlıklarda
+       küçük harf gibi aşağı sarkıyordu. */
+    font-variant-numeric: lining-nums;
   }
 }
 
@@ -132,15 +135,6 @@ html.lenis body {
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
-}
-
-/* ── Ken Burns ─────────────────────────────────── */
-@keyframes kenBurns {
-  from { transform: scale(1) translate(0, 0); }
-  to   { transform: scale(1.09) translate(-1%, -1%); }
-}
-.ken-burns {
-  animation: kenBurns 7s ease-in-out forwards;
 }
 
 /* ── Görsel büyüteci (lightbox) ─────────────────────
@@ -289,45 +283,106 @@ html.lenis body {
   clip-path: none !important;
 }
 
-/* ── Smooth reveal utility ─────────────────────── */
-.clip-reveal {
-  clip-path: inset(0 0 0 0);
+/* ── Ana sayfa açılışı: kapsül pencere ─────────────────
+   `--acilma` (0→1) HeroSection'dan kaydırmayla gelir. Kapsülün başlangıç
+   ölçüleri burada, ekran boyuna göre tanımlıdır; açıldıkça hepsi sıfıra
+   iner ve fotoğraf ekranı kaplar. Yarıçap genişliğin yarısı olduğu için
+   kenarlar tam yarım daire, yani logodaki kapsül. */
+.hero-sahne {
+  /* Mobil: başlık üstte, kapsül altta ortada */
+  --k-ust: 50dvh;
+  --k-alt: 5dvh;
+  --k-sol: 21vw;
+  --k-sag: 21vw;
+  --k-yaricap: 29vw;
 }
 
-/* ── Grain / noise texture ──────────────────────── */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.028;
-  pointer-events: none;
-  animation: grainShift 0.5s steps(2) infinite;
-  z-index: 1;
-}
-@keyframes grainShift {
-  0%   { transform: translate(0, 0); }
-  25%  { transform: translate(-3%, 4%); }
-  50%  { transform: translate(4%, -2%); }
-  75%  { transform: translate(-2%, 6%); }
-  100% { transform: translate(3%, -4%); }
+@media (min-width: 640px) {
+  .hero-sahne {
+    --k-ust: 52dvh;
+    --k-sol: 30vw;
+    --k-sag: 30vw;
+    --k-yaricap: 20vw;
+  }
 }
 
-/* ── Underline link hover ───────────────────────── */
-.underline-link {
-  position: relative;
-  display: inline-block;
+@media (min-width: 1024px) {
+  .hero-sahne {
+    /* Masaüstü: başlık solda, kapsül sağda */
+    --k-ust: 13dvh;
+    --k-alt: 9dvh;
+    --k-sol: 58vw;
+    --k-sag: 10vw;
+    --k-yaricap: 16vw;
+  }
 }
-.underline-link::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.35s ease;
+
+.hero-kapsul {
+  --kalan: calc(1 - var(--acilma, 0));
+  clip-path: inset(
+    calc(var(--k-ust) * var(--kalan))
+    calc(var(--k-sag) * var(--kalan))
+    calc(var(--k-alt) * var(--kalan))
+    calc(var(--k-sol) * var(--kalan))
+    round calc(var(--k-yaricap) * var(--kalan))
+  );
+  will-change: clip-path;
 }
-.underline-link:hover::after { width: 100%; }
+
+/* Logodaki çapraz çizgiler: kapsülün sol üst ve sağ alt kenarını keser */
+.hero-cizgi {
+  width: 7vw;
+  transform: rotate(-40deg);
+}
+.hero-cizgi-ust {
+  left: calc(var(--k-sol) - 2.4vw);
+  top: calc(var(--k-ust) + 20dvh);
+}
+.hero-cizgi-alt {
+  right: calc(var(--k-sag) - 2.4vw);
+  bottom: calc(var(--k-alt) + 16dvh);
+}
+
+@keyframes heroIpucu {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+.hero-ipucu-cizgi {
+  animation: heroIpucu 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* Hareket azaltma: kapsül sabit, bölüm tek ekran, ikinci cümle gizli.
+   !important şart: framer-motion değerleri satır içi stil olarak yazar. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bolum {
+    height: auto !important;
+  }
+  .hero-sahne {
+    position: relative !important;
+    --acilma: 0 !important;
+  }
+  .hero-metin,
+  .hero-ipucu,
+  .hero-cizgi {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-cizgi {
+    transform: rotate(-40deg) !important;
+  }
+  .hero-gorsel {
+    transform: none !important;
+  }
+  .hero-perde,
+  .hero-ust-yazi {
+    display: none !important;
+  }
+  .hero-ipucu-cizgi {
+    animation: none;
+  }
+  /* Oda kartları: eğim ve paralaks yok */
+  .oda-karti,
+  .parallax-gorsel {
+    transform: none !important;
+  }
+}

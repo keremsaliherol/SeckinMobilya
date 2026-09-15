@@ -1,21 +1,27 @@
 import HeroSection from "@/components/home/HeroSection";
-import MarqueeStrip from "@/components/ui/MarqueeStrip";
-import ServicesTeaser from "@/components/home/ServicesTeaser";
+import IntroStatement from "@/components/home/IntroStatement";
+import RoomCategories from "@/components/home/RoomCategories";
+import CompareSection from "@/components/home/CompareSection";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
-import AboutTeaser from "@/components/home/AboutTeaser";
 import StatsSection from "@/components/home/StatsSection";
-import CtaBanner from "@/components/home/CtaBanner";
+import InstagramCta from "@/components/home/InstagramCta";
 
+/**
+ * Ana sayfa akışı. Plan (docs/TASARIM-PLANI.md) sonraki fazlarda iki bölüm
+ * daha ekleyecek:
+ *   Faz 4 — "Çizimden gerçeğe" kaydırmalı video: IntroStatement'tan sonra
+ *   Faz 5 — 3D dolap anatomisi: RoomCategories'ten sonra
+ */
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <MarqueeStrip dark />
-      <ServicesTeaser />
+      <IntroStatement />
+      <RoomCategories />
+      <CompareSection />
       <FeaturedProjects />
-      <AboutTeaser />
       <StatsSection />
-      <CtaBanner />
+      <InstagramCta />
     </>
   );
 }

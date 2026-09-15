@@ -7,9 +7,10 @@
 > |---|---|
 > | 0 Hazırlık | ✅ Tamamlandı |
 > | 1 Tasarım sistemi | ✅ Tamamlandı |
-> | 2 Kabuk | ✅ Tamamlandı, onay bekliyor |
-> | 3 Ana sayfa | ⏳ Sırada |
-> | 4–8 | Bekliyor |
+> | 2 Kabuk | ✅ Tamamlandı |
+> | 3 Ana sayfa | ✅ Tamamlandı, onay bekliyor |
+> | 4 Çizimden gerçeğe (video) | ⏳ Sırada |
+> | 5–8 | Bekliyor |
 
 ## 1. Bağlam
 
@@ -187,7 +188,7 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 - Buton, link ve etiket stilleri tek yerde.
 
 **Faz 0–1 notları (uygulama sırasında öğrenilenler):**
-- Videoda kamera yavaşça yaklaşıyor. Bu yüzden `cizim.webp` ile `uygulama.webp` birebir hizalı **değil**. Faz 3'teki karşılaştırma kaydırıcısından önce çizim karesi ölçeklenip hizalanmalı.
+- ~~Çizim ve uygulama kareleri hizalı değil~~ → **Yanlış gözlem.** Faz 3'te kenar eşleştirmesiyle doğrulandı: ilk ve son kare aynı açıda, birebir hizalı. Kamera yalnızca ara karelerde (36–72) hareket ediyor.
 - OG paylaşım görseli (`public/og.jpg`) Faz 8'e bırakıldı. Logolu yeni görsel orada üretilecek.
 - Edge headless ekran görüntüsünde minimum pencere genişliği ~500 px. Mobil kontrol için tarayıcı panelinin mobil görünümü kullanılmalı.
 - Eski koddan kalan bir hata düzeltildi: Ana sayfadaki hizmet sütunlarının iç boşluğu sıfırlanıyor, metinler birbirine yapışıyordu.
@@ -205,6 +206,14 @@ Her faz sonunda: build + tarayıcıda masaüstü/mobil kontrol + ekran görünt�
 - Hero (kapsül → tam ekran), slogan, oda kategorileri (3D eğim), öne çıkan projeler, rakamlar, Instagram + CTA.
 - `BeforeAfterSlider`, `app/oncesi-sonrasi/OncesiSonrasiContent.tsx` içinden `components/ui/BeforeAfterSlider.tsx`'e taşınır. Klavye ile kullanım ve pointer event desteği eklenir.
 - Yeni veri: `data/rooms.ts` (oda kategorileri ve görselleri).
+
+**Faz 3 notları:**
+- Ana sayfa akışı: Hero (kapsül → tam ekran) · Önce çiziyoruz · Oda kategorileri · Çizim/Uygulama · Proje şeridi · Rakamlar · Instagram. Faz 4 videosu IntroStatement'tan, Faz 5 dolabı RoomCategories'ten sonra girecek (`app/page.tsx` yorumunda).
+- **framer-motion tuzağı:** `useScroll({ target })` + `useTransform(v, [..], [..])` (dizi biçimi) opaklık/transform için tarayıcı hızlandırmalı ScrollTimeline kuruyor. Hedef ref henüz bağlı olmadığından **tüm sayfanın** kaydırma aralığını kullanıyor, değerler yanlış çıkıyor. Çözüm: `useTransform(v, transform([..], [..]))` (fonksiyon biçimi).
+- Süreç videosu (`hf_…`) büyük olasılıkla yapay zekâ ile üretildi. Karşılaştırma bölümünde "teslim ettiğimiz proje" gibi bir iddia yok. Marka sahibine gerçek proje olup olmadığı sorulmalı.
+- Eski ana sayfa bileşenleri silindi: MarqueeStrip, ServicesTeaser, AboutTeaser (stok fotoğraflıydı), CtaBanner. Kullanılmayan CSS (ken-burns, grain, underline-link) temizlendi.
+- Geliştirme sunucusu uzun oturumda bellek sınırına (~8 GB) ulaşıp çöktü. Olursa `preview_start` ile yeniden başlatmak yeterli.
+- Kaydırmaya bağlı bölümleri doğrulamak için Edge DevTools protokolüyle kaydırma noktalarında ekran görüntüsü alınıyor. Tarayıcı paneli kaydırma sonrası görüntü alamıyor.
 
 ### Faz 4: Çizimden gerçeğe kaydırmalı video
 `components/home/ProcessScroll.tsx` (canvas + `framer-motion` `useScroll`, mevcut Lenis ile uyumlu).

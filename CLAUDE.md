@@ -99,6 +99,10 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - **Logo:** `components/ui/Logo.tsx` (monogram + yazı, `currentColor`; yalnız monogram için `Monogram`).
   Vektör verisi `components/ui/monogram.ts`, dosya `public/brand/seckin-monogram.svg`.
   Kaynak dosyalar `assets-kaynak/` klasöründe (videolar git'e girmez).
+- **Ana sayfa** (`app/page.tsx`): `components/home/` altında HeroSection (kapsül → tam ekran),
+  IntroStatement, RoomCategories (`data/rooms.ts`), CompareSection
+  (`components/ui/BeforeAfterSlider.tsx`), FeaturedProjects (masaüstünde sabitlenen yatay
+  şerit), StatsSection, InstagramCta. Metinler `t.home.*` (LanguageContext).
 - **Kabuk:** menü `components/layout/Navbar.tsx` + yan panel `MenuPanel.tsx`, footer `Footer.tsx`,
   sabit WhatsApp butonu `components/ui/WhatsAppButton.tsx`, açılış perdesi `components/ui/Intro.tsx`,
   404 `app/not-found.tsx`. İkonlar (Instagram, WhatsApp) `components/ui/icons.tsx`,
@@ -143,5 +147,11 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
 - İletişim bilgisini koda elle yazma, `lib/site.ts`'den import et.
 - Animasyonlarda `whileInView` kullanma; `components/ui/animations.tsx`
   içindeki `useReveal` + `data-reveal` yaklaşımını kullan.
+- Kaydırmaya bağlı animasyonda `useTransform(scrollYProgress, transform([..], [..]))`
+  kullan (fonksiyon biçimi). Dizi biçimi `useScroll({ target })` ile birlikte yanlış
+  (tüm sayfa) aralığa göre hesaplanıyor.
+- Her hareketli bölüm "hareketi azalt" tercihinde çalışmalı: ya CSS
+  `@media (prefers-reduced-motion: reduce)` ile (bkz. `.hero-*`, `.oda-karti` kuralları)
+  ya da `matchMedia` ile sabit/basit sürüme dönülür.
 - Yeni proje fotoğrafları: klasör adında Türkçe karakter/boşluk yok,
   uzun kenar ~1600 px, kalite ~%78.

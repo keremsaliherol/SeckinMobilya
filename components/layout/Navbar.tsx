@@ -21,8 +21,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /** Ana sayfada, kaydırılmamışken menü açılış fotoğrafının üstünde durur. */
-  const onPhoto = pathname === "/" && !scrolled;
+  /**
+   * Ana sayfanın en üstünde menü zeminsiz durur: açılış bej zemin üstünde
+   * başlar, çizgili zemin gereksiz ağırlık yapıyordu. Kaydırınca zemin gelir.
+   */
+  const seffaf = pathname === "/" && !scrolled;
 
   const links: NavLink[] = [
     { href: "/", label: t.nav.home },
@@ -47,17 +50,17 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ${
-          onPhoto
-            ? "border-transparent bg-transparent text-white"
-            : "border-border bg-background/90 text-foreground backdrop-blur-md"
+        className={`fixed inset-x-0 top-0 z-50 border-b text-foreground transition-colors duration-500 ${
+          seffaf
+            ? "border-transparent bg-transparent"
+            : "border-border bg-background/90 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto grid h-[4.5rem] max-w-[88rem] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 lg:h-20 lg:grid-cols-[1fr_auto_1fr] lg:px-12">
           <Link
             href="/"
             aria-label="Seçkin Mimarlık Mobilya İnşaat — Ana Sayfa"
-            className={`justify-self-start transition-colors ${onPhoto ? "text-white" : "text-brand"}`}
+            className="justify-self-start text-brand"
           >
             <Logo size="sm" />
           </Link>
@@ -72,13 +75,7 @@ export default function Navbar() {
                       href={link.href}
                       aria-current={aktif ? "page" : undefined}
                       className={`group relative block py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
-                        onPhoto
-                          ? aktif
-                            ? "text-white"
-                            : "text-white/75 hover:text-white"
-                          : aktif
-                            ? "text-brand"
-                            : "text-foreground/70 hover:text-brand"
+                        aktif ? "text-brand" : "text-foreground/70 hover:text-brand"
                       }`}
                     >
                       {link.label}
@@ -125,11 +122,7 @@ export default function Navbar() {
               aria-expanded={menuOpen}
               aria-controls="site-menu"
               aria-label={t.menu.open}
-              className={`group inline-flex h-11 items-center gap-3 rounded-full border pl-4 pr-3.5 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors active:scale-[0.98] ${
-                onPhoto
-                  ? "border-white/40 hover:bg-white hover:text-foreground"
-                  : "border-border hover:border-primary hover:bg-primary hover:text-on-ink"
-              }`}
+              className="group inline-flex h-11 items-center gap-3 rounded-full border border-border pl-4 pr-3.5 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors hover:border-primary hover:bg-primary hover:text-on-ink active:scale-[0.98]"
             >
               <span className="hidden sm:inline">{t.menu.label}</span>
               {/* İki çizgili menü işareti; alttaki çizgi üzerine gelince uzar */}

@@ -1,163 +1,148 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useRef, type CSSProperties } from "react";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, transform, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 /**
- * Slayt görselleri, çeviri dosyasındaki slayt sırasıyla eşleşir:
- * 1) 1975'ten Bugüne — mutfak (sitenin açılış karesi)
- * 2) İç Mimarlık & Tasarım — yatak odası
- * 3) Mimarlık & İnşaat — şantiye
+ * Ana sayfa açılışı: logodaki kapsül, projelere açılan bir pencere.
+ *
+ * İlk ekranda fotoğraf logodaki gibi bir kapsülün içinde durur. Ziyaretçi
+ * kaydırdıkça kapsül ekranı kaplayana kadar büyür, başlık çekilir ve
+ * fotoğrafın üstünde ikinci bir cümle belirir.
+ *
+ * Kapsülün ölçüleri CSS'te (`.hero-kapsul`, globals.css) ekran boyuna göre
+ * tanımlıdır; buradan yalnızca 0→1 arası `--acilma` değeri gönderilir. Böylece
+ * masaüstü/mobil ayrımı için JS'te ekran ölçmeye gerek kalmaz.
+ *
+ * Görünürlük güvencesi: başlık ve butonlar opaklık 1 ile başlar, yalnızca
+ * kaydırdıkça silikleşir. Hareket azaltma tercihinde (CSS) kapsül sabit kalır
+ * ve bölüm tek ekran yüksekliğine iner.
  */
-const slideImages = [
-  "/hero/mutfak.jpg",
-  "/hero/yatak-odasi.jpg",
-  "/hero/santiye.jpg",
-];
-
 export default function HeroSection() {
   const { t } = useLang();
-  const slides = t.hero.slides.map((s, i) => ({ ...s, image: slideImages[i] }));
-  const slideCount = slides.length;
-  const [current, setCurrent] = useState(0);
-  const transitioningRef = useRef(false);
+  const h = t.home.hero;
+  const bolumRef = useRef<HTMLElement>(null);
 
-  const goTo = useCallback((next: (c: number) => number) => {
-    if (transitioningRef.current) return;
-    transitioningRef.current = true;
-    setTimeout(() => {
-      setCurrent(next);
-      transitioningRef.current = false;
-    }, 400);
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: bolumRef,
+    offset: ["start start", "end end"],
+  });
 
-  const goNext = useCallback(
-    () => goTo((c) => (c + 1) % slideCount),
-    [goTo, slideCount]
-  );
-
-  const goPrev = useCallback(
-    () => goTo((c) => (c - 1 + slideCount) % slideCount),
-    [goTo, slideCount]
-  );
-
-  useEffect(() => {
-    const timer = setInterval(goNext, 6000);
-    return () => clearInterval(timer);
-  }, [goNext]);
-
-  const slide = slides[current];
-  const words = slide.title.split(" ");
+  const acilma = useTransform(scrollYProgress, transform([0.02, 0.6], [0, 1]));
+  const gorselOlcek = useTransform(scrollYProgress, transform([0, 0.6], [1.14, 1]));
+  const metinOpak = useTransform(scrollYProgress, transform([0, 0.2], [1, 0]));
+  const metinY = useTransform(scrollYProgress, transform([0, 0.2], [0, -70]));
+  const perde = useTransform(scrollYProgress, transform([0.38, 0.66], [0, 1]));
+  const ustYaziOpak = useTransform(scrollYProgress, transform([0.6, 0.78], [0, 1]));
+  const ustYaziY = useTransform(scrollYProgress, transform([0.6, 0.78], [36, 0]));
 
   return (
-    // h-dvh: mobilde adres çubuğu açılıp kapandıkça 100vh değişir ve içerik
-    // zıplar; dvh gerçek görünür yüksekliği izler.
-    <section className="grain relative h-dvh min-h-[600px] max-h-[900px] overflow-hidden bg-background">
-      {slides.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{ opacity: i === current ? 1 : 0 }}
-        >
-          <img
-            key={`${i}-${current}`}
-            src={s.image}
-            alt={s.title}
-            /* İlk slayt sayfanın ilk görüntüsü: öncelikli indirilir.
-               Diğerleri düşük öncelikli ama yine de hemen indirilir — slayt
-               otomatik döndüğü için "lazy" bırakılırsa geçişte boş kare oluşur. */
-            fetchPriority={i === 0 ? "high" : "low"}
+    <section ref={bolumRef} className="hero-bolum relative h-[250vh]">
+      <motion.div
+        className="hero-sahne sticky top-0 h-dvh overflow-hidden"
+        style={{ "--acilma": acilma } as unknown as CSSProperties}
+      >
+        {/* Kapsül pencere: fotoğraf + karartma + ikinci cümle */}
+        <div className="hero-kapsul absolute inset-0 bg-surface">
+          <motion.img
+            src="/hero/yatak-odasi.jpg"
+            alt={h.imageAlt}
+            fetchPriority="high"
             decoding="async"
-            className={`w-full h-full object-cover ${i === current ? "ken-burns" : ""}`}
+            style={{ scale: gorselOlcek }}
+            className="hero-gorsel absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-shade/85 via-shade/55 to-shade/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-shade/55 via-transparent to-transparent" />
-        </div>
-      ))}
+          <motion.div
+            aria-hidden="true"
+            style={{ opacity: perde }}
+            className="hero-perde absolute inset-0 bg-gradient-to-t from-shade/80 via-shade/35 to-shade/10"
+          />
 
-      <div className="relative z-10 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.25em] uppercase text-accent mb-8">
-              <span className="w-10 h-px bg-accent" />
-              {slide.tag}
-            </span>
-
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-6">
-              {words.map((word, i) => (
-                <span key={i} className="inline-block mr-[0.25em]">
-                  {word}
-                </span>
-              ))}
-            </h1>
-
-            <p className="text-white/80 text-lg leading-relaxed mb-10 max-w-xl">
-              {slide.subtitle}
-            </p>
-
-            <div className="flex flex-wrap gap-4">
+          <motion.div
+            style={{ opacity: ustYaziOpak, y: ustYaziY }}
+            className="hero-ust-yazi absolute inset-x-0 bottom-0"
+          >
+            <div className="mx-auto flex max-w-[88rem] flex-col items-start gap-8 px-5 pb-14 sm:px-8 lg:flex-row lg:items-end lg:justify-between lg:px-12 lg:pb-20">
+              <div className="max-w-3xl text-white">
+                <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-accent-light">
+                  {h.overlayEyebrow}
+                </p>
+                <p className="font-heading text-[clamp(2.4rem,5.2vw,4.75rem)] leading-[1.02]">
+                  {h.overlayTitle}
+                </p>
+              </div>
               <Link
                 href="/projelerimiz"
-                className="bg-primary text-background font-semibold px-8 py-3.5 hover:bg-primary-light transition-colors"
+                className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-white px-7 text-sm font-medium text-foreground transition-colors hover:bg-accent-light active:scale-[0.98]"
               >
-                {t.hero.cta1}
-              </Link>
-              <Link
-                href="/iletisim"
-                className="border border-white/40 text-white font-medium px-8 py-3.5 hover:bg-white hover:text-foreground hover:border-white transition-colors"
-              >
-                {t.hero.cta2}
+                {h.cta1} <ArrowRight size={16} />
               </Link>
             </div>
+          </motion.div>
+        </div>
+
+        {/* Logodaki çapraz çizgiler: kapsülün kenarını keser, açılınca çekilir */}
+        <motion.span
+          aria-hidden="true"
+          style={{ opacity: metinOpak }}
+          className="hero-cizgi hero-cizgi-ust pointer-events-none absolute hidden h-px bg-brand/60 lg:block"
+        />
+        <motion.span
+          aria-hidden="true"
+          style={{ opacity: metinOpak }}
+          className="hero-cizgi hero-cizgi-alt pointer-events-none absolute hidden h-px bg-brand/60 lg:block"
+        />
+
+        {/* Başlık bloğu */}
+        <motion.div
+          style={{ opacity: metinOpak, y: metinY }}
+          className="hero-metin pointer-events-none absolute inset-x-0 top-0"
+        >
+          <div className="mx-auto max-w-[88rem] px-5 pt-28 sm:px-8 lg:flex lg:h-dvh lg:items-center lg:px-12 lg:pt-20">
+            <div className="pointer-events-auto max-w-[36rem] xl:max-w-[42rem]">
+              <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.3em] text-muted lg:mb-8">
+                {h.eyebrow}
+              </p>
+              <h1 className="font-heading text-[clamp(2.6rem,6.4vw,6.4rem)] leading-[0.95] tracking-[-0.015em] text-foreground">
+                <span className="block">{h.title[0]}</span>
+                <span className="block italic text-brand">{h.title[1]}</span>
+              </h1>
+              <p className="mt-7 hidden max-w-[30rem] text-lg leading-relaxed text-muted sm:block">
+                {h.desc}
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3 lg:mt-10">
+                <Link
+                  href="/projelerimiz"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-sm font-medium text-on-ink transition-colors hover:bg-primary-light active:scale-[0.98]"
+                >
+                  {h.cta1} <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/iletisim"
+                  className="hidden h-12 items-center rounded-full border border-border px-7 text-sm font-medium text-foreground transition-colors hover:border-primary active:scale-[0.98] sm:inline-flex"
+                >
+                  {h.cta2}
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-6">
-        <button
-          onClick={goPrev}
-          aria-label="Önceki görsel"
-          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-white hover:text-white transition-colors"
+        {/* Kaydırma ipucu */}
+        <motion.div
+          aria-hidden="true"
+          style={{ opacity: metinOpak }}
+          className="hero-ipucu absolute bottom-8 left-5 hidden items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-muted sm:left-8 lg:left-12 lg:flex"
         >
-          <ChevronLeft size={20} />
-        </button>
-        <div className="flex gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(() => i)}
-              aria-label={`${i + 1}. görsele git`}
-              aria-current={i === current}
-              /* Çizginin kendisi ince; dokunma alanı dolgu ve asgari yükseklikle
-                 parmakla rahat basılabilir boyuta (44px) çıkarılır. */
-              className="flex items-center justify-center min-h-11 px-2"
-            >
-              <span
-                className={`block h-0.5 transition-all duration-300 ${
-                  i === current ? "w-8 bg-white" : "w-4 bg-white/35"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-        <button
-          onClick={goNext}
-          aria-label="Sonraki görsel"
-          className="w-11 h-11 border border-white/30 flex items-center justify-center text-white/80 hover:border-white hover:text-white transition-colors"
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
-
-      <a
-        href="#content"
-        className="absolute bottom-8 right-12 z-10 hidden lg:flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors"
-      >
-        <span className="text-xs tracking-widest uppercase">Keşfet</span>
-        <ChevronDown size={16} className="animate-bounce" />
-      </a>
+          <span className="relative block h-10 w-px overflow-hidden bg-border">
+            <span className="hero-ipucu-cizgi absolute inset-x-0 top-0 h-1/2 bg-brand" />
+          </span>
+          {h.scroll}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
