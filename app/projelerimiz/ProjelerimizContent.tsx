@@ -7,6 +7,7 @@ import { projects, getUsedCategories, type Project, type ProjectCategory } from 
 import { FadeInUp } from "@/components/ui/animations";
 import PageHeader from "@/components/ui/PageHeader";
 import { useLang } from "@/contexts/LanguageContext";
+import { duyarli } from "@/lib/gorsel";
 
 type Filtre = { label: string; value: "all" | ProjectCategory };
 
@@ -16,16 +17,28 @@ type Filtre = { label: string; value: "all" | ProjectCategory };
  */
 const ORANLAR = ["aspect-[3/4]", "aspect-[4/5]", "aspect-[5/6]"];
 
-function ProjeKarti({ project, kategori, oran }: { project: Project; kategori: string; oran: string }) {
+/** `oncelikli`: ilk ekranda görünen kartlar; tembel yüklenirse sayfanın en büyük görseli (LCP) gecikiyor. */
+function ProjeKarti({
+  project,
+  kategori,
+  oran,
+  oncelikli,
+}: {
+  project: Project;
+  kategori: string;
+  oran: string;
+  oncelikli: boolean;
+}) {
   const { p } = useLang();
   const pg = p.projelerimiz;
   return (
     <Link href={`/projelerimiz/${project.slug}`} className="group block">
       <span className={`relative block overflow-hidden bg-surface ${oran}`}>
         <img
-          src={project.coverImage}
+          {...duyarli(project.coverImage, "(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw")}
           alt={project.title}
-          loading="lazy"
+          loading={oncelikli ? "eager" : "lazy"}
+          fetchPriority={oncelikli ? "high" : undefined}
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
         />
@@ -100,9 +113,17 @@ export default function ProjelerimizContent() {
           {/* key: filtre değişince liste yeniden kurulur, kartlar yeniden belirir */}
           <div key={etkin} className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
             {liste.map((project, i) => (
-              <FadeInUp key={project.slug} delay={Math.min(i, 5) * 0.05} className="mb-12 break-inside-avoid">
-                <ProjeKarti project={project} kategori={kategoriAdi(project.category)} oran={ORANLAR[i % ORANLAR.length]} />
-              </FadeInUp>
+              // İlk ekrandaki kartlar animasyonsuz: belirme animasyonu JS yüklenene kadar görseli
+              // gizleyip sayfanın en büyük görselinin (LCP) görünmesini ~1–2 sn geciktiriyordu.
+              i < 3 ? (
+                <div key={project.slug} className="mb-12 break-inside-avoid">
+                  <ProjeKarti project={project} kategori={kategoriAdi(project.category)} oran={ORANLAR[i % ORANLAR.length]} oncelikli />
+                </div>
+              ) : (
+                <FadeInUp key={project.slug} delay={Math.min(i, 5) * 0.05} className="mb-12 break-inside-avoid">
+                  <ProjeKarti project={project} kategori={kategoriAdi(project.category)} oran={ORANLAR[i % ORANLAR.length]} oncelikli={false} />
+                </FadeInUp>
+              )
             ))}
           </div>
 

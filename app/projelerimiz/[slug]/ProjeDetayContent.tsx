@@ -9,12 +9,13 @@ import { whatsappLink } from "@/lib/site";
 import { FadeInUp } from "@/components/ui/animations";
 import Lightbox from "@/components/ui/Lightbox";
 import { WhatsAppIcon } from "@/components/ui/icons";
+import { duyarli } from "@/lib/gorsel";
 
 /** Galeri görsel oranları sırayla döner (sütunlu ızgarada ritim için). */
 const ORANLAR = ["aspect-[3/4]", "aspect-[4/5]", "aspect-[3/4]", "aspect-[5/6]"];
 
 export default function ProjeDetayContent({ slug }: { slug: string }) {
-  const { p } = useLang();
+  const { p, t } = useLang();
   const d = p.projeDetay;
   const project = getProjectBySlug(slug)!;
   const [acikSira, setAcikSira] = useState<number | null>(null);
@@ -71,7 +72,7 @@ export default function ProjeDetayContent({ slug }: { slug: string }) {
               className="group relative block aspect-[3/4] w-full overflow-hidden rounded-t-full bg-surface"
             >
               <img
-                src={project.coverImage}
+                {...duyarli(project.coverImage, "(min-width: 1024px) 40vw, 100vw")}
                 alt={project.title}
                 fetchPriority="high"
                 decoding="async"
@@ -102,8 +103,8 @@ export default function ProjeDetayContent({ slug }: { slug: string }) {
                   className={`group relative mb-3 block w-full break-inside-avoid overflow-hidden bg-surface sm:mb-4 lg:mb-6 ${ORANLAR[k % ORANLAR.length]}`}
                 >
                   <img
-                    src={img}
-                    alt={`${project.title}, ${k + 2}. görsel`}
+                    {...duyarli(img, "(min-width: 1024px) 30vw, 50vw")}
+                    alt={`${project.title} — ${t.lightbox.image.replace("{n}", String(k + 2))}`}
                     loading="lazy"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -167,7 +168,7 @@ export default function ProjeDetayContent({ slug }: { slug: string }) {
                 <Link href={`/projelerimiz/${x.slug}`} className="group block">
                   <span className="relative block aspect-[4/5] overflow-hidden bg-surface">
                     <img
-                      src={x.coverImage}
+                      {...duyarli(x.coverImage, "(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw")}
                       alt={x.title}
                       loading="lazy"
                       decoding="async"

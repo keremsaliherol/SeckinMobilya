@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "framer-motion";
 
 /** Sağlık ölçümü penceresi (ms). */
 const KONTROL_ANI = 1200;
@@ -67,6 +68,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
 
     const baslat = () => {
       if (lenis) return;
+      // Hareketi azalt tercihinde tarayıcının kendi kaydırması kullanılır
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       import("lenis")
         .then(({ default: Lenis }) => {
@@ -181,5 +184,6 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     else window.scrollTo(0, y);
   }, [pathname]);
 
-  return <>{children}</>;
+  // reducedMotion="user": hareketi azalt açıksa belirme animasyonlarında kayma olmaz, yalnızca solma kalır
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

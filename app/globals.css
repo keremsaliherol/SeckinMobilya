@@ -144,6 +144,13 @@ html.lenis body {
   outline-offset: 3px;
 }
 
+/* Koyu zeminlerde (footer, menü paneli, Instagram bandı, lightbox, fotoğraf üstü yazı)
+   koyu kahve halka zeminle aynı renkte kalıp görünmüyordu (1:1). Orada açık taş rengi. */
+.bg-ink :focus-visible,
+[data-koyu-zemin] :focus-visible {
+  outline-color: var(--accent);
+}
+
 /* ── Görsel büyüteci (lightbox) ─────────────────────
    Yalnızca ölçek animasyonu var; opacity bilerek kullanılmıyor. Animasyon
    herhangi bir sebeple ilerlemezse öğe ilk karesinde donar — opacity ile
@@ -265,6 +272,35 @@ html.lenis body {
   clip-path: none !important;
 }
 
+/* Bu sekmede perde görüldüyse (app/layout.tsx <head> betiği) sunucudan gelen perde hiç çizilmez */
+html[data-intro-goruldu] .intro-katman {
+  display: none;
+}
+
+/* Sayfa başlığı belirmesi (PageHeader). JavaScript'e bağlı değil: başlık ilk karede
+   görünmeye başlar. JS ile yapılınca iç sayfalarda en büyük öğe (LCP) 1–2 sn gecikiyordu. */
+@keyframes baslikBelir {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.baslik-belir {
+  animation: baslikBelir 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+.baslik-belir-gecikmeli {
+  animation-delay: 0.12s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .baslik-belir {
+    animation: none;
+  }
+}
+
 /* Perde yukarı kayarak siteyi açar */
 .intro-katman {
   transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
@@ -310,6 +346,31 @@ html.lenis body {
     --k-sol: 30vw;
     --k-sag: 30vw;
     --k-yaricap: 20vw;
+  }
+}
+
+/* Yatay ve 1024 px altı (yatay telefon, %200 yakınlaştırılmış masaüstü): başlık üstte +
+   kapsül altta düzeni kısa ekrana sığmıyor, kapsül başlığın ve butonların üstüne biniyordu.
+   Bu ekranlarda da masaüstündeki gibi başlık solda, kapsül sağda. */
+@media (max-width: 1023px) and (orientation: landscape) {
+  .hero-sahne {
+    --k-ust: 17dvh;
+    --k-alt: 6dvh;
+    --k-sol: 60vw;
+    --k-sag: 6vw;
+    --k-yaricap: 17vw;
+  }
+  .hero-metin-ic {
+    padding-top: 5.5rem;
+  }
+  .hero-metin-ic > div {
+    max-width: 54vw;
+  }
+  .hero-metin-ic h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+  .hero-aciklama {
+    display: none;
   }
 }
 

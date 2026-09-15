@@ -8,19 +8,16 @@ değişirse **hem burayı hem `lib/site.ts`'yi** güncelle.
 
 ## ▶ Devam eden iş — yeni oturumda önce bunu oku
 
-Yeniden tasarımın Faz 0–7'si bitti ve **15.09.2026'da canlıya alındı** (`main`). Faz 8 yayından sonra yapılıyor. **Tamamlanmamış görevler
-`docs/KALAN-GOREVLER.md` dosyasında.** Kullanıcı "devam" / "kalan görevleri yap" dediğinde:
+Yeniden tasarımın **Faz 0–8'i bitti**; site 15.09.2026'da canlıya alındı (`main`). Açık kalanlar
+`docs/KALAN-GOREVLER.md` dosyasında:
 
-1. `docs/KALAN-GOREVLER.md`'yi baştan sona oku (çalışma kuralları §0'da).
-2. İşaretlenmemiş (`- [ ]`) görevleri sırayla yap: önce Faz 7'de açık kalan **blog yazısı onayı**
-   (onaylananlar `taslak: false`), sonra **Faz 8'den önce bekleyen kararları kullanıcıya tek tek sor**,
-   sonra **Faz 8 Kalite ve Teslim**.
-3. Biten maddeyi `- [x]` yap. Her faz sonunda: tsc + lint + build (dev sunucusu kapalıyken)
-   + görsel kontrol (`scripts/sayfa-goruntusu.mjs`) + commit + Türkçe kısa rapor, sonra onay bekle.
-4. Faz ortasında çıkan yeni kararları sorma; `docs/TASARIM-PLANI.md` §10.5'e ekle.
-5. `git push` yalnızca kullanıcı isterse: `main`'e her gönderim canlı siteyi günceller.
-
-Tüm görevler bitince bu bölümü kaldır.
+- **Blog takvimi (§4):** kullanıcı "sıradaki yazıyı yayınla" derse `data/blog.ts` → `taslak: false` +
+  `tarih` = yayın günü → build → commit → (kullanıcı isterse) push.
+- **Marka sahibinden gelecek bilgiler (§2):** Gmail, yorumlar, kilometre taşları, oda fotoğrafları,
+  videoların gerçek olup olmadığı, taslak cümlelerin onayı, blog kapak fotoğrafı izni. Geldiyse işle.
+- **Kullanıcıda:** Safari/iOS ve Firefox testi (§3.4), Google Search Console kurulumu (§3.1).
+- Kurallar: doğrulanmamış içerik yazma; yeni kararları `docs/TASARIM-PLANI.md` §10.5'e ekle;
+  `git push` yalnızca kullanıcı isterse (`main`'e her gönderim canlı siteyi günceller).
 
 ## Marka / Firma
 
@@ -96,7 +93,7 @@ Kategoriler: `mobilya`, `insaat`, `ic-mimari`.
 
 ## Görsel Kimlik (`app/globals.css`)
 
-Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
+Yeniden tasarım tamamlandı (Faz 0–8). Plan ve faz notları: `docs/TASARIM-PLANI.md`.
 Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `yeniden-tasarim` dalında).
 
 **Palet: "Sıcak Bej & Kahve" (açık tema).** Tailwind sınıf adları parantezde.
@@ -154,6 +151,8 @@ Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `
 - **Dev sunucusu:** `npm run dev` → http://localhost:3000 (`.claude/launch.json` → `seckin-dev`).
   **Dev sunucusu açıkken `npm run build` çalıştırma**: `out/` yeniden yazılınca Turbopack
   belleği ~8 GB'a çıkıp çöküyor. Önce sunucuyu durdur, build al, sonra yeniden başlat.
+  **`app/globals.css` değişikliği dev sunucusunda görünmüyorsa** (OneDrive klasöründe Turbopack
+  izleyicisi kaçırıyor, sunulan CSS eski kalıyor): sunucuyu durdur → `.next/dev` klasörünü sil → yeniden başlat.
 - **İki dil:** TR/EN — `contexts/LanguageContext.tsx` (genel) ve
   `contexts/pageTranslations.ts` (sayfa metinleri). Metin eklerken iki dili de güncelle.
 - **İletişim formu** sunucuya değil WhatsApp'a (`wa.me`) yönlendirir.
@@ -168,9 +167,11 @@ Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `
 | Ne | Dosya |
 |---|---|
 | Telefon, Instagram, adres, harita | `lib/site.ts` (tek kaynak) |
-| Projeler | `data/projects.ts` |
+| Projeler | `data/projects.ts` (yeni fotoğraftan sonra `node scripts/gorsel-surumleri.mjs`) |
 | Blog yazıları (yalnız TR; `taslak: true` yayında görünmez) | `data/blog.ts` (arayüz metinleri `pageTranslations.blog`) |
 | Hizmet görselleri / örnek projeler | `data/services.ts` (metinler `pageTranslations.ts`) |
+| Ana sayfa oda kartları | `data/rooms.ts` |
+| 3D dolap parça/malzeme listesi | `data/cabinetParts.ts` |
 | Sayfa metinleri TR/EN | `contexts/pageTranslations.ts`, `contexts/LanguageContext.tsx` |
 | Renk / tema | `app/globals.css` |
 | SEO meta, JSON-LD işletme bilgisi | `app/layout.tsx` |
@@ -178,6 +179,8 @@ Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `
 ### Dikkat edilecekler
 
 - İletişim bilgisini koda elle yazma, `lib/site.ts`'den import et.
+- Proje/blog fotoğraflarını `<img {...duyarli(src, sizes)} />` ile kullan (`lib/gorsel.ts`, WebP `srcset`).
+  İlk ekranda görünen büyük görseli belirme animasyonuna sokma (LCP gecikiyor); `fetchPriority="high"` ver.
 - Animasyonlarda `whileInView` kullanma; `components/ui/animations.tsx`
   içindeki `useReveal` + `data-reveal` yaklaşımını kullan.
 - Animasyon güvenlik ağlarında zamanlayıcıyı koşulsuz kurma: arka plan sekmesi (`document.hidden`),

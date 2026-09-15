@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { FadeInUp } from "@/components/ui/animations";
 
 /**
  * İç sayfaların ortak başlığı.
@@ -24,20 +23,20 @@ export default function PageHeader({
     <section className="pb-14 pt-32 lg:pb-20 lg:pt-44">
       <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-8 border-b border-border pb-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-16">
-          <FadeInUp className="lg:col-span-8">
+          <div className="baslik-belir lg:col-span-8">
             <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.3em] text-muted">{eyebrow}</p>
             <h1 className="font-heading text-[clamp(2.75rem,6.6vw,6.25rem)] leading-[0.96] tracking-[-0.015em] text-foreground">
               <span className="block">{title[0]}</span>
               {title[1] && <span className="block italic text-brand">{title[1]}</span>}
             </h1>
-          </FadeInUp>
+          </div>
           {(description || children) && (
-            <FadeInUp delay={0.12} className="lg:col-span-4 lg:pb-2">
+            <div className="baslik-belir baslik-belir-gecikmeli lg:col-span-4 lg:pb-2">
               {description && (
                 <p className="max-w-[40ch] text-lg leading-relaxed text-muted">{description}</p>
               )}
               {children}
-            </FadeInUp>
+            </div>
           )}
         </div>
       </div>

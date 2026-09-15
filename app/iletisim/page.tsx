@@ -4,8 +4,8 @@ import IletisimContent from "./IletisimContent";
 export const metadata: Metadata = {
   title: "İletişim",
   description:
-    "Projeniz için ücretsiz keşif ve danışmanlık alın. Seçkin Mimarlık Mobilya İnşaat ile telefon veya WhatsApp üzerinden hemen iletişime geçin.",
-  alternates: { canonical: "/iletisim" },
+    "Projeniz için ücretsiz keşif ve danışmanlık alın. Seçkin Mimarlık Mobilya İnşaat'a telefon, WhatsApp ya da teklif formuyla ulaşın; adres Bağcılar/İstanbul.",
+  alternates: { canonical: "/iletisim/" },
 };
 
 export default function IletisimPage() {

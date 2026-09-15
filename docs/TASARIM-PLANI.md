@@ -12,8 +12,8 @@
 > | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı |
 > | 5 3D dolap anatomisi | ✅ Tamamlandı |
 > | 6 İç sayfalar | ✅ Tamamlandı |
-> | 7 Blog | ✅ Tamamlandı (4 yazı taslak, onay bekliyor) |
-> | 8 Kalite ve teslim | ⏳ Sırada (önce §10.5 kararları sorulacak) |
+> | 7 Blog | ✅ Tamamlandı (1 yazı yayında, 3 taslak takvimde) |
+> | 8 Kalite ve teslim | ✅ Tamamlandı (Safari/Firefox testi kullanıcıda) |
 >
 > **Kalan işlerin ayrıntılı listesi: [`docs/KALAN-GOREVLER.md`](KALAN-GOREVLER.md)**
 
@@ -270,6 +270,12 @@ Projelerimiz, proje detay, hizmetlerimiz, hakkımızda, öncesi-sonrası, ileti�
 ### Faz 8: Kalite ve teslim
 Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavye, "içeriğe atla" linki), hareketi azalt ayarı, performans (görsel boyutları, lazy-load, JS boyutu), SEO meta/OG güncellemesi, `npm run build` ile statik export testi, `CLAUDE.md` ve `README.md` güncellemesi.
 
+**Faz 8 notları (ayrıntı: `docs/KALAN-GOREVLER.md` §3):**
+- **Açılış fotoğrafı** Soyak Olympiakent TV duvarı oldu. Kapsül, tam ekran görselin masaüstünde sağ-orta, mobilde orta-alt bölgesini gösterdiği için dikey telefon fotoğraflarının çoğu uymuyor; adaylar bu geometriyle kırpılarak karşılaştırıldı.
+- **Erişilebilirlik:** axe 0 ihlal. En önemli bulgu: odak halkası koyu zeminlerde görünmüyordu. Yatay/kısa ekranda açılış kapsülü başlığın üstüne biniyordu.
+- **Performans:** en büyük kazanç WebP + `srcset` (640/828/1200) ve ilk ekrandaki görselleri JS animasyonundan çıkarmak. Açılış perdesi gerçek ölçümde LCP'yi geciktirmiyor (Chrome perdenin altındaki görseli sayıyor).
+- **Dev ortamı:** `globals.css` değişiklikleri Turbopack önbelleğinde takılı kalabiliyor → `.next/dev` silinip sunucu yeniden başlatılmalı.
+
 ---
 
 ## 8. Korunacak mevcut yapılar
@@ -305,11 +311,12 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 - [ ] **Süreç videosu gerçek proje mi?** Dosya adı (`hf_…`) yapay zekâ üretimini düşündürüyor. Kaydırıcıdaki boş oda → mutfak videosu da `hf_…` adlı; aynı soru onun için de geçerli. Metinler bu yüzden tarafsız. Gerçekse metin güçlendirilecek, değilse marka sahibinin yayın onayı alınacak.
 - [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımlarının açıklamaları, "üretime onaylanan çizimle başlıyoruz", Instagram bandı cümleleri.
 - [x] ~~Dolap malzeme etiketleri~~ → Marka sahibinden alındı (15.09.2026), `data/cabinetParts.ts` güncellendi. "Projeye göre birlikte belirlenir" notunun kalması onaylandı.
-- [ ] **Bağlantı parçaları (10. madde):** "Minifix ve kavela" hâlâ doğrulanmadı.
-- [ ] **Ayak ölçüsü:** Marka sahibi "12'lik ayak" dedi, sitede "12 cm ayak" yazıyor. cm olduğu teyit edilmeli.
+- [x] ~~Bağlantı parçaları~~ → Kullanıcı kararı (15.09.2026): marka adı vermeyen genel ifade ("Gövdeyi birleştiren bağlantı elemanları").
+- [x] ~~Ayak ölçüsü~~ → Kullanıcı kararı (15.09.2026): "12 cm" kalıyor.
 - [x] ~~3D dolabın görünümü~~ → Marka sahibinin gönderdiği ürün fotoğrafına (`assets-kaynak/dolap.jpeg`) göre yeniden modellendi: şampanya akrilik kapak, siyah gola, solda 2 çekmece + sağda çift kapak, 12 cm ayak.
 - [ ] **Blog kapağında ürün fotoğrafı:** "Akrilik mi, membran mı?" yazısının kapağı marka sahibinin gönderdiği `assets-kaynak/dolap.jpeg` (kopyası `public/blog/akrilik-kapak.jpg`). Kendi ürünleri mi, sitede yayınlanabilir mi? **Bu yazı canlıya alınırken yayında olacak (15.09.2026), izin yayından önce netleşmeli;** izin çıkmazsa kapak bir proje fotoğrafıyla değişir.
-- [ ] **Açılış fotoğrafı:** `public/hero/yatak-odasi.jpg` eski siteden, kaynağı bilinmiyor (stok ya da yapay zekâ olabilir). Gerçek bir proje fotoğrafıyla değiştirilmesi önerildi.
+- [x] ~~Açılış fotoğrafı~~ → Kullanıcı kararı (15.09.2026): proje fotoğrafıyla değişti (Soyak Olympiakent 03). Eski görsel silindi.
+- [x] ~~Kapakta membran~~ → Kullanıcı kararı (15.09.2026): malzeme listesine eklendi.
 
 ## 11. Marka sahibinden istenecekler
 - [ ] Gmail adresi

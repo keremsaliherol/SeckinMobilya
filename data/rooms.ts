@@ -41,8 +41,8 @@ export const rooms: Room[] = [
   },
   {
     id: "tv-unitesi",
-    image: "/projeler/soyak-olympiakent/03.jpg",
-    href: "/projelerimiz/soyak-olympiakent",
+    image: "/projeler/istinye-akdag/01.jpg",
+    href: "/projelerimiz/istinye-akdag",
   },
   {
     id: "banyo",

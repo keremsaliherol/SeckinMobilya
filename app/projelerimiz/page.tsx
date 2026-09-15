@@ -4,8 +4,8 @@ import ProjelerimizContent from "./ProjelerimizContent";
 export const metadata: Metadata = {
   title: "Projelerimiz",
   description:
-    "Tamamladığımız mobilya, inşaat ve iç mimari projelerinden örnekler. Her proje müşterimize özel tasarlanmış ve titizlikle hayata geçirilmiştir.",
-  alternates: { canonical: "/projelerimiz" },
+    "İstanbul'da tamamladığımız mutfak, gardırop, TV ünitesi ve iç mimari projelerinden bir seçki. Her biri mekânın ölçüsüne göre tasarlanıp üretildi.",
+  alternates: { canonical: "/projelerimiz/" },
 };
 
 export default function ProjelerimizPage() {

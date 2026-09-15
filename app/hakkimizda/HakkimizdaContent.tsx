@@ -4,6 +4,7 @@ import { FadeInUp } from "@/components/ui/animations";
 import PageHeader from "@/components/ui/PageHeader";
 import StatsSection from "@/components/home/StatsSection";
 import { useLang } from "@/contexts/LanguageContext";
+import { duyarli } from "@/lib/gorsel";
 
 /** Hikâye bölümündeki gerçek proje fotoğrafı (eski stok görselin yerine). */
 const HIKAYE_GORSELI = "/projeler/basaksehir-misstanbul/04.jpg";
@@ -19,13 +20,14 @@ export default function HakkimizdaContent() {
       {/* Hikâye */}
       <section className="pb-24 lg:pb-36">
         <div className="mx-auto grid max-w-[88rem] gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-12">
-          <FadeInUp className="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:max-w-none">
+          {/* İlk ekranda: animasyonsuz, sayfanın en büyük görseli (LCP) gecikmesin */}
+          <div className="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:max-w-none">
             {/* Logodaki kapsül: fotoğraf kapsülün içinde */}
             <div className="relative aspect-[3/5] overflow-hidden rounded-full bg-surface">
               <img
-                src={HIKAYE_GORSELI}
+                {...duyarli(HIKAYE_GORSELI, "(min-width: 1024px) 40vw, 26rem")}
                 alt={pg.story.imageAlt}
-                loading="lazy"
+                fetchPriority="high"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
               />
@@ -34,7 +36,7 @@ export default function HakkimizdaContent() {
               <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-muted">{pg.story.since}</p>
               <p className="font-heading text-6xl leading-none text-brand">1975</p>
             </div>
-          </FadeInUp>
+          </div>
 
           <FadeInUp delay={0.1} className="lg:col-span-6 lg:col-start-7">
             <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.3em] text-muted">{pg.story.badge}</p>

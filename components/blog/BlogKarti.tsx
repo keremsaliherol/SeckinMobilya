@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { okumaSuresi, tarihBicimle, type BlogYazisi } from "@/data/blog";
 import { useLang } from "@/contexts/LanguageContext";
+import { duyarli } from "@/lib/gorsel";
 
 /**
  * Yazı kartı: kapak, tarih ve okuma süresi, başlık, özet.
@@ -35,7 +36,7 @@ export default function BlogKarti({
         }`}
       >
         <img
-          src={yazi.kapak}
+          {...duyarli(yazi.kapak, buyuk ? "(min-width: 1024px) 58vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw")}
           alt={yazi.kapakAlt}
           loading={buyuk ? "eager" : "lazy"}
           decoding="async"

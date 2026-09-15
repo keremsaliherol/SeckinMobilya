@@ -1,10 +1,11 @@
-# Kalan Görevler — Faz 7 (Blog) ve Faz 8 (Kalite ve Teslim)
+# Kalan Görevler — Faz 7 (Blog), Faz 8 (Kalite ve Teslim) ve yayın sonrası
 
 > **Yeni oturum buradan başlar.** Bu dosyadaki işaretlenmemiş (`- [ ]`) görevleri
 > sırayla yap. Bitirdiğin maddeyi `- [x]` yap ve gerekirse kısa bir not düş.
 > Genel plan ve önceki fazların notları: `docs/TASARIM-PLANI.md`.
 >
-> Hazırlandığı tarih: 15.09.2026 · Durum: Faz 0–7 tamamlandı ve **15.09.2026'da canlıya alındı** (kullanıcı kararı, Faz 8'den önce).
+> Hazırlandığı tarih: 15.09.2026 · Durum: **Faz 0–8 tamamlandı.** Site 15.09.2026'da canlıya alındı; Faz 8 commit'li, push kullanıcıda.
+> Açık kalanlar: marka sahibinden gelecek bilgiler (§2), Safari/Firefox testi (§3.4), Search Console (§3.1), blog takvimi (§4).
 > `main` = yayındaki site; GitHub'a push Cloudflare'de otomatik yayın başlatır.
 
 ---
@@ -103,102 +104,79 @@ marka sahibinin verdiği malzeme bilgileri (CLAUDE.md → "Genelde kullanılan m
 
 ---
 
-## 2. Faz 8 öncesi — Bekleyen kararları sor
+## 2. Faz 8 öncesi — Bekleyen kararlar (15.09.2026'da soruldu)
 
-Kullanıcı bu konuların fazlar bitince **birlikte** sorulmasını istedi. Faz 8'e başlamadan
-`docs/TASARIM-PLANI.md` §10.5'teki açık maddeleri **tek tek** sor (AskUserQuestion uygun),
-cevaba göre uygula ve listeyi güncelle:
-
-- [x] **Aynı mutfak iki kez** (ana sayfada süreç bölümü + çizim/uygulama kaydırıcısı): kaydırıcı
-  ana sayfada kalsın mı, `/oncesi-sonrasi`'ye mi taşınsın, gerçek öncesi/sonrası fotoğrafı mı beklensin?
-  → Kullanıcı karar verdi (15.09.2026): kaydırıcı boş oda → bitmiş mutfak videosunun kareleriyle değişti.
-- [ ] **Süreç videosu gerçek proje mi?** (`hf_…` dosya adı yapay zekâ üretimi olabilir; kaydırıcıdaki boş oda videosu da `hf_…`) — yayın onayı / metin
-- [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımları, "onaylanan çizimle
-  üretim", Instagram bandı — marka sahibi onayladı mı?
-- [ ] **Bağlantı parçaları** ("Minifix ve kavela") doğru mu? (`data/cabinetParts.ts` no. 10)
-- [ ] **Ayak ölçüsü:** "12'lik ayak" = 12 cm mi?
-- [ ] **Açılış fotoğrafı** (`public/hero/yatak-odasi.jpg`, kaynağı belirsiz) gerçek bir proje fotoğrafıyla değişsin mi?
-- [ ] **Kapakta membran** seçeneği malzeme listesine eklensin mi? (şu an yalnızca akrilik yazıyor)
+- [x] **Aynı mutfak iki kez** → Kaydırıcı boş oda → bitmiş mutfak videosunun kareleriyle değişti (kullanıcı).
+- [ ] **Süreç videosu gerçek proje mi?** (`hf_…` dosyaları yapay zekâ üretimi olabilir; kaydırıcı ve telefon videosu da) — marka sahibine kullanıcı soracak.
+- [ ] **Taslak metinler:** "Her proje yerinde ölçüyle başlar", süreç adımları, "onaylanan çizimle üretim", Instagram bandı — marka sahibine kullanıcı soracak.
+- [x] **Bağlantı parçaları** → "Minifix ve kavela" doğrulanmadığı için "Gövdeyi birleştiren bağlantı elemanları" oldu (kullanıcı).
+- [x] **Ayak ölçüsü** → "12 cm" kaldı; sektörde "12'lik ayak" 12 cm demek (kullanıcı).
+- [x] **Açılış fotoğrafı** → Kaynağı belirsiz yatak odası yerine Soyak Olympiakent TV duvarı (`/projeler/soyak-olympiakent/03.jpg`). Oda kartındaki TV görseli tekrar olmasın diye İstinye Akdağ'a geçti.
+- [x] **Kapakta membran** → Kapak ve çekmece önü satırlarına "ya da membran" eklendi (kullanıcı).
+- Kullanıcı marka sahibine gidecek toplu bir soru mesajı istemedi; kendisi soracak.
 
 ### Marka sahibinden beklenen bilgiler (§11) — geldiyse işle
 - [ ] Gmail adresi → `lib/site.ts` (`contact.email`), CLAUDE.md, footer, iletişim kartı, JSON-LD `email`
 - [ ] Gerçek müşteri yorumları → Hakkımızda'ya yorum bölümü (yoksa ekleme)
 - [ ] 1975'ten bugüne kilometre taşları → Hakkımızda'ya zaman çizelgesi (yoksa ekleme)
-- [ ] Oda fotoğrafları (kahve köşesi, TV ünitesi, giyinme odası) → `data/rooms.ts`
-- [x] ~~Gerçek öncesi/sonrası fotoğraf çiftleri~~ → İptal (15.09.2026): kullanıcı `/oncesi-sonrasi` sayfasını ve projelerdeki öncesi/sonrası alanlarını kaldırdı.
-  (uzun kenar ~1600 px, kalite ~%78, klasör adında Türkçe karakter yok)
+- [ ] Oda fotoğrafları (kahve köşesi, TV ünitesi, giyinme odası) → `data/rooms.ts` (sonra `node scripts/gorsel-surumleri.mjs`)
+- [ ] Blog kapağındaki dolap fotoğrafının (`public/blog/akrilik-kapak.jpg`) yayın izni
+- [x] ~~Gerçek öncesi/sonrası fotoğraf çiftleri~~ → İptal: `/oncesi-sonrasi` sayfası kaldırıldı.
 
 ---
 
-## 3. Faz 8 — Kalite ve Teslim
+## 3. Faz 8 — Kalite ve Teslim (15.09.2026)
 
 ### 3.1 SEO ve paylaşım
-- [ ] **Google Search Console:** Kurulu değilse kurulsun (alan adı doğrulaması kullanıcı/marka sahibi hesabıyla yapılır),
-  `https://seckinmimarliktr.com/sitemap.xml` gönderilsin. Kullanıcıya adım adım anlat; hesap işlemini kendisi yapar.
-- [ ] **OG görseli yenile:** `public/og.jpg` hâlâ eski koyu tasarımdan. 1200×630, bej zemin,
-  monogram (`components/ui/monogram.ts`) + "Seçkin Mimarlık" + gerçek bir proje fotoğrafı.
-  Seçenek: `app/opengraph-image.tsx` (statik export'ta build sırasında üretilir; font dosyası
-  gerekir) ya da sharp ile tek seferlik üretim. `app/layout.tsx` içindeki `ogImage.alt` ve yorumu güncelle.
-- [ ] `app/layout.tsx` JSON-LD: `image` hâlâ `/hero/mutfak.jpg` → açılışta kullanılan ya da gerçek
-  proje görseline çevir; `logo` `/icon.png` (yeni monogram, doğru); e-posta gelirse ekle.
-- [ ] Sayfa `metadata` açıklamalarını yeni metinlerle uyumlu hâle getir (her `app/*/page.tsx`),
-  blog dahil. Canonical'lar sonda `/` ile (trailingSlash) tutarlı mı kontrol et.
-- [ ] `robots.ts` / `sitemap.ts` son hâl; `out/sitemap.xml` içeriğini kontrol et.
-- [ ] Not: EN içerik ayrı URL'de değil (dil yalnızca istemci durumu) → arama motorları yalnızca TR
-  görür. Bu bilinçli; değiştirilecekse kullanıcıya sor (ayrı `/en/` rotaları büyük iş).
+- [ ] **Google Search Console** → Kullanıcı marka sahibiyle ayrıca kuracak. Kurulunca `https://seckinmimarliktr.com/sitemap.xml` gönderilir.
+- [x] **OG görseli** → `public/og.jpg` yenilendi: bej zemin, monogram, "Tasarımdan montaja, tek elden.", Olympiakent fotoğrafı kapsülde (51 KB).
+- [x] **JSON-LD** `image` → `/projeler/soyak-olympiakent/03.jpg`.
+- [x] **Sayfa açıklamaları** yeni içerikle uyumlu; blog açıklamasından yayında olmayan yazı adları çıkarıldı. Tüm canonical'lar sonda `/` ile.
+- [x] `robots.txt` / `sitemap.xml` kontrol edildi (yalnızca yayındaki blog yazısı var).
+- [x] EN ayrı URL'de değil → bilinçli olarak değiştirilmedi.
 
-### 3.2 Erişilebilirlik (`design:accessibility-review` skill'ini kullan)
-- [ ] **"İçeriğe atla" linki yok:** `app/layout.tsx` → `<main id="icerik">` + gövdenin başına
-  klavye odağında görünen gizli bağlantı (TR "İçeriğe atla" / EN "Skip to content").
-- [ ] **`<html lang>` dil değişince güncellenmiyor:** `LanguageProvider` dil değişince
-  `document.documentElement.lang` değerini `tr`/`en` yapmalı (efekt içinde DOM güncellemesi; setState değil).
-- [ ] Klavye turu: menü paneli (odak tuzağı, Escape), Lightbox, ana sayfadaki boş oda / mutfak kaydırıcısı (ok tuşları),
-  form, proje filtreleri, 3D bölüm (tuval `aria-hidden`, liste okunur olmalı).
-- [ ] Kontrast: fotoğraf üstü yazılar (hero ikinci cümle, oda kartları), `text-muted` küçük yazılar,
-  `on-ink/60` etiketler. Palet kontrast değerleri `docs/TASARIM-PLANI.md` §3.1'de.
-- [ ] Görsel alt metinleri: galeri, oda kartları, hizmet görselleri, blog kapakları anlamlı mı.
-- [ ] Hareketi azalt: tüm sayfalar `--azhareket` ile gezilsin (hero, süreç, oda kartları, dolap, proje şeridi, intro).
+### 3.2 Erişilebilirlik
+- [x] axe-core (WCAG 2.1 AA) 9 sayfa masaüstü + 3 sayfa mobil: **0 ihlal**. Lighthouse erişilebilirlik 96–100.
+- [x] **İçeriğe atla** bağlantısı (`components/ui/SkipLink.tsx`, `<main id="icerik">`), TR/EN.
+- [x] **`<html lang>`** dil değişince `tr`/`en` oluyor.
+- [x] **Klavye:** menü paneli ve Lightbox'ta odak tuzağı + Escape; Lightbox kapanınca odak açan öğeye dönüyor; kaydırıcı ok tuşlarıyla. Gerçek tuş basışlarıyla test edildi.
+- [x] **Odak halkası koyu zeminde görünmüyordu (1:1)** → `.bg-ink` ve `[data-koyu-zemin]` içinde taş rengi (5,5:1).
+- [x] **Kontrast:** pasif dil düğmesi, logo alt yazısı, süreç bölümünde pasif adımlar, form alt çizgisi (1,5:1 → 3,3:1) ve seçim kutusu, Lightbox sayacı düzeltildi.
+- [x] **Alt metinler:** oda kartları başlığı tekrar okutmuyor (`alt=""`), galeri ve Lightbox etiketleri iki dilli.
+- [x] **Hareketi azalt:** Lenis açılmıyor, framer `MotionConfig reducedMotion="user"`; ana sayfa görsel kontrolü yapıldı.
+- [x] **%200 yakınlaştırma / yatay telefon:** açılış kapsülü başlığın üstüne biniyordu → yatay ve 1024 px altında başlık solda, kapsül sağda (`globals.css`).
+- [x] Logo bağlantısının erişilebilir adı görünen yazıyı içeriyor (WCAG 2.5.3).
 
-### 3.3 Performans
-- [ ] Build çıktısını statik sunucuyla ölç (ör. `npx serve out` ya da `npx wrangler dev`) —
-  Lighthouse (mobil): LCP, CLS, TBT. Hedef: LCP < 2.5 s, CLS < 0.1.
-- [ ] İlk JS paketi ~851 KB (sıkıştırılmamış, Faz 5 ölçümü). framer-motion, lenis, React; gzip boyutunu ölç,
-  gereksiz içe aktarmaları ara. three.js ayrı parçada (~895 KB, yalnızca dolap bölümüne yaklaşınca) — korunmalı.
-- [ ] Görseller: proje fotoğrafları 1200×1600 (~100–200 KB). Izgaralarda (proje kartları, galeri,
-  oda kartları) küçük sürüm yeterli → sharp ile 600 px genişlikte kopya üretip `srcset`/`sizes`
-  eklemeyi değerlendir (`images.unoptimized: true`, yani Next görsel optimizasyonu yok).
-- [ ] Hero görseli (`fetchPriority="high"`) boyutu; `public/hero/*.jpg` optimizasyonu.
-- [ ] Süreç kareleri (masaüstü 96 / mobil 48, ~4 MB) bölüme yaklaşınca iniyor — ağ sekmesinde tekrar doğrula.
-- [ ] Font yüklemesi: Cormorant italik gerçekten kullanılıyor mu (evet: vurgu satırları); gereksiz ağırlık var mı.
+### 3.3 Performans (Lighthouse mobil, yavaş 4G + 4× CPU benzetimi)
+- [x] Ölçüm: ana sayfa 70 → 83, Hakkımızda 88, Hizmetlerimiz 85, Projelerimiz 74 → 81, proje detayı 85, blog 88, blog yazısı 82 → 88, İletişim 76. TBT 20–60 ms, CLS 0, SEO 100.
+  Gerçek tarayıcıda LCP (1,6 Mbps + 4× CPU): ana sayfa 2,8 sn, Projelerimiz 4,4 → 2,6, Hizmetlerimiz 3,4 → 2,8, Hakkımızda 3,9 → 1,9, İletişim 4,0 → 1,5, blog 1,6 sn.
+  Not: Lighthouse benzetimi İletişim'de haritayı hesaba katıp LCP'yi 8 sn gösteriyor; gözlenen değer 1,6 sn. Açılış perdesi LCP'yi geciktirmiyor (perdeli/perdesiz aynı).
+- [x] İlk JS: 855 KB ham / 262 KB gzip (React DOM 62, Next 38, framer-motion 44 KB). three.js ayrı parçada kalıyor.
+  İleride istenirse: framer-motion `LazyMotion` + `m` ile ~15–20 KB gzip kazanç (tüm hareketli bileşenlerde değişiklik gerekir).
+- [x] **Görseller:** her proje/blog fotoğrafı için 640/828/1200 px WebP (`scripts/gorsel-surumleri.mjs`), bileşenlerde `lib/gorsel.ts` → `duyarli()` ile `srcset`/`sizes`. Mobilde sayfa başına ~500 KB daha az.
+- [x] Menü panelindeki proje görselleri artık menü ilk açılınca iniyor (her sayfada ~130 KB tasarruf).
+- [x] İlk ekrandaki büyük görseller animasyonsuz ve öncelikli; `PageHeader` CSS animasyonuyla beliriyor (JS beklemiyor).
+- [x] Yenilemede açılış perdesi ilk karede çizilmiyor (`<head>` betiği + `html[data-intro-goruldu]`).
+- [x] Süreç kareleri ve dolap yedek görselleri yavaş 3G'de doğrulandı: kare inerken çizim karesi, 3D inerken yedek görsel görünüyor.
+- [x] Fontlar değiştirilmedi (Cormorant italik vurgu satırlarında kullanılıyor).
 
 ### 3.4 Tarayıcı ve cihaz
-- [ ] Safari/iOS riskleri: `dvh`, `clip-path: inset(... round ...)` (hero kapsül), canvas çizimi,
-  `position: sticky` + Lenis, `inert` özniteliği. Gerçek iPhone'da kullanıcıdan test iste.
-- [ ] Firefox'ta hero kapsül ve 3D dolap.
-- [ ] Yavaş ağda (DevTools throttling) süreç bölümü ve dolap yedek görselleri.
+- [ ] **Safari/iOS:** gerçek iPhone'da kullanıcı test edecek (hero kapsül `clip-path`, `dvh`, sticky + kaydırma, 3D dolap, video).
+- [ ] **Firefox:** makinede kurulu değil; kullanıcı test edecek (hero kapsül, 3D dolap).
+- [x] Yavaş ağ (yavaş 3G benzetimi): süreç bölümü ve dolap yedek görselleri doğru.
 
 ### 3.5 Temizlik
-- [ ] Kullanılmayan dosyalar: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`
-  (Next şablonundan kalma), `public/hero/santiye.jpg` (artık kullanılmıyor), `public/hero/mutfak.jpg`
-  (yalnızca JSON-LD'de; 3.1'den sonra kullanılmıyorsa sil). Silmeden önce `grep` ile doğrula.
-- [ ] Kullanılmayan çeviri anahtarlarını ara (`LanguageContext.tsx`, `pageTranslations.ts`).
-- [ ] Bilinen zararsız uyarılar: dev'de framer-motion "container non-static position"
-  (pencere kaydırmasında ölçümler doğru; istenirse `html { position: relative }` denenip hero/dolap ölçümleri yeniden doğrulanır),
-  three.js "THREE.Clock deprecated" (R3F içi).
-- [ ] `README.md`'yi yeni yapıya göre güncelle (içerik güncelleme tablosu: projeler, blog, hizmet görselleri,
-  dolap malzemeleri `data/cabinetParts.ts`; 3D dolap yedek görsellerinin nasıl yeniden üretileceği).
-- [ ] CLAUDE.md'yi son hâle getir; "Devam eden iş" bölümünü kaldır ya da güncelle.
+- [x] Silindi: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `public/hero/*.jpg` (3 dosya). `public/brand/seckin-monogram.svg` marka dosyası olarak kaldı.
+- [x] Kullanılmayan çeviri anahtarları silindi: `home.cabinet.loading`, `projeDetay.about`, `blog.postCount`.
+- [x] Bilinen zararsız uyarılar (framer "container non-static position", three.js "THREE.Clock deprecated") olduğu gibi bırakıldı.
+- [x] `README.md` yeni yapıya göre yeniden yazıldı (yayın akışı, içerik tablosu, blog yayınlama, görsel varlıklar, doğrulama betikleri).
+- [x] CLAUDE.md güncellendi.
 
 ### 3.6 Teslim
-- [ ] Son tam kontrol: tüm sayfalar masaüstü + mobil + hareketi azalt; konsol hatası yok; 404 çalışıyor.
-- [ ] `npm run build` temiz; `out/` statik sunucuda gezilebiliyor (404 dahil).
-- [x] Yayın günü: `data/blog.ts` → akrilik yazısının `tarih` alanını gerçek yayın gününe çek; `out/sitemap.xml`'de
-  yalnızca bu yazı var mı, diğer üç yazının adresi 404 veriyor mu kontrol et. Kapak fotoğrafının yayın izni (§10.5) alınmış olmalı.
-  → 15.09.2026: tarih zaten yayın günü; sitemap ve taslak adresleri kontrol edildi. Kullanıcı kapak fotoğrafıyla yayınlamayı seçti; izin marka sahibiyle ayrıca teyit edilecek.
-- [ ] Commit: `Faz 8: kalite ve teslim`; plan dosyasında tüm fazlar ✅.
-- [x] Kullanıcıya sor: `yeniden-tasarim` → `main` birleştirilsin mi, yayına (Cloudflare Pages) alınsın mı?
-  → 15.09.2026: kullanıcı istedi, `main`'e alındı ve GitHub'a gönderildi (Faz 8'den önce). Faz 8 düzeltmeleri de aynı yolla yayınlanır.
-  Cloudflare ayarları değişmedi: build `npm run build`, çıktı `out`, framework preset "None".
+- [x] Son kontrol: sayfalar masaüstü + mobil, konsol, 404; `npm run build` temiz.
+- [x] Yayın günü blog tarihi ve taslak adresleri kontrol edildi (15.09.2026).
+- [x] Commit: `Faz 8: kalite ve teslim`.
+- [x] `main` 15.09.2026'da yayına alındı. Faz 8 değişiklikleri kullanıcı isteyince `git push` ile yayınlanır.
 
 ---
 

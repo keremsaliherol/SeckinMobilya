@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Intro from "@/components/ui/Intro";
+import SkipLink from "@/components/ui/SkipLink";
 import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
@@ -36,13 +37,14 @@ const description =
 /**
  * Paylaşım önizleme görseli (WhatsApp, Instagram, Facebook, X).
  * 1200x630 — bu ölçü tüm platformlarda kırpılmadan görünür.
- * Kaynak: public/hero/mutfak.jpg
+ * Bej zemin, monogram ve Soyak Olympiakent fotoğrafıyla üretildi (Faz 8). Yeniden
+ * üretmek için: 1200x630 HTML sayfası (site fontları) → Edge headless ekran görüntüsü.
  */
 const ogImage = {
   url: "/og.jpg",
   width: 1200,
   height: 630,
-  alt: `${siteName} — mutfak ve iç mimarlık uygulaması`,
+  alt: `${siteName} — Tasarımdan montaja, tek elden. 1975'ten bugüne, İstanbul`,
 };
 
 export const metadata: Metadata = {
@@ -118,7 +120,7 @@ const jsonLd = {
     { "@type": "Country", name: "Türkiye" },
   ],
   // Arama sonuçlarında ve yapay zekâ yanıtlarında kullanılacak işletme görseli
-  image: `${siteUrl}/hero/mutfak.jpg`,
+  image: `${siteUrl}/projeler/soyak-olympiakent/03.jpg`,
   // Bilgi kartında görünen marka işareti — fotoğraf değil, logo olmalı
   logo: `${siteUrl}/icon.png`,
   knowsLanguage: ["tr", "en"],
@@ -141,7 +143,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${display.variable} ${body.variable}`}>
+    // suppressHydrationWarning: aşağıdaki betik <html>'e öznitelik ekliyor, React bunu uyuşmazlık saymasın
+    <html lang="tr" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Açılış perdesi bu sekmede görüldüyse ya da hareket azaltma açıksa perde ilk karede hiç çizilmez.
+            Yoksa sunucudan gelen perde, JavaScript yüklenene kadar her yenilemede ekranı kaplıyordu. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('seckin-intro')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-intro-goruldu','')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col antialiased bg-background text-foreground">
         <script
           type="application/ld+json"
@@ -149,10 +162,13 @@ export default function RootLayout({
         />
         <LanguageProvider>
         <SmoothScrollProvider>
+          <SkipLink />
           <Intro />
           <ScrollProgressBar />
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="icerik" tabIndex={-1} className="flex-1 focus:outline-none">
+            {children}
+          </main>
           <Footer />
           <WhatsAppButton />
         </SmoothScrollProvider>

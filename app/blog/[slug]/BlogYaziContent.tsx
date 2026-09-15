@@ -16,6 +16,7 @@ import { whatsappLink } from "@/lib/site";
 import { FadeInUp } from "@/components/ui/animations";
 import BlogKarti from "@/components/blog/BlogKarti";
 import { WhatsAppIcon } from "@/components/ui/icons";
+import { duyarli } from "@/lib/gorsel";
 
 /** "Yüzey: Akrilik düz…" → etiket kalın yazılır. Etiket kısa değilse madde düz kalır. */
 function Madde({ metin }: { metin: string }) {
@@ -62,7 +63,7 @@ function Bolum({ bolum, ilk }: { bolum: BlogBolumu; ilk: boolean }) {
         <figure className="mt-8 max-w-[34rem]">
           <span className="relative block aspect-[4/5] overflow-hidden bg-surface">
             <img
-              src={bolum.gorsel.src}
+              {...duyarli(bolum.gorsel.src, "(min-width: 640px) 34rem, 100vw")}
               alt={bolum.gorsel.alt}
               loading="lazy"
               decoding="async"
@@ -143,7 +144,7 @@ export default function BlogYaziContent({ slug }: { slug: string }) {
             <div className="lg:col-span-5">
               <span className="relative mx-auto block aspect-[4/5] w-full max-w-md overflow-hidden rounded-t-full bg-surface lg:aspect-[3/4] lg:max-w-none">
                 <img
-                  src={yazi.kapak}
+                  {...duyarli(yazi.kapak, "(min-width: 1024px) 40vw, 28rem")}
                   alt={yazi.kapakAlt}
                   fetchPriority="high"
                   decoding="async"
@@ -199,7 +200,7 @@ export default function BlogYaziContent({ slug }: { slug: string }) {
                 >
                   <span className="relative block aspect-[3/4] overflow-hidden rounded-t-full bg-surface">
                     <img
-                      src={proje.coverImage}
+                      {...duyarli(proje.coverImage, "9rem")}
                       alt=""
                       loading="lazy"
                       decoding="async"

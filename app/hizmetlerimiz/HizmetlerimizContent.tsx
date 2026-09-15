@@ -7,6 +7,7 @@ import { projects } from "@/data/projects";
 import { FadeInUp } from "@/components/ui/animations";
 import PageHeader from "@/components/ui/PageHeader";
 import { useLang } from "@/contexts/LanguageContext";
+import { duyarli } from "@/lib/gorsel";
 
 export default function HizmetlerimizContent() {
   const { p } = useLang();
@@ -37,6 +38,20 @@ export default function HizmetlerimizContent() {
           const metin = pg.services[i];
           const proje = projects.find((x) => x.slug === s.projeSlug);
           const ters = i % 2 === 1;
+          const gorselSinifi = `lg:col-span-5 ${ters ? "lg:col-start-8 lg:row-start-1" : "lg:col-start-1"}`;
+          // Kemerli ve düz çerçeve sırayla: logodaki kapsül motifi, tekrara düşmeden
+          const gorsel = (
+            <div className={`relative aspect-[4/5] overflow-hidden bg-surface ${ters ? "" : "rounded-t-full"}`}>
+              <img
+                {...duyarli(s.image, "(min-width: 1024px) 40vw, 100vw")}
+                alt={proje ? `${metin.title}: ${proje.title}` : metin.title}
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : undefined}
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          );
 
           return (
             <article
@@ -44,22 +59,12 @@ export default function HizmetlerimizContent() {
               id={s.slug}
               className="grid scroll-mt-28 gap-10 border-t border-border py-16 first:border-t-0 lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-24"
             >
-              <FadeInUp
-                className={`lg:col-span-5 ${ters ? "lg:col-start-8 lg:row-start-1" : "lg:col-start-1"}`}
-              >
-                {/* Kemerli ve düz çerçeve sırayla: logodaki kapsül motifi, tekrara düşmeden */}
-                <div
-                  className={`relative aspect-[4/5] overflow-hidden bg-surface ${ters ? "" : "rounded-t-full"}`}
-                >
-                  <img
-                    src={s.image}
-                    alt={proje ? `${metin.title}: ${proje.title}` : metin.title}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              </FadeInUp>
+              {/* İlk hizmetin görseli ilk ekranda: animasyonsuz, sayfanın en büyük görseli (LCP) gecikmesin */}
+              {i === 0 ? (
+                <div className={gorselSinifi}>{gorsel}</div>
+              ) : (
+                <FadeInUp className={gorselSinifi}>{gorsel}</FadeInUp>
+              )}
 
               <FadeInUp
                 delay={0.1}

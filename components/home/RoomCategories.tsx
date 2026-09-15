@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { FadeInUp } from "@/components/ui/animations";
 import { useLang } from "@/contexts/LanguageContext";
 import { rooms, type Room } from "@/data/rooms";
+import { duyarli } from "@/lib/gorsel";
 
 /**
  * Izgara yerleşimi — kart sırasıyla eşleşir (data/rooms.ts).
@@ -21,6 +22,16 @@ const yerlesim = [
   "aspect-[3/4] lg:col-span-4 lg:aspect-auto lg:h-[30rem]",
   "aspect-[3/4] lg:col-span-3 lg:aspect-auto lg:h-[30rem]",
   "col-span-2 aspect-[16/10] lg:col-span-5 lg:aspect-auto lg:h-[30rem]",
+];
+
+/** Kartların ekrandaki genişliği (yukarıdaki yerleşimle aynı sırada), görsel sürümü seçimi için */
+const boyutlar = [
+  "(min-width: 1024px) 55vw, 100vw",
+  "(min-width: 1024px) 40vw, 50vw",
+  "(min-width: 1024px) 40vw, 50vw",
+  "(min-width: 1024px) 32vw, 50vw",
+  "(min-width: 1024px) 24vw, 50vw",
+  "(min-width: 1024px) 40vw, 100vw",
 ];
 
 function OdaKarti({ room, index }: { room: Room; index: number }) {
@@ -48,8 +59,9 @@ function OdaKarti({ room, index }: { room: Room; index: number }) {
         className="group relative block h-full w-full overflow-hidden bg-surface"
       >
         <motion.img
-          src={room.image}
-          alt={r.items[room.id]}
+          {...duyarli(room.image, boyutlar[index])}
+          // Kartın adı hemen altındaki başlıkta; görsel adı tekrar okutmasın
+          alt=""
           loading="lazy"
           decoding="async"
           style={{ y: gorselY, scale: 1.18 }}

@@ -9,6 +9,7 @@ import { getFeaturedProjects } from "@/data/projects";
 import { kaydirmayiKilitle } from "@/components/ui/SmoothScrollProvider";
 import { Monogram } from "@/components/ui/Logo";
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { duyarli } from "@/lib/gorsel";
 
 export type NavLink = { href: string; label: string };
 
@@ -32,12 +33,15 @@ export default function MenuPanel({
   onClose,
   links,
   isActive,
+  gorselleriYukle,
 }: {
   id: string;
   open: boolean;
   onClose: () => void;
   links: NavLink[];
   isActive: (href: string) => boolean;
+  /** Panel hiç açılmadıysa küçük proje görselleri yüklenmez */
+  gorselleriYukle: boolean;
 }) {
   const { lang, setLang, t } = useLang();
   const panelRef = useRef<HTMLElement>(null);
@@ -193,13 +197,14 @@ export default function MenuPanel({
                   >
                     {/* Kapsül tepeli çerçeve: logodaki kapsül motifi */}
                     <span className="block aspect-[3/4] overflow-hidden rounded-t-full bg-on-ink/10">
-                      <img
-                        src={p.coverImage}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
+                      {gorselleriYukle && (
+                        <img
+                          {...duyarli(p.coverImage, "8rem")}
+                          alt=""
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
                     </span>
                     <span className="mt-2 block text-[11px] leading-snug text-on-ink/75 transition-colors group-hover:text-on-ink">
                       {p.title}
@@ -226,7 +231,7 @@ export default function MenuPanel({
                 >
                   <Phone size={16} strokeWidth={1.75} className="text-on-ink/60" />
                   {contact.phoneDisplay}
-                  <span className="text-on-ink/40">·</span>
+                  <span aria-hidden="true" className="text-on-ink/60">·</span>
                   <span className="text-on-ink/75">{contact.phoneAltDisplay}</span>
                 </a>
               </li>

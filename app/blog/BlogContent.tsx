@@ -23,9 +23,10 @@ export default function BlogContent() {
         <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
           {ilk ? (
             <>
-              <FadeInUp className="mb-16 lg:mb-24">
+              {/* İlk (büyük) kart animasyonsuz: sayfanın en büyük görseli, gecikmeden görünsün */}
+              <div className="mb-16 lg:mb-24">
                 <BlogKarti yazi={ilk} buyuk />
-              </FadeInUp>
+              </div>
 
               {digerleri.length > 0 && (
                 <ul className="grid gap-x-6 gap-y-16 border-t border-border pt-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:pt-20">

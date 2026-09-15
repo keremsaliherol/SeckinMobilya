@@ -69,7 +69,7 @@ export default function Logo({
           Seçkin Mimarlık
         </span>
         <span
-          className={`font-sans font-light uppercase whitespace-nowrap opacity-75 mt-1.5 ${s.sub}`}
+          className={`font-sans font-light uppercase whitespace-nowrap mt-1.5 ${s.sub}`}
           style={{ letterSpacing: "0.26em" }}
         >
           Tasarım · Üretim · Montaj

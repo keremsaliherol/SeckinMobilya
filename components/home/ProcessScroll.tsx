@@ -208,7 +208,6 @@ function SurecKaydirma() {
                 <li
                   key={st.title}
                   aria-current={adim === i ? "step" : undefined}
-                  className={`transition-opacity duration-500 ${adim === i ? "opacity-100" : "opacity-45"}`}
                 >
                   <span
                     className={`text-[11px] font-medium tabular-nums tracking-[0.3em] transition-colors ${
@@ -217,7 +216,12 @@ function SurecKaydirma() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-1.5 font-heading text-[2.5rem] leading-none text-foreground">
+                  {/* Etkin olmayan adım soluk ama okunur: büyük başlıkta 3:1 üstü (foreground/55) */}
+                  <h3
+                    className={`mt-1.5 font-heading text-[2.5rem] leading-none transition-colors duration-500 ${
+                      adim === i ? "text-foreground" : "text-foreground/55"
+                    }`}
+                  >
                     {st.title}
                   </h3>
                   {/* Açıklama yalnızca etkin adımda açık: sütun ekrana sığsın diye.

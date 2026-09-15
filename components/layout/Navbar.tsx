@@ -10,6 +10,8 @@ import { useLang } from "@/contexts/LanguageContext";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  /** Menü bir kez açılana kadar paneldeki proje görselleri indirilmez (her sayfada ~130 KB). */
+  const [menuAcildi, setMenuAcildi] = useState(false);
   const { lang, setLang, t } = useLang();
   const pathname = usePathname();
   const menuButonRef = useRef<HTMLButtonElement>(null);
@@ -59,10 +61,10 @@ export default function Navbar() {
         <div className="mx-auto grid h-[4.5rem] max-w-[88rem] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 lg:h-20 xl:grid-cols-[1fr_auto_1fr] lg:px-12">
           <Link
             href="/"
-            aria-label="Seçkin Mimarlık Mobilya İnşaat — Ana Sayfa"
             className="justify-self-start text-brand"
           >
             <Logo size="sm" />
+            <span className="sr-only">, {t.nav.home}</span>
           </Link>
 
           {/* Bağlantılar ancak 1280 px ve üstünde tek satıra sığıyor; altında yalnızca menü düğmesi. */}
@@ -107,7 +109,7 @@ export default function Navbar() {
                     onClick={() => setLang(l)}
                     aria-pressed={lang === l}
                     className={`px-1.5 py-2 transition-opacity ${
-                      lang === l ? "opacity-100" : "opacity-50 hover:opacity-100"
+                      lang === l ? "opacity-100" : "opacity-70 hover:opacity-100"
                     }`}
                   >
                     {l}
@@ -119,7 +121,10 @@ export default function Navbar() {
             <button
               ref={menuButonRef}
               type="button"
-              onClick={() => setMenuOpen(true)}
+              onClick={() => {
+                setMenuAcildi(true);
+                setMenuOpen(true);
+              }}
               aria-expanded={menuOpen}
               aria-controls="site-menu"
               aria-label={t.menu.open}
@@ -142,6 +147,7 @@ export default function Navbar() {
         onClose={menuyuKapat}
         links={links}
         isActive={isActive}
+        gorselleriYukle={menuAcildi}
       />
     </>
   );

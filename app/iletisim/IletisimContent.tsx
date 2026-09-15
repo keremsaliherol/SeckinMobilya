@@ -12,7 +12,7 @@ import { contact, address, mapEmbedUrl, whatsappLink } from "@/lib/site";
 const BOS_FORM = { name: "", phone: "", email: "", service: "", message: "" };
 
 const alanSinifi =
-  "w-full border-0 border-b border-foreground/20 bg-transparent px-0 py-3 text-base text-foreground placeholder:text-muted/70 transition-colors focus:border-brand focus:outline-none";
+  "w-full border-0 border-b border-muted/70 bg-transparent px-0 py-3 text-base text-foreground placeholder:text-muted transition-[border-color,box-shadow] focus:border-brand focus:shadow-[0_1px_0_0_var(--brand)] focus:outline-none";
 const etiketSinifi = "block text-[11px] font-medium uppercase tracking-[0.2em] text-muted";
 
 export default function IletisimContent() {
@@ -244,7 +244,7 @@ export default function IletisimContent() {
                         name="service"
                         value={form.service}
                         onChange={degistir}
-                        className={`${alanSinifi} appearance-none pr-8 ${form.service ? "" : "text-muted/80"}`}
+                        className={`${alanSinifi} appearance-none pr-8 ${form.service ? "" : "text-muted"}`}
                       >
                         <option value="">{pg.form.servicePlaceholder}</option>
                         {pg.form.services.map((s) => (

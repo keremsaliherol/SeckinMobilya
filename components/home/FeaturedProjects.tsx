@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
 import { useLang } from "@/contexts/LanguageContext";
 import { useMediaQuery } from "@/components/ui/useMediaQuery";
+import { duyarli } from "@/lib/gorsel";
 
 /** Şeritte gösterilecek projeler ve sırası (kapak fotoğrafı güçlü olanlar). */
 const SECKI = [
@@ -61,7 +62,7 @@ function ProjeKarti({ p, i }: { p: (typeof secki)[number]; i: number }) {
         }`}
       >
         <img
-          src={p.coverImage}
+          {...duyarli(p.coverImage, "(min-width: 1280px) 27rem, (min-width: 1024px) 24rem, (min-width: 640px) 46vw, 78vw")}
           alt={p.title}
           loading="lazy"
           decoding="async"

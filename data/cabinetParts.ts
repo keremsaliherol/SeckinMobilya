@@ -1,8 +1,8 @@
 /**
  * "Bir dolabın anatomisi" bölümündeki parça listesi.
  *
- * Malzemeler marka sahibinden alındı (15.09.2026). Yalnızca 10 numara
- * (bağlantı parçaları) henüz doğrulanmadı; bkz. docs/TASARIM-PLANI.md §10.5.
+ * Malzemeler marka sahibinden alındı (15.09.2026). 10 numara (bağlantı parçaları)
+ * doğrulanmadığı için marka/ürün adı vermeyen genel ifadeyle yazıldı.
  * Sitede listenin altında "malzeme ve donanım seçimi projeye göre birlikte
  * belirlenir" notu durur; liste "genelde bunları kullanıyoruz" anlamındadır.
  *
@@ -32,13 +32,16 @@ export const dolapParcalari: DolapParcasi[] = [
     no: 1,
     asama: 0,
     ad: { TR: "Kapaklar", EN: "Doors" },
-    malzeme: { TR: "18 mm akrilik MDF, 3 mm PVC kenar bandı", EN: "18 mm acrylic MDF, 3 mm PVC edge banding" },
+    malzeme: {
+      TR: "18 mm akrilik MDF (3 mm PVC kenar bandı) ya da membran",
+      EN: "18 mm acrylic MDF (3 mm PVC edge banding) or membrane",
+    },
   },
   {
     no: 2,
     asama: 0,
     ad: { TR: "Çekmece önleri", EN: "Drawer fronts" },
-    malzeme: { TR: "18 mm akrilik MDF", EN: "18 mm acrylic MDF" },
+    malzeme: { TR: "18 mm akrilik MDF ya da membran", EN: "18 mm acrylic MDF or membrane" },
   },
   {
     no: 3,
@@ -86,6 +89,6 @@ export const dolapParcalari: DolapParcasi[] = [
     no: 10,
     asama: 3,
     ad: { TR: "Bağlantı parçaları", EN: "Joinery" },
-    malzeme: { TR: "Minifix ve kavela", EN: "Cam fittings and dowels" },
+    malzeme: { TR: "Gövdeyi birleştiren bağlantı elemanları", EN: "Fittings that join the carcass" },
   },
 ];

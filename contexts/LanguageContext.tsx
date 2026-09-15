@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { pageTranslations } from "./pageTranslations";
 
 export type Lang = "TR" | "EN";
@@ -30,7 +30,7 @@ const translations = {
         cta1: "Projeleri incele",
         cta2: "Ücretsiz keşif iste",
         scroll: "Kaydırın",
-        imageAlt: "Bej tonlarında, gizli aydınlatmalı yatak odası",
+        imageAlt: "Soyak Olympiakent: siyah mermer desenli TV arkası panel ve LED aydınlatmalı vitrin rafları",
         overlayEyebrow: "Tasarım · Üretim · Montaj",
         overlayTitle: "Her proje, yerinde ölçüyle başlar.",
       },
@@ -81,7 +81,6 @@ const translations = {
         note: "Malzeme ve donanım seçimi projeye ve bütçeye göre sizinle birlikte belirlenir.",
         ctaTitle: "Bu dolabı sizin ölçünüze göre üretelim.",
         ctaButton: "Ücretsiz keşif iste",
-        loading: "3D model hazırlanıyor",
         partsLabel: "Parçalar ve malzemeler",
         imageAlt: "Parçalarına ayrılmış dolap: kapak, çekmece önleri, kulplar, menteşeler, çekmece kutuları, raf, arkalık, ayaklar, gövde ve bağlantı parçaları",
       },
@@ -140,6 +139,17 @@ const translations = {
       label: "WhatsApp'tan bilgi al",
       message: "Merhaba, web sitenizden ulaşıyorum. Bir proje hakkında bilgi almak istiyorum.",
     },
+    a11y: {
+      skip: "İçeriğe atla",
+    },
+    lightbox: {
+      viewer: "görsel görüntüleyici",
+      close: "Kapat",
+      prev: "Önceki görsel",
+      next: "Sonraki görsel",
+      goTo: "{n}. görsele git",
+      image: "{n}. görsel",
+    },
     notFound: {
       title: "Bu sayfa bulunamadı",
       desc: "Adres yanlış yazılmış ya da sayfa taşınmış olabilir. Ana sayfadan devam edebilir veya projelerimize göz atabilirsiniz.",
@@ -170,7 +180,7 @@ const translations = {
         cta1: "View projects",
         cta2: "Request a free site visit",
         scroll: "Scroll",
-        imageAlt: "Beige bedroom with concealed lighting",
+        imageAlt: "Soyak Olympiakent: black marble-effect TV wall panel with LED-lit display shelves",
         overlayEyebrow: "Design · Production · Installation",
         overlayTitle: "Every project starts with a site measurement.",
       },
@@ -221,7 +231,6 @@ const translations = {
         note: "Materials and hardware are chosen together with you, based on the project and budget.",
         ctaTitle: "Let's build this cabinet to your measurements.",
         ctaButton: "Request a free site visit",
-        loading: "Preparing 3D model",
         partsLabel: "Parts and materials",
         imageAlt: "Exploded cabinet: door, drawer fronts, handles, hinges, drawer boxes, shelf, back panel, legs, carcass and joinery",
       },
@@ -280,6 +289,17 @@ const translations = {
       label: "Ask us on WhatsApp",
       message: "Hello, I found you through your website. I'd like to ask about a project.",
     },
+    a11y: {
+      skip: "Skip to content",
+    },
+    lightbox: {
+      viewer: "image viewer",
+      close: "Close",
+      prev: "Previous image",
+      next: "Next image",
+      goTo: "Go to image {n}",
+      image: "image {n}",
+    },
     notFound: {
       title: "Page not found",
       desc: "The address may be mistyped or the page may have moved. Continue from the home page or browse our projects.",
@@ -306,6 +326,12 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("TR");
+
+  // Ekran okuyucular ve tarayıcı çevirisi sayfa dilini <html lang>'dan okur
+  useEffect(() => {
+    document.documentElement.lang = lang === "EN" ? "en" : "tr";
+  }, [lang]);
+
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] as Translations, p: pageTranslations[lang] }}>
       {children}

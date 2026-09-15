@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, transform, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import { duyarli } from "@/lib/gorsel";
 
 /**
  * Ana sayfa açılışı: logodaki kapsül, projelere açılan bir pencere.
@@ -48,7 +49,7 @@ export default function HeroSection() {
         {/* Kapsül pencere: fotoğraf + karartma + ikinci cümle */}
         <div className="hero-kapsul absolute inset-0 bg-surface">
           <motion.img
-            src="/hero/yatak-odasi.jpg"
+            {...duyarli("/projeler/soyak-olympiakent/03.jpg", "100vw")}
             alt={h.imageAlt}
             fetchPriority="high"
             decoding="async"
@@ -63,6 +64,7 @@ export default function HeroSection() {
 
           <motion.div
             style={{ opacity: ustYaziOpak, y: ustYaziY }}
+            data-koyu-zemin
             className="hero-ust-yazi absolute inset-x-0 bottom-0"
           >
             <div className="mx-auto flex max-w-[88rem] flex-col items-start gap-8 px-5 pb-14 sm:px-8 lg:flex-row lg:items-end lg:justify-between lg:px-12 lg:pb-20">
@@ -101,7 +103,7 @@ export default function HeroSection() {
           style={{ opacity: metinOpak, y: metinY }}
           className="hero-metin pointer-events-none absolute inset-x-0 top-0"
         >
-          <div className="mx-auto max-w-[88rem] px-5 pt-28 sm:px-8 lg:flex lg:h-dvh lg:items-center lg:px-12 lg:pt-20">
+          <div className="hero-metin-ic mx-auto max-w-[88rem] px-5 pt-28 sm:px-8 lg:flex lg:h-dvh lg:items-center lg:px-12 lg:pt-20">
             <div className="pointer-events-auto max-w-[36rem] xl:max-w-[42rem]">
               <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.3em] text-muted lg:mb-8">
                 {h.eyebrow}
@@ -110,7 +112,7 @@ export default function HeroSection() {
                 <span className="block">{h.title[0]}</span>
                 <span className="block italic text-brand">{h.title[1]}</span>
               </h1>
-              <p className="mt-7 hidden max-w-[30rem] text-lg leading-relaxed text-muted sm:block">
+              <p className="hero-aciklama mt-7 hidden max-w-[30rem] text-lg leading-relaxed text-muted sm:block">
                 {h.desc}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3 lg:mt-10">

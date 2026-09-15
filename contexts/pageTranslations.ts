@@ -95,7 +95,6 @@ export const pageTranslations = {
     },
     projeDetay: {
       back: "Tüm projeler",
-      about: "Proje hakkında",
       category: "Kategori",
       location: "Konum",
       year: "Yıl",
@@ -118,7 +117,6 @@ export const pageTranslations = {
       dateLocale: "tr-TR",
       readingTime: "{n} dk okuma",
       readMore: "Devamını oku",
-      postCount: "yazı",
       back: "Tüm yazılar",
       toc: "Bu yazıda",
       relatedProject: "İlgili proje",
@@ -267,7 +265,6 @@ export const pageTranslations = {
     },
     projeDetay: {
       back: "All projects",
-      about: "About the project",
       category: "Category",
       location: "Location",
       year: "Year",
@@ -289,7 +286,6 @@ export const pageTranslations = {
       dateLocale: "en-GB",
       readingTime: "{n} min read",
       readMore: "Read more",
-      postCount: "articles",
       back: "All articles",
       toc: "In this article",
       relatedProject: "Related project",
