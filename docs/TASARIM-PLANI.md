@@ -1,6 +1,6 @@
 # Seçkin Mimarlık — Yeniden Tasarım Planı
 
-> Durum: **Onaylandı (15.09.2026)** · Çalışma dalı: `yeniden-tasarim`
+> Durum: **Onaylandı (15.09.2026)** · **Canlıda (15.09.2026, `main`)** · Geliştirme geçmişi: `yeniden-tasarim`
 > Her faz ayrı ayrı yapılır, gösterilir, onaylanınca bir sonrakine geçilir.
 >
 > | Faz | Durum |

@@ -8,7 +8,7 @@ değişirse **hem burayı hem `lib/site.ts`'yi** güncelle.
 
 ## ▶ Devam eden iş — yeni oturumda önce bunu oku
 
-Yeniden tasarımın Faz 0–7'si bitti (`yeniden-tasarim` dalı). **Tamamlanmamış görevler
+Yeniden tasarımın Faz 0–7'si bitti ve **15.09.2026'da canlıya alındı** (`main`). Faz 8 yayından sonra yapılıyor. **Tamamlanmamış görevler
 `docs/KALAN-GOREVLER.md` dosyasında.** Kullanıcı "devam" / "kalan görevleri yap" dediğinde:
 
 1. `docs/KALAN-GOREVLER.md`'yi baştan sona oku (çalışma kuralları §0'da).
@@ -18,7 +18,7 @@ Yeniden tasarımın Faz 0–7'si bitti (`yeniden-tasarim` dalı). **Tamamlanmam�
 3. Biten maddeyi `- [x]` yap. Her faz sonunda: tsc + lint + build (dev sunucusu kapalıyken)
    + görsel kontrol (`scripts/sayfa-goruntusu.mjs`) + commit + Türkçe kısa rapor, sonra onay bekle.
 4. Faz ortasında çıkan yeni kararları sorma; `docs/TASARIM-PLANI.md` §10.5'e ekle.
-5. `main`'e birleştirme ve push yalnızca kullanıcı isterse.
+5. `git push` yalnızca kullanıcı isterse: `main`'e her gönderim canlı siteyi günceller.
 
 Tüm görevler bitince bu bölümü kaldır.
 
@@ -97,7 +97,7 @@ Kategoriler: `mobilya`, `insaat`, `ic-mimari`.
 ## Görsel Kimlik (`app/globals.css`)
 
 Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
-Çalışma dalı: `yeniden-tasarim` (eski site `main` dalında).
+Yeni tasarım 15.09.2026'dan beri `main`'de ve yayında (geliştirme geçmişi `yeniden-tasarim` dalında).
 
 **Palet: "Sıcak Bej & Kahve" (açık tema).** Tailwind sınıf adları parantezde.
 
@@ -148,7 +148,9 @@ Yeniden tasarım devam ediyor. Plan ve faz durumu: `docs/TASARIM-PLANI.md`.
   three + @react-three/fiber + @react-three/drei (yalnız 3D dolap; `next/dynamic` ile geç yüklenir)
 - **Tamamen statik** (`output: "export"`, `trailingSlash: true`) → `out/` klasörü.
   Sunucu API'si / server action kullanılmamalı.
-- **Yayın:** Cloudflare Pages / Workers assets (`wrangler.jsonc`, proje adı `seckinmobilya`)
+- **Yayın:** GitHub `keremsaliherol/SeckinMobilya` (`origin`) → `main`'e push → Cloudflare Workers Builds
+  otomatik build alıp https://seckinmimarliktr.com'u günceller (`wrangler.jsonc`, proje adı `seckinmobilya`).
+  Eski adres yönlendirmeleri `public/_redirects`.
 - **Dev sunucusu:** `npm run dev` → http://localhost:3000 (`.claude/launch.json` → `seckin-dev`).
   **Dev sunucusu açıkken `npm run build` çalıştırma**: `out/` yeniden yazılınca Turbopack
   belleği ~8 GB'a çıkıp çöküyor. Önce sunucuyu durdur, build al, sonra yeniden başlat.

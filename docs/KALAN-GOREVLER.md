@@ -4,7 +4,8 @@
 > sırayla yap. Bitirdiğin maddeyi `- [x]` yap ve gerekirse kısa bir not düş.
 > Genel plan ve önceki fazların notları: `docs/TASARIM-PLANI.md`.
 >
-> Hazırlandığı tarih: 15.09.2026 · Durum: Faz 0–7 tamamlandı (blog yazıları onay bekliyor), `yeniden-tasarim` dalında commit'li.
+> Hazırlandığı tarih: 15.09.2026 · Durum: Faz 0–7 tamamlandı ve **15.09.2026'da canlıya alındı** (kullanıcı kararı, Faz 8'den önce).
+> `main` = yayındaki site; GitHub'a push Cloudflare'de otomatik yayın başlatır.
 
 ---
 
@@ -191,10 +192,12 @@ cevaba göre uygula ve listeyi güncelle:
 ### 3.6 Teslim
 - [ ] Son tam kontrol: tüm sayfalar masaüstü + mobil + hareketi azalt; konsol hatası yok; 404 çalışıyor.
 - [ ] `npm run build` temiz; `out/` statik sunucuda gezilebiliyor (404 dahil).
-- [ ] Yayın günü: `data/blog.ts` → akrilik yazısının `tarih` alanını gerçek yayın gününe çek; `out/sitemap.xml`'de
+- [x] Yayın günü: `data/blog.ts` → akrilik yazısının `tarih` alanını gerçek yayın gününe çek; `out/sitemap.xml`'de
   yalnızca bu yazı var mı, diğer üç yazının adresi 404 veriyor mu kontrol et. Kapak fotoğrafının yayın izni (§10.5) alınmış olmalı.
+  → 15.09.2026: tarih zaten yayın günü; sitemap ve taslak adresleri kontrol edildi. Kullanıcı kapak fotoğrafıyla yayınlamayı seçti; izin marka sahibiyle ayrıca teyit edilecek.
 - [ ] Commit: `Faz 8: kalite ve teslim`; plan dosyasında tüm fazlar ✅.
-- [ ] Kullanıcıya sor: `yeniden-tasarim` → `main` birleştirilsin mi, yayına (Cloudflare Pages) alınsın mı?
+- [x] Kullanıcıya sor: `yeniden-tasarim` → `main` birleştirilsin mi, yayına (Cloudflare Pages) alınsın mı?
+  → 15.09.2026: kullanıcı istedi, `main`'e alındı ve GitHub'a gönderildi (Faz 8'den önce). Faz 8 düzeltmeleri de aynı yolla yayınlanır.
   Cloudflare ayarları değişmedi: build `npm run build`, çıktı `out`, framework preset "None".
 
 ---
