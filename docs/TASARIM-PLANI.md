@@ -11,9 +11,11 @@
 > | 3 Ana sayfa | ✅ Tamamlandı |
 > | 4 Çizimden gerçeğe (video) | ✅ Tamamlandı |
 > | 5 3D dolap anatomisi | ✅ Tamamlandı |
-> | 6 İç sayfalar | ✅ Tamamlandı, onay bekliyor |
-> | 7 Blog (opsiyonel) | ⏳ Sırada / karar bekliyor |
+> | 6 İç sayfalar | ✅ Tamamlandı |
+> | 7 Blog | ⏳ Sırada (kullanıcı istedi) |
 > | 8 Kalite ve teslim | Bekliyor |
+>
+> **Kalan işlerin ayrıntılı listesi: [`docs/KALAN-GOREVLER.md`](KALAN-GOREVLER.md)**
 
 ## 1. Bağlam
 
@@ -306,4 +308,4 @@ Mobil kontroller, erişilebilirlik (odak halkası, kontrast, alt metinler, klavy
 - [ ] 1975'ten bugüne kilometre taşları (zaman çizelgesi için)
 - [ ] Oda kategorileri için fotoğraflar (özellikle kahve köşesi, TV ünitesi, giyinme odası)
 - [ ] Varsa gerçek öncesi/sonrası fotoğraf çiftleri
-- [ ] Blog isteniyor mu?
+- [x] Blog isteniyor mu? → Evet (15.09.2026), Faz 7

@@ -6,6 +6,21 @@ Bir arkadaşımızın markası için yapılmış kurumsal tanıtım sitesi. Yeni
 ve tasarım değişiklikleri adım adım eklenecek. Bu dosyadaki marka bilgileri
 değişirse **hem burayı hem `lib/site.ts`'yi** güncelle.
 
+## ▶ Devam eden iş — yeni oturumda önce bunu oku
+
+Yeniden tasarımın Faz 0–6'sı bitti (`yeniden-tasarim` dalı). **Tamamlanmamış görevler
+`docs/KALAN-GOREVLER.md` dosyasında.** Kullanıcı "devam" / "kalan görevleri yap" dediğinde:
+
+1. `docs/KALAN-GOREVLER.md`'yi baştan sona oku (çalışma kuralları §0'da).
+2. İşaretlenmemiş (`- [ ]`) görevleri sırayla yap: önce **Faz 7 Blog**, sonra
+   **Faz 8'den önce bekleyen kararları kullanıcıya tek tek sor**, sonra **Faz 8 Kalite ve Teslim**.
+3. Biten maddeyi `- [x]` yap. Her faz sonunda: tsc + lint + build (dev sunucusu kapalıyken)
+   + görsel kontrol (`scripts/sayfa-goruntusu.mjs`) + commit + Türkçe kısa rapor, sonra onay bekle.
+4. Faz ortasında çıkan yeni kararları sorma; `docs/TASARIM-PLANI.md` §10.5'e ekle.
+5. `main`'e birleştirme ve push yalnızca kullanıcı isterse.
+
+Tüm görevler bitince bu bölümü kaldır.
+
 ## Marka / Firma
 
 - **Tam ad:** Seçkin Mimarlık Mobilya İnşaat (EN: Seçkin Architecture Furniture Construction)
